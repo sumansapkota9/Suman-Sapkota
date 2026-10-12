@@ -3,18 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suman Sapkota - Portfolio</title>
+    <title>Suman Sapkota | Executive Engineering Portfolio</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --accent: #38bdf8;
-            --accent-hover: #0ea5e9;
-            --border: #334155;
+            --bg-color: #030712;
+            --surface: #0b1329;
+            --surface-glass: rgba(11, 19, 41, 0.75);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --accent-cyan: #38bdf8;
+            --accent-indigo: #818cf8;
+            --accent-emerald: #34d399;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
         }
 
         * {
@@ -24,689 +26,607 @@
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-primary);
-            line-height: 1.6;
-            padding-bottom: 4rem;
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 2.5rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* Profile Header / Hero */
-        .profile-container {
-            max-width: 800px;
-            margin: 4rem auto 2rem;
-            padding: 0 2rem;
-            text-align: center;
+        body::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 300px;
+            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(129, 140, 248, 0.15));
+            filter: blur(100px);
+            z-index: -1;
         }
 
-        .avatar-placeholder {
-            width: 110px;
-            height: 110px;
-            background: linear-gradient(135deg, var(--accent), #6366f1);
-            border-radius: 50%;
-            margin: 0 auto 1.5rem;
+        .main-wrapper {
+            width: 100%;
+            max-width: 1300px;
+        }
+
+        /* Executive Header Banner */
+        .executive-header {
+            background: var(--surface-glass);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .header-title h1 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.3rem;
+        }
+
+        .header-title h1 span {
+            background: linear-gradient(to right, var(--accent-cyan), var(--accent-indigo));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header-title p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        .header-meta {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .id-card {
+            background: rgba(56, 189, 248, 0.08);
+            border: 1px dashed var(--accent-cyan);
+            color: var(--accent-cyan);
+            font-family: 'JetBrains Mono', monospace;
+            padding: 0.75rem 1.25rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .id-card span {
+            color: #fff;
+        }
+
+        .status-pill {
+            background: rgba(52, 211, 153, 0.1);
+            border: 1px solid rgba(52, 211, 153, 0.25);
+            color: var(--accent-emerald);
+            font-family: 'JetBrains Mono', monospace;
+            padding: 0.75rem 1.25rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 600;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #fff;
-            box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.3);
+            gap: 0.5rem;
         }
 
-        .profile-container h1 {
-            font-size: 2.25rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-emerald);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-emerald);
         }
 
-        .profile-container p {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            max-width: 550px;
-            margin: 0 auto;
-        }
-
-        /* Main Content Section */
-        .container {
-            max-width: 900px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-        }
-
-        .section-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 0.5rem;
-        }
-
-        .weeks-grid {
+        /* Main Split Dashboard Grid */
+        .dashboard-grid {
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.25rem;
+            grid-template-columns: 380px 1fr;
+            gap: 2rem;
+            align-items: start;
         }
 
-        /* Week Card */
+        /* Weeks Selector Column */
+        .weeks-column {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
         .week-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
+            background: var(--surface-glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1.25rem 1.5rem;
             transition: all 0.3s ease;
         }
 
         .week-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+            border-color: rgba(56, 189, 248, 0.4);
+            transform: translateX(4px);
         }
 
-        .card-header {
+        .week-card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
         }
 
-        .card-title-group h3 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.2rem;
+        .week-info h3 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 0.1rem;
         }
 
-        .card-title-group span {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
+        .week-info span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
         }
 
-        .toggle-btn {
-            background-color: transparent;
-            color: var(--accent);
-            border: 1px solid var(--accent);
-            padding: 0.4rem 1rem;
+        .count-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            background: rgba(129, 140, 248, 0.1);
+            color: var(--accent-indigo);
+            padding: 0.25rem 0.6rem;
             border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
+            border: 1px solid rgba(129, 140, 248, 0.2);
         }
 
-        .toggle-btn:hover {
-            background-color: var(--accent);
-            color: var(--bg-color);
-        }
-
-        /* Files Accordion Panel */
-        .files-panel {
+        /* Hidden File Drawers */
+        .file-drawer {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.4s ease-in-out, margin-top 0.3s ease;
             margin-top: 0;
         }
 
-        .week-card.active .files-panel {
-            max-height: 400px;
-            margin-top: 1.25rem;
+        .week-card.active-week .file-drawer {
+            max-height: 350px;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
         }
 
-        .links-grid {
+        .file-chips-grid {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.5rem;
-            padding-top: 1rem;
-            border-top: 1px dashed var(--border);
+            gap: 0.4rem;
         }
 
-        .file-pill {
-            background-color: rgba(56, 189, 248, 0.1);
-            color: var(--accent);
+        .file-chip {
+            background: var(--bg-color);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.78rem;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .file-chip:hover {
+            background: var(--accent-cyan);
+            color: var(--bg-color);
+            border-color: var(--accent-cyan);
+            font-weight: 700;
+            transform: translateY(-2px);
+        }
+
+        .file-chip.active-file {
+            background: var(--accent-cyan);
+            color: var(--bg-color);
+            border-color: var(--accent-cyan);
+            font-weight: 700;
+        }
+
+        /* Live Viewport Column (Right) */
+        .viewport-column {
+            background: var(--surface-glass);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            height: 680px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        }
+
+        .viewport-topbar {
+            background: rgba(15, 23, 42, 0.9);
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+        }
+
+        .viewport-title {
+            color: var(--accent-cyan);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .viewport-actions {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+
+        .action-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: #fff;
             padding: 0.35rem 0.75rem;
             border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 500;
             text-decoration: none;
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            transition: all 0.2s;
+            font-size: 0.78rem;
+            cursor: pointer;
+            font-family: 'JetBrains Mono', monospace;
+            transition: 0.2s;
         }
 
-        .file-pill:hover {
-            background-color: var(--accent);
-            color: var(--bg-color);
+        .action-btn:hover {
+            background: var(--accent-indigo);
+            border-color: var(--accent-indigo);
         }
 
-        /* Footer */
+        .viewport-body {
+            flex: 1;
+            background: #ffffff;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .viewport-body iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Code Viewer Box */
+        #code-container {
+            flex: 1;
+            background: #0f172a;
+            color: #38bdf8;
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.82rem;
+            line-height: 1.5;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            word-break: break-all;
+            display: none;
+        }
+
+        .viewport-placeholder {
+            position: absolute;
+            inset: 0;
+            background: var(--bg-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            z-index: 5;
+        }
+
+        .placeholder-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: rgba(56, 189, 248, 0.1);
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            border: 1px dashed var(--accent-cyan);
+        }
+
+        .viewport-placeholder h3 {
+            color: var(--text-main);
+            font-size: 1.35rem;
+            margin-bottom: 0.4rem;
+        }
+
         footer {
             text-align: center;
-            margin-top: 4rem;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
+            margin-top: 3rem;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+            font-family: 'JetBrains Mono', monospace;
         }
-    </style>
-</head>
-<body>
 
-    <!-- Profile Header -->
-    <div class="profile-container">
-        <div class="avatar-placeholder">SS</div>
-        <h1>Suman Sapkota</h1>
-        <p>Web Development Portfolio showcasing lab tasks, weekly code files, and milestone projects[cite: 1].</p>
-    </div>
-
-    <!-- Weeks Content Container -->
-    <main class="container">
-        <h2 class="section-title">Weekly Progress Logs</h2>
-        
-        <div class="weeks-grid">
-            <!-- Week 1 -->
-            <div class="week-card" id="week1">
-                <div class="card-header" onclick="toggleWeek('week1')">
-                    <div class="card-title-group">
-                        <h3>Week 1</h3>
-                        <span>Foundational HTML tasks & documents[cite: 1]</span>
-                    </div>
-                    <button class="btn toggle-btn">View Files</button>
-                </div>
-                <div class="files-panel">
-                    <div class="links-grid">
-                        <a href="week 1/suman1.html" class="file-pill" target="_blank">suman1.html</a>
-                        <a href="week 1/suman2.html" class="file-pill" target="_blank">suman2.html</a>
-                        <a href="week 1/suman3.html" class="file-pill" target="_blank">suman3.html</a>
-                        <a href="week 1/suman4.html" class="file-pill" target="_blank">suman4.html</a>
-                        <a href="week 1/suman5.html" class="file-pill" target="_blank">suman5.html</a>
-                        <a href="week 1/suman6.html" class="file-pill" target="_blank">suman6.html</a>
-                        <a href="week 1/suman7.html" class="file-pill" target="_blank">suman7.html</a>
-                        <a href="week 1/suman8.html" class="file-pill" target="_blank">suman8.html</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Week 2 -->
-            <div class="week-card" id="week2">
-                <div class="card-header" onclick="toggleWeek('week2')">
-                    <div class="card-title-group">
-                        <h3>Week 2</h3>
-                        <span>Layout pages and structural modules[cite: 1]</span>
-                    </div>
-                    <button class="btn toggle-btn">View Files</button>
-                </div>
-                <div class="files-panel">
-                    <div class="links-grid">
-                        <a href="week2/s1.html" class="file-pill" target="_blank">s1.html</a>
-                        <a href="week2/s2.html" class="file-pill" target="_blank">s2.html</a>
-                        <a href="week2/s3.html" class="file-pill" target="_blank">s3.html</a>
-                        <a href="week2/s4.html" class="file-pill" target="_blank">s4.html</a>
-                        <a href="week2/s5.html" class="file-pill" target="_blank">s5.html</a>
-                        <a href="week2/s6.html" class="file-pill" target="_blank">s6.html</a>
-                        <a href="week2/s7.html" class="file-pill" target="_blank">s7.html</a>
-                        <a href="week2/s8.html" class="file-pill" target="_blank">s8.html</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Week 3 -->
-            <div class="week-card" id="week3">
-                <div class="card-header" onclick="toggleWeek('week3')">
-                    <div class="card-title-group">
-                        <h3>Week 3</h3>
-                        <span>Advanced labs & component files[cite: 1]</span>
-                    </div>
-                    <button class="btn toggle-btn">View Files</button>
-                </div>
-                <div class="files-panel">
-                    <div class="links-grid">
-                        <a href="week 3/1.html" class="file-pill" target="_blank">1.html</a>
-                        <a href="week 3/2.html" class="file-pill" target="_blank">2.html</a>
-                        <a href="week 3/3.html" class="file-pill" target="_blank">3.html</a>
-                        <a href="week 3/4.html" class="file-pill" target="_blank">4.html</a>
-                        <a href="week 3/5.html" class="file-pill" target="_blank">5.html</a>
-                        <a href="week 3/6.html" class="file-pill" target="_blank">6.html</a>
-                        <a href="week 3/7.html" class="file-pill" target="_blank">7.html</a>
-                        <a href="week 3/8.html" class="file-pill" target="_blank">8.html</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Week 3 Friday -->
-            <div class="week-card" id="week3fri">
-                <div class="card-header" onclick="toggleWeek('week3fri')">
-                    <div class="card-title-group">
-                        <h3>Week 3 Friday Labs</h3>
-                        <span>Special Friday session checkpoints[cite: 1]</span>
-                    </div>
-                    <button class="btn toggle-btn">View Files</button>
-                </div>
-                <div class="files-panel">
-                    <div class="links-grid">
-                        <a href="week 3 friday/1.html" class="file-pill" target="_blank">1.html</a>
-                        <a href="week 3 friday/2.html" class="file-pill" target="_blank">2.html</a>
-                        <a href="week 3 friday/3.html" class="file-pill" target="_blank">3.html</a>
-                        <a href="week 3 friday/4.html" class="file-pill" target="_blank">4.html</a>
-                        <a href="week 3 friday/5.html" class="file-pill" target="_blank">5.html</a>
-                        <a href="week 3 friday/6.html" class="file-pill" target="_blank">6.html</a>
-                        <a href="week 3 friday/7.html" class="file-pill" target="_blank">7.html</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Week 4 -->
-            <div class="week-card" id="week4">
-                <div class="card-header" onclick="toggleWeek('week4')">
-                    <div class="card-title-group">
-                        <h3>Week 4</h3>
-                        <span>Refined implementation & debugging logs[cite: 1]</span>
-                    </div>
-                    <button class="btn toggle-btn">View Files</button>
-                </div>
-                <div class="files-panel">
-                    <div class="links-grid">
-                        <a href="WEEK 4/1.html" class="file-pill" target="_blank">1.html</a>
-                        <a href="WEEK 4/2.html" class="file-pill" target="_blank">2.html</a>
-                        <a href="WEEK 4/3.html" class="file-pill" target="_blank">3.html</a>
-                        <a href="WEEK 4/4.html" class="file-pill" target="_blank">4.html</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Week 5 (Coming Soon) -->
-            <div class="week-card" style="opacity: 0.6;">
-                <div class="card-header" style="cursor: default;">
-                    <div class="card-title-group">
-                        <h3>Week 5</h3>
-                        <span>Final Project (Coming Soon)</span>
-                    </div>
-                    <span style="font-size: 0.85rem; color: var(--text-secondary);">Locked</span>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 Suman Sapkota. Built with modern dark UI.</p>
-    </footer>
-
-    <!-- Script to handle accordions -->
-    <script>
-        function toggleWeek(cardId) {
-            const card = document.getElementById(cardId);
-            const button = card.querySelector('.toggle-btn');
-            
-            // Toggle active status
-            const isActive = card.classList.contains('active');
-            
-            // Optional: close others if you want only one open at a time (remove comment if desired)
-            // document.querySelectorAll('.week-card').forEach(c => c.classList.remove('active'));
-            // document.querySelectorAll('.toggle-btn').forEach(b => b.textContent = 'View Files');
-
-            if (!isActive) {
-                card.classList.add('active');
-                button.textContent = 'Close';
-            } else {
-                card.classList.remove('active');
-                button.textContent = 'View Files';
+        @media (max-width: 950px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            .executive-header {
+                flex-direction: column;
+                gap: 1.5rem;
+                text-align: center;
+            }
+            .header-meta {
+                flex-direction: column;
             }
         }
-    </script>
-
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suman Sapkota - Portfolio</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --accent: #38bdf8;
-            --accent-hover: #0ea5e9;
-            --border: #334155;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-primary);
-            line-height: 1.6;
-            padding-bottom: 4rem;
-        }
-
-        /* Profile Header / Hero */
-        .profile-container {
-            max-width: 800px;
-            margin: 4rem auto 2rem;
-            padding: 0 2rem;
-            text-align: center;
-        }
-
-        .avatar-placeholder {
-            width: 110px;
-            height: 110px;
-            background: linear-gradient(135deg, var(--accent), #6366f1);
-            border-radius: 50%;
-            margin: 0 auto 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #fff;
-            box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.3);
-        }
-
-        .profile-container h1 {
-            font-size: 2.25rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .profile-container p {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            max-width: 550px;
-            margin: 0 auto;
-        }
-
-        /* Main Content Section */
-        .container {
-            max-width: 900px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-        }
-
-        .section-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            border-bottom: 1px solid var(--border);
-            padding-bottom: 0.5rem;
-        }
-
-        .weeks-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 1.25rem;
-        }
-
-        /* Week Card */
-        .week-card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .week-card:hover {
-            border-color: var(--accent);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .card-title-group h3 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.2rem;
-        }
-
-        .card-title-group span {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-
-        .toggle-btn {
-            background-color: transparent;
-            color: var(--accent);
-            border: 1px solid var(--accent);
-            padding: 0.4rem 1rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .toggle-btn:hover {
-            background-color: var(--accent);
-            color: var(--bg-color);
-        }
-
-        /* Files Accordion Panel */
-        .files-panel {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-in-out, margin-top 0.3s ease;
-            margin-top: 0;
-        }
-
-        .week-card.active .files-panel {
-            max-height: 400px;
-            margin-top: 1.25rem;
-        }
-
-        .links-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            padding-top: 1rem;
-            border-top: 1px dashed var(--border);
-        }
-
-        .file-pill {
-            background-color: rgba(56, 189, 248, 0.1);
-            color: var(--accent);
-            padding: 0.35rem 0.75rem;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            text-decoration: none;
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            transition: all 0.2s;
-        }
-
-        .file-pill:hover {
-            background-color: var(--accent);
-            color: var(--bg-color);
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            margin-top: 4rem;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
     </style>
 </head>
 <body>
 
-    <!-- Profile Header -->
-    <div class="profile-container">
-        <div class="avatar-placeholder">SS</div>
-        <h1>Suman Sapkota</h1>
-        <p>Web Development Portfolio showcasing lab tasks, weekly code files, and milestone projects[cite: 1].</p>
+    <div class="main-wrapper">
+        <!-- Executive Header -->
+        <header class="executive-header">
+            <div class="header-title">
+                <h1>Suman <span>Sapkota</span></h1>
+                <p>Advanced Academic Lab Archive & Practical Task Repository</p>
+            </div>
+            <div class="header-meta">
+                <div class="id-card">
+                    ID: <span>YOUR-ID-HERE</span>
+                </div>
+                <div class="status-pill">
+                    <span class="status-dot"></span> System Live
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Dashboard Content -->
+        <div class="dashboard-grid">
+            
+            <!-- Left Side: Interactive Weekly Navigation -->
+            <div class="weeks-column">
+                
+                <!-- Week 1 -->
+                <div class="week-card active-week" id="card-w1">
+                    <div class="week-card-header" onclick="toggleWeek('card-w1')">
+                        <div class="week-info">
+                            <h3>Week 1</h3>
+                            <span>Foundational HTML files</span>
+                        </div>
+                        <span class="count-badge">8 Files ▾</span>
+                    </div>
+                    <div class="file-drawer">
+                        <div class="file-chips-grid">
+                            <button class="file-chip" onclick="loadPreview('week 1/suman1.html', 'suman1.html', this)">⚡ suman1.html</button>
+                            <button class="file-chip" onclick="loadPreview('week 1/suman2.html', 'suman2.html', this)">⚡ suman2.html</button>
+                            <button class="file-chip" onclick="loadPreview('week 1/suman3.html', 'suman3.html', this)">⚡ suman3.html</button>
+                            <button class="file-chip" onclick="loadPreview('week 1/suman4.html', 'suman4.html', this)">⚡ suman4.html</button>
+                            <button class="file-chip" onclick="loadPreview('week 1/suman5.html', 'suman5.html', this)">⚡ suman5.html</button>
+                            <button class="file-chip" onclick="loadPreview('week 1/suman6.html', 'suman6.html', this)">⚡ suman6.html</button>
+                            <button class="file-chip" onclick="loadPreview('week 1/suman7.html', 'suman7.html', this)">⚡ suman7.html</button>
+                            <button class="file-chip" onclick="loadPreview('week 1/suman8.html', 'suman8.html', this)">⚡ suman8.html</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Week 2 -->
+                <div class="week-card" id="card-w2">
+                    <div class="week-card-header" onclick="toggleWeek('card-w2')">
+                        <div class="week-info">
+                            <h3>Week 2</h3>
+                            <span>Structured layout pages</span>
+                        </div>
+                        <span class="count-badge">8 Files ▾</span>
+                    </div>
+                    <div class="file-drawer">
+                        <div class="file-chips-grid">
+                            <button class="file-chip" onclick="loadPreview('week2/s1.html', 's1.html', this)">📄 s1.html</button>
+                            <button class="file-chip" onclick="loadPreview('week2/s2.html', 's2.html', this)">📄 s2.html</button>
+                            <button class="file-chip" onclick="loadPreview('week2/s3.html', 's3.html', this)">📄 s3.html</button>
+                            <button class="file-chip" onclick="loadPreview('week2/s4.html', 's4.html', this)">📄 s4.html</button>
+                            <button class="file-chip" onclick="loadPreview('week2/s5.html', 's5.html', this)">📄 s5.html</button>
+                            <button class="file-chip" onclick="loadPreview('week2/s6.html', 's6.html', this)">📄 s6.html</button>
+                            <button class="file-chip" onclick="loadPreview('week2/s7.html', 's7.html', this)">📄 s7.html</button>
+                            <button class="file-chip" onclick="loadPreview('week2/s8.html', 's8.html', this)">📄 s8.html</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Week 3 -->
+                <div class="week-card" id="card-w3">
+                    <div class="week-card-header" onclick="toggleWeek('card-w3')">
+                        <div class="week-info">
+                            <h3>Week 3</h3>
+                            <span>Advanced components</span>
+                        </div>
+                        <span class="count-badge">8 Files ▾</span>
+                    </div>
+                    <div class="file-drawer">
+                        <div class="file-chips-grid">
+                            <button class="file-chip" onclick="loadPreview('week 3/1.html', '1.html', this)">💻 1.html</button>
+                            <button class="file-chip" onclick="loadPreview('week 3/2.html', '2.html', this)">💻 2.html</button>
+                            <button class="file-chip" onclick="loadPreview('week 3/3.html', '3.html', this)">💻 3.html</button>
+                            <button class="file-chip" onclick="loadPreview('week 3/4.html', '4.html', this)">💻 4.html</button>
+                            <button class="file-chip" onclick="loadPreview('week 3/5.html', '5.html', this)">💻 5.html</button>
+                            <button class="file-chip" onclick="loadPreview('week 3/6.html', '6.html', this)">💻 6.html</button>
+                            <button class="file-chip" onclick="loadPreview('week 3/7.html', '7.html', this)">💻 7.html</button>
+                            <button class="file-chip" onclick="loadPreview('week 3/8.html', '8.html', this)">💻 8.html</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Week 3 Friday -->
+                <div class="week-card" id="card-w3fri">
+                    <div class="week-card-header" onclick="toggleWeek('card-w3fri')">
+                        <div class="week-info">
+                            <h3>Week 3 Friday</h3>
+                            <span>Special checkpoints</span>
+                        </div>
+                        <span class="count-badge">7 Files ▾</span>
+                    </div>
+                    <div class="file-drawer">
+                        <div class="file-chips-grid">
+                            <button class="file-chip" onclick="loadPreview('week 3 friday/1.html', '1.html', this)">🚀 1.html</button>
+                            <button class="file-chip" onclick="loadPreview('week 3 friday/2.html', '2.html', this)">🚀 2.html</button>
+                            <button class="file-chip" onclick="loadPreview('week 3 friday/3.html', '3.html', this)">🚀 3.html</button>
+                            <button class="file-chip" onclick="loadPreview('week 3 friday/4.html', '4.html', this)">🚀 4.html</button>
+                            <button class="file-chip" onclick="loadPreview('week 3 friday/5.html', '5.html', this)">🚀 5.html</button>
+                            <button class="file-chip" onclick="loadPreview('week 3 friday/6.html', '6.html', this)">🚀 6.html</button>
+                            <button class="file-chip" onclick="loadPreview('week 3 friday/7.html', '7.html', this)">🚀 7.html</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Week 4 -->
+                <div class="week-card" id="card-w4">
+                    <div class="week-card-header" onclick="toggleWeek('card-w4')">
+                        <div class="week-info">
+                            <h3>Week 4</h3>
+                            <span>Refined code & debugging</span>
+                        </div>
+                        <span class="count-badge">4 Files ▾</span>
+                    </div>
+                    <div class="file-drawer">
+                        <div class="file-chips-grid">
+                            <button class="file-chip" onclick="loadPreview('WEEK 4/1.html', '1.html', this)">🔥 1.html</button>
+                            <button class="file-chip" onclick="loadPreview('WEEK 4/2.html', '2.html', this)">🔥 2.html</button>
+                            <button class="file-chip" onclick="loadPreview('WEEK 4/3.html', '3.html', this)">🔥 3.html</button>
+                            <button class="file-chip" onclick="loadPreview('WEEK 4/4.html', '4.html', this)">🔥 4.html</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Week 5 -->
+                <div class="week-card" style="opacity: 0.5;">
+                    <div class="week-card-header" style="cursor: default;">
+                        <div class="week-info">
+                            <h3>Week 5</h3>
+                            <span>Final Capstone</span>
+                        </div>
+                        <span class="count-badge" style="color: #94a3b8; border-color: #94a3b8;">Locked</span>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Side: Live Viewport Pane with View Code Option -->
+            <div class="viewport-column">
+                <div class="viewport-topbar">
+                    <div class="viewport-title" id="viewport-title-text">
+                        <span>⚡</span> Select a file to launch preview
+                    </div>
+                    <div class="viewport-actions">
+                        <button id="toggle-code-btn" class="action-btn" onclick="toggleCodeView()" style="display: none;">View Code &lt;/&gt;</button>
+                        <a id="popout-btn" href="#" target="_blank" class="action-btn" style="display: none;">Open Tab ↗</a>
+                    </div>
+                </div>
+                <div class="viewport-body">
+                    <div class="viewport-placeholder" id="viewport-placeholder">
+                        <div class="placeholder-icon">📂</div>
+                        <h3>Workspace Ready</h3>
+                        <p>Click any task file on the left sidebar to execute preview or review source code.</p>
+                    </div>
+                    <iframe id="live-iframe" title="Live Preview"></iframe>
+                    <pre id="code-container"></pre>
+                </div>
+            </div>
+
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Suman Sapkota.</p>
+        </footer>
     </div>
 
-    <!-- Weeks Content Container -->
-    <main class="container">
-        <h2 class="section-title">Weekly Progress Logs</h2>
-        
-        <div class="weeks-grid">
-            <!-- Week 1 -->
-            <div class="week-card" id="week1">
-                <div class="card-header" onclick="toggleWeek('week1')">
-                    <div class="card-title-group">
-                        <h3>Week 1</h3>
-                        <span>Foundational HTML tasks & documents[cite: 1]</span>
-                    </div>
-                    <button class="btn toggle-btn">View Files</button>
-                </div>
-                <div class="files-panel">
-                    <div class="links-grid">
-                        <a href="week 1/suman1.html" class="file-pill" target="_blank">suman1.html</a>
-                        <a href="week 1/suman2.html" class="file-pill" target="_blank">suman2.html</a>
-                        <a href="week 1/suman3.html" class="file-pill" target="_blank">suman3.html</a>
-                        <a href="week 1/suman4.html" class="file-pill" target="_blank">suman4.html</a>
-                        <a href="week 1/suman5.html" class="file-pill" target="_blank">suman5.html</a>
-                        <a href="week 1/suman6.html" class="file-pill" target="_blank">suman6.html</a>
-                        <a href="week 1/suman7.html" class="file-pill" target="_blank">suman7.html</a>
-                        <a href="week 1/suman8.html" class="file-pill" target="_blank">suman8.html</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Week 2 -->
-            <div class="week-card" id="week2">
-                <div class="card-header" onclick="toggleWeek('week2')">
-                    <div class="card-title-group">
-                        <h3>Week 2</h3>
-                        <span>Layout pages and structural modules[cite: 1]</span>
-                    </div>
-                    <button class="btn toggle-btn">View Files</button>
-                </div>
-                <div class="files-panel">
-                    <div class="links-grid">
-                        <a href="week2/s1.html" class="file-pill" target="_blank">s1.html</a>
-                        <a href="week2/s2.html" class="file-pill" target="_blank">s2.html</a>
-                        <a href="week2/s3.html" class="file-pill" target="_blank">s3.html</a>
-                        <a href="week2/s4.html" class="file-pill" target="_blank">s4.html</a>
-                        <a href="week2/s5.html" class="file-pill" target="_blank">s5.html</a>
-                        <a href="week2/s6.html" class="file-pill" target="_blank">s6.html</a>
-                        <a href="week2/s7.html" class="file-pill" target="_blank">s7.html</a>
-                        <a href="week2/s8.html" class="file-pill" target="_blank">s8.html</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Week 3 -->
-            <div class="week-card" id="week3">
-                <div class="card-header" onclick="toggleWeek('week3')">
-                    <div class="card-title-group">
-                        <h3>Week 3</h3>
-                        <span>Advanced labs & component files[cite: 1]</span>
-                    </div>
-                    <button class="btn toggle-btn">View Files</button>
-                </div>
-                <div class="files-panel">
-                    <div class="links-grid">
-                        <a href="week 3/1.html" class="file-pill" target="_blank">1.html</a>
-                        <a href="week 3/2.html" class="file-pill" target="_blank">2.html</a>
-                        <a href="week 3/3.html" class="file-pill" target="_blank">3.html</a>
-                        <a href="week 3/4.html" class="file-pill" target="_blank">4.html</a>
-                        <a href="week 3/5.html" class="file-pill" target="_blank">5.html</a>
-                        <a href="week 3/6.html" class="file-pill" target="_blank">6.html</a>
-                        <a href="week 3/7.html" class="file-pill" target="_blank">7.html</a>
-                        <a href="week 3/8.html" class="file-pill" target="_blank">8.html</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Week 3 Friday -->
-            <div class="week-card" id="week3fri">
-                <div class="card-header" onclick="toggleWeek('week3fri')">
-                    <div class="card-title-group">
-                        <h3>Week 3 Friday Labs</h3>
-                        <span>Special Friday session checkpoints[cite: 1]</span>
-                    </div>
-                    <button class="btn toggle-btn">View Files</button>
-                </div>
-                <div class="files-panel">
-                    <div class="links-grid">
-                        <a href="week 3 friday/1.html" class="file-pill" target="_blank">1.html</a>
-                        <a href="week 3 friday/2.html" class="file-pill" target="_blank">2.html</a>
-                        <a href="week 3 friday/3.html" class="file-pill" target="_blank">3.html</a>
-                        <a href="week 3 friday/4.html" class="file-pill" target="_blank">4.html</a>
-                        <a href="week 3 friday/5.html" class="file-pill" target="_blank">5.html</a>
-                        <a href="week 3 friday/6.html" class="file-pill" target="_blank">6.html</a>
-                        <a href="week 3 friday/7.html" class="file-pill" target="_blank">7.html</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Week 4 -->
-            <div class="week-card" id="week4">
-                <div class="card-header" onclick="toggleWeek('week4')">
-                    <div class="card-title-group">
-                        <h3>Week 4</h3>
-                        <span>Refined implementation & debugging logs[cite: 1]</span>
-                    </div>
-                    <button class="btn toggle-btn">View Files</button>
-                </div>
-                <div class="files-panel">
-                    <div class="links-grid">
-                        <a href="WEEK 4/1.html" class="file-pill" target="_blank">1.html</a>
-                        <a href="WEEK 4/2.html" class="file-pill" target="_blank">2.html</a>
-                        <a href="WEEK 4/3.html" class="file-pill" target="_blank">3.html</a>
-                        <a href="WEEK 4/4.html" class="file-pill" target="_blank">4.html</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Week 5 (Coming Soon) -->
-            <div class="week-card" style="opacity: 0.6;">
-                <div class="card-header" style="cursor: default;">
-                    <div class="card-title-group">
-                        <h3>Week 5</h3>
-                        <span>Final Project (Coming Soon)</span>
-                    </div>
-                    <span style="font-size: 0.85rem; color: var(--text-secondary);">Locked</span>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2026 Suman Sapkota. Built with modern dark UI.</p>
-    </footer>
-
-    <!-- Script to handle accordions -->
+    <!-- JavaScript Logic -->
     <script>
-        function toggleWeek(cardId) {
-            const card = document.getElementById(cardId);
-            const button = card.querySelector('.toggle-btn');
-            
-            // Toggle active status
-            const isActive = card.classList.contains('active');
-            
-            // Optional: close others if you want only one open at a time (remove comment if desired)
-            // document.querySelectorAll('.week-card').forEach(c => c.classList.remove('active'));
-            // document.querySelectorAll('.toggle-btn').forEach(b => b.textContent = 'View Files');
+        let currentFilePath = '';
+        let isCodeView = false;
 
-            if (!isActive) {
-                card.classList.add('active');
-                button.textContent = 'Close';
+        function toggleWeek(cardId) {
+            const target = document.getElementById(cardId);
+            const isOpen = target.classList.contains('active-week');
+
+            document.querySelectorAll('.week-card').forEach(c => c.classList.remove('active-week'));
+            if (!isOpen) {
+                target.classList.add('active-week');
+            }
+        }
+
+        function loadPreview(filePath, fileName, element) {
+            currentFilePath = filePath;
+            isCodeView = false;
+
+            // Highlight active button
+            document.querySelectorAll('.file-chip').forEach(btn => btn.classList.remove('active-file'));
+            element.classList.add('active-file');
+
+            // Show UI elements
+            document.getElementById('viewport-placeholder').style.display = 'none';
+            const iframe = document.getElementById('live-iframe');
+            const codeBox = document.getElementById('code-container');
+            const title = document.getElementById('viewport-title-text');
+            const popout = document.getElementById('popout-btn');
+            const codeBtn = document.getElementById('toggle-code-btn');
+
+            iframe.style.display = 'block';
+            codeBox.style.display = 'none';
+            iframe.src = filePath;
+
+            title.innerHTML = `<span>🟢</span> File: <strong style="color:#fff; margin-left:4px;">${fileName}</strong>`;
+            popout.style.display = 'inline-block';
+            popout.href = filePath;
+            codeBtn.style.display = 'inline-block';
+            codeBtn.textContent = 'View Code </>';
+        }
+
+        async function toggleCodeView() {
+            const iframe = document.getElementById('live-iframe');
+            const codeBox = document.getElementById('code-container');
+            const codeBtn = document.getElementById('toggle-code-btn');
+
+            isCodeView = !isCodeView;
+
+            if (isCodeView) {
+                iframe.style.display = 'none';
+                codeBox.style.display = 'block';
+                codeBtn.textContent = 'View Preview 👁';
+                
+                if (codeBox.textContent === '') {
+                    codeBox.textContent = 'Loading source code...';
+                    try {
+                        const response = await fetch(currentFilePath);
+                        const text = await response.text();
+                        // Escape HTML tags so they display safely as text code
+                        codeBox.textContent = text;
+                    } catch (error) {
+                        codeBox.textContent = 'Error loading source code. Try opening in a new tab.';
+                    }
+                }
             } else {
-                card.classList.remove('active');
-                button.textContent = 'View Files';
+                codeBox.style.display = 'none';
+                iframe.style.display = 'block';
+                codeBtn.textContent = 'View Code </>';
             }
         }
     </script>
