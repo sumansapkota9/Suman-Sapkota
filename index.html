@@ -1,635 +1,302 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Suman Sapkota | Executive Engineering Portfolio</title>
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg-color: #030712;
-            --surface: #0b1329;
-            --surface-glass: rgba(11, 19, 41, 0.75);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --accent-cyan: #38bdf8;
-            --accent-indigo: #818cf8;
-            --accent-emerald: #34d399;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suman Sapkota | Lab Archive</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EAEEF6; --ink:#0D1633; --ink-2:#4A5578; --line:#C9D1E4;
+  --cobalt:#2F4BFF; --sun:#FFC933; --white:#fff; --win:#0D1633;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Figtree',system-ui,sans-serif;background:var(--paper);color:var(--ink);
+  min-height:100vh;padding:clamp(1.25rem,3vw,2.75rem);
+  background-image:radial-gradient(var(--line) 1px,transparent 1px);background-size:22px 22px;
+}
+.wrap{max-width:1360px;margin:0 auto}
+:focus-visible{outline:3px solid var(--cobalt);outline-offset:3px}
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+/* Header */
+header{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;
+  padding-bottom:2rem;margin-bottom:2rem;border-bottom:2px solid var(--ink)}
+h1{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(3rem,9vw,7.5rem);
+  line-height:.9;letter-spacing:-.045em}
+h1 em{font-style:normal;color:var(--cobalt)}
+.sub{margin-top:1rem;color:var(--ink-2);font-size:1.05rem;max-width:34ch}
+.badges{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap}
+.sticker{background:var(--sun);color:var(--ink);font-weight:600;padding:.7rem 1.1rem;border-radius:999px;
+  transform:rotate(-3deg);box-shadow:3px 3px 0 var(--ink);border:2px solid var(--ink)}
+.sticker b{font-family:'JetBrains Mono',monospace;font-weight:500}
+.live{display:flex;align-items:center;gap:.5rem;font-weight:600;font-size:.95rem}
+.live i{width:10px;height:10px;border-radius:50%;background:#16A34A;box-shadow:0 0 0 4px rgba(22,163,74,.2)}
 
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            min-height: 100vh;
-            padding: 2.5rem 1.5rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            position: relative;
-            overflow-x: hidden;
-        }
+/* Layout */
+.grid{display:grid;grid-template-columns:minmax(300px,380px) 1fr;gap:clamp(1.25rem,3vw,3rem);align-items:start}
 
-        body::before {
-            content: '';
-            position: absolute;
-            top: -100px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 600px;
-            height: 300px;
-            background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(129, 140, 248, 0.15));
-            filter: blur(100px);
-            z-index: -1;
-        }
+/* Weeks */
+.weeks{list-style:none;border-top:1px solid var(--ink)}
+.week{border-bottom:1px solid var(--ink)}
+.week-head{width:100%;display:grid;grid-template-columns:3.2rem 1fr auto;align-items:center;gap:.75rem;
+  background:none;border:0;padding:1.1rem .25rem;text-align:left;cursor:pointer;color:inherit;font:inherit}
+.week-head:hover .wk-title{color:var(--cobalt)}
+.wk-num{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:2.4rem;line-height:1;
+  color:transparent;-webkit-text-stroke:1.5px var(--ink)}
+.wk-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.2rem;display:block;transition:color .2s}
+.wk-desc{font-size:.88rem;color:var(--ink-2)}
+.wk-count{font-size:.85rem;font-weight:600;background:var(--white);border:1.5px solid var(--ink);
+  padding:.2rem .65rem;border-radius:999px;white-space:nowrap}
+.week.open .wk-num{color:var(--cobalt);-webkit-text-stroke-color:var(--cobalt)}
+.week.open .wk-count{background:var(--ink);color:var(--white)}
+.drawer{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease}
+.week.open .drawer{grid-template-rows:1fr}
+.drawer>div{overflow:hidden}
+.chips{display:flex;flex-wrap:wrap;gap:.45rem;padding:.25rem .25rem 1.25rem 4rem}
+.chip{font-family:'JetBrains Mono',monospace;font-weight:500;font-size:.8rem;background:var(--white);color:var(--ink);
+  border:1.5px solid var(--ink);padding:.4rem .75rem;border-radius:8px;cursor:pointer;transition:transform .15s,background .15s}
+.chip:hover{background:var(--sun);transform:translateY(-2px)}
+.chip.active{background:var(--cobalt);border-color:var(--cobalt);color:var(--white)}
+.week.locked{opacity:.55}
+.week.locked .week-head{cursor:default}
+.week.locked .wk-count{border-style:dashed}
 
-        .main-wrapper {
-            width: 100%;
-            max-width: 1300px;
-        }
+/* Viewport */
+.viewport{position:sticky;top:1.25rem;background:var(--win);border-radius:16px;overflow:hidden;
+  height:min(760px,calc(100vh - 2.5rem));display:flex;flex-direction:column;
+  box-shadow:8px 8px 0 var(--cobalt)}
+.bar{display:flex;align-items:center;gap:.75rem;padding:.7rem 1rem;color:#fff}
+.dots{display:flex;gap:6px}
+.dots span{width:11px;height:11px;border-radius:50%;background:#33405F}
+.dots span:first-child{background:#FF6B6B}.dots span:nth-child(2){background:var(--sun)}.dots span:nth-child(3){background:#4ADE80}
+.addr{flex:1;min-width:0;background:rgba(255,255,255,.1);border-radius:8px;padding:.4rem .8rem;font-size:.85rem;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.addr strong{font-weight:600}
+.btn{background:rgba(255,255,255,.12);color:#fff;border:0;border-radius:8px;padding:.4rem .8rem;font:600 .82rem 'Figtree',sans-serif;
+  cursor:pointer;text-decoration:none;white-space:nowrap;transition:background .15s}
+.btn:hover{background:var(--cobalt)}
+.btn[hidden]{display:none}
+.body{flex:1;position:relative;background:#fff;display:flex}
+.body iframe{flex:1;width:100%;border:0;display:none}
+#code{flex:1;display:none;background:#0A1129;color:#C7D2FE;padding:1.25rem;overflow:auto;
+  font:500 .82rem/1.6 'JetBrains Mono',monospace;white-space:pre-wrap;word-break:break-word}
+.empty{position:absolute;inset:0;background:var(--paper);display:flex;flex-direction:column;align-items:center;
+  justify-content:center;text-align:center;padding:2rem;gap:.5rem}
+.empty h2{font-family:'Bricolage Grotesque',sans-serif;font-size:1.8rem;letter-spacing:-.02em}
+.empty p{color:var(--ink-2);max-width:34ch}
 
-        /* Executive Header Banner */
-        .executive-header {
-            background: var(--surface-glass);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 2.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-        }
+footer{margin-top:3rem;padding-top:1.25rem;border-top:2px solid var(--ink);color:var(--ink-2);font-size:.9rem}
 
-        .header-title h1 {
-            font-size: 2.25rem;
-            font-weight: 800;
-            letter-spacing: -0.02em;
-            margin-bottom: 0.3rem;
-        }
-
-        .header-title h1 span {
-            background: linear-gradient(to right, var(--accent-cyan), var(--accent-indigo));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .header-title p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
-
-        .header-meta {
-            display: flex;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .id-card {
-            background: rgba(56, 189, 248, 0.08);
-            border: 1px dashed var(--accent-cyan);
-            color: var(--accent-cyan);
-            font-family: 'JetBrains Mono', monospace;
-            padding: 0.75rem 1.25rem;
-            border-radius: 10px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
-
-        .id-card span {
-            color: #fff;
-        }
-
-        .status-pill {
-            background: rgba(52, 211, 153, 0.1);
-            border: 1px solid rgba(52, 211, 153, 0.25);
-            color: var(--accent-emerald);
-            font-family: 'JetBrains Mono', monospace;
-            padding: 0.75rem 1.25rem;
-            border-radius: 10px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-emerald);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--accent-emerald);
-        }
-
-        /* Main Split Dashboard Grid */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 380px 1fr;
-            gap: 2rem;
-            align-items: start;
-        }
-
-        /* Weeks Selector Column */
-        .weeks-column {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .week-card {
-            background: var(--surface-glass);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 1.25rem 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .week-card:hover {
-            border-color: rgba(56, 189, 248, 0.4);
-            transform: translateX(4px);
-        }
-
-        .week-card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
-
-        .week-info h3 {
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin-bottom: 0.1rem;
-        }
-
-        .week-info span {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .count-badge {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            background: rgba(129, 140, 248, 0.1);
-            color: var(--accent-indigo);
-            padding: 0.25rem 0.6rem;
-            border-radius: 6px;
-            border: 1px solid rgba(129, 140, 248, 0.2);
-        }
-
-        /* Hidden File Drawers */
-        .file-drawer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease-in-out, margin-top 0.3s ease;
-            margin-top: 0;
-        }
-
-        .week-card.active-week .file-drawer {
-            max-height: 350px;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid var(--border-color);
-        }
-
-        .file-chips-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.4rem;
-        }
-
-        .file-chip {
-            background: var(--bg-color);
-            color: var(--text-main);
-            border: 1px solid var(--border-color);
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.78rem;
-            cursor: pointer;
-            text-decoration: none;
-            transition: all 0.2s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-
-        .file-chip:hover {
-            background: var(--accent-cyan);
-            color: var(--bg-color);
-            border-color: var(--accent-cyan);
-            font-weight: 700;
-            transform: translateY(-2px);
-        }
-
-        .file-chip.active-file {
-            background: var(--accent-cyan);
-            color: var(--bg-color);
-            border-color: var(--accent-cyan);
-            font-weight: 700;
-        }
-
-        /* Live Viewport Column (Right) */
-        .viewport-column {
-            background: var(--surface-glass);
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            height: 680px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
-        }
-
-        .viewport-topbar {
-            background: rgba(15, 23, 42, 0.9);
-            padding: 1rem 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-        }
-
-        .viewport-title {
-            color: var(--accent-cyan);
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .viewport-actions {
-            display: flex;
-            gap: 0.5rem;
-            align-items: center;
-        }
-
-        .action-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-color);
-            color: #fff;
-            padding: 0.35rem 0.75rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 0.78rem;
-            cursor: pointer;
-            font-family: 'JetBrains Mono', monospace;
-            transition: 0.2s;
-        }
-
-        .action-btn:hover {
-            background: var(--accent-indigo);
-            border-color: var(--accent-indigo);
-        }
-
-        .viewport-body {
-            flex: 1;
-            background: #ffffff;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .viewport-body iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Code Viewer Box */
-        #code-container {
-            flex: 1;
-            background: #0f172a;
-            color: #38bdf8;
-            padding: 1.5rem;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.82rem;
-            line-height: 1.5;
-            overflow-y: auto;
-            white-space: pre-wrap;
-            word-break: break-all;
-            display: none;
-        }
-
-        .viewport-placeholder {
-            position: absolute;
-            inset: 0;
-            background: var(--bg-color);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-muted);
-            z-index: 5;
-        }
-
-        .placeholder-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            background: rgba(56, 189, 248, 0.1);
-            width: 80px;
-            height: 80px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            border: 1px dashed var(--accent-cyan);
-        }
-
-        .viewport-placeholder h3 {
-            color: var(--text-main);
-            font-size: 1.35rem;
-            margin-bottom: 0.4rem;
-        }
-
-        footer {
-            text-align: center;
-            margin-top: 3rem;
-            color: var(--text-muted);
-            font-size: 0.82rem;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        @media (max-width: 950px) {
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-            .executive-header {
-                flex-direction: column;
-                gap: 1.5rem;
-                text-align: center;
-            }
-            .header-meta {
-                flex-direction: column;
-            }
-        }
-    </style>
+@media(max-width:960px){
+  .grid{grid-template-columns:1fr}
+  .viewport{position:relative;top:0;height:72vh;box-shadow:5px 5px 0 var(--cobalt)}
+  .chips{padding-left:.25rem}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
 </head>
 <body>
+<div class="wrap">
 
-    <div class="main-wrapper">
-        <!-- Executive Header -->
-        <header class="executive-header">
-            <div class="header-title">
-                <h1>Suman <span>Sapkota</span></h1>
-                <p>Advanced Academic Lab Archive & Practical Task Repository</p>
-            </div>
-            <div class="header-meta">
-                <div class="id-card">
-                    ID: <span>202637609</span>
-                </div>
-                <div class="status-pill">
-                    <span class="status-dot"></span> System Live
-                </div>
-            </div>
-        </header>
+<header>
+  <div>
+    <h1>Suman<br><em>Sapkota</em></h1>
+    <p class="sub">Lab archive and practical task repository.</p>
+  </div>
+  <div class="badges">
+    <div class="sticker">ID: <b>202637609</b></div>
+    <div class="live"><i></i>Online</div>
+  </div>
+</header>
 
-        <!-- Main Dashboard Content -->
-        <div class="dashboard-grid">
-            
-            <!-- Left Side: Interactive Weekly Navigation -->
-            <div class="weeks-column">
-                
-                <!-- Week 1 -->
-                <div class="week-card active-week" id="card-w1">
-                    <div class="week-card-header" onclick="toggleWeek('card-w1')">
-                        <div class="week-info">
-                            <h3>Week 1</h3>
-                            <span>Foundational HTML files</span>
-                        </div>
-                        <span class="count-badge">8 Files ▾</span>
-                    </div>
-                    <div class="file-drawer">
-                        <div class="file-chips-grid">
-                            <button class="file-chip" onclick="loadPreview('week 1/suman1.html', 'suman1.html', this)">⚡ suman1.html</button>
-                            <button class="file-chip" onclick="loadPreview('week 1/suman2.html', 'suman2.html', this)">⚡ suman2.html</button>
-                            <button class="file-chip" onclick="loadPreview('week 1/suman3.html', 'suman3.html', this)">⚡ suman3.html</button>
-                            <button class="file-chip" onclick="loadPreview('week 1/suman4.html', 'suman4.html', this)">⚡ suman4.html</button>
-                            <button class="file-chip" onclick="loadPreview('week 1/suman5.html', 'suman5.html', this)">⚡ suman5.html</button>
-                            <button class="file-chip" onclick="loadPreview('week 1/suman6.html', 'suman6.html', this)">⚡ suman6.html</button>
-                            <button class="file-chip" onclick="loadPreview('week 1/suman7.html', 'suman7.html', this)">⚡ suman7.html</button>
-                            <button class="file-chip" onclick="loadPreview('week 1/suman8.html', 'suman8.html', this)">⚡ suman8.html</button>
-                        </div>
-                    </div>
-                </div>
+<div class="grid">
 
-                <!-- Week 2 -->
-                <div class="week-card" id="card-w2">
-                    <div class="week-card-header" onclick="toggleWeek('card-w2')">
-                        <div class="week-info">
-                            <h3>Week 2</h3>
-                            <span>Structured layout pages</span>
-                        </div>
-                        <span class="count-badge">8 Files ▾</span>
-                    </div>
-                    <div class="file-drawer">
-                        <div class="file-chips-grid">
-                            <button class="file-chip" onclick="loadPreview('week2/s1.html', 's1.html', this)">📄 s1.html</button>
-                            <button class="file-chip" onclick="loadPreview('week2/s2.html', 's2.html', this)">📄 s2.html</button>
-                            <button class="file-chip" onclick="loadPreview('week2/s3.html', 's3.html', this)">📄 s3.html</button>
-                            <button class="file-chip" onclick="loadPreview('week2/s4.html', 's4.html', this)">📄 s4.html</button>
-                            <button class="file-chip" onclick="loadPreview('week2/s5.html', 's5.html', this)">📄 s5.html</button>
-                            <button class="file-chip" onclick="loadPreview('week2/s6.html', 's6.html', this)">📄 s6.html</button>
-                            <button class="file-chip" onclick="loadPreview('week2/s7.html', 's7.html', this)">📄 s7.html</button>
-                            <button class="file-chip" onclick="loadPreview('week2/s8.html', 's8.html', this)">📄 s8.html</button>
-                        </div>
-                    </div>
-                </div>
+  <ul class="weeks" id="weeks">
 
-                <!-- Week 3 -->
-                <div class="week-card" id="card-w3">
-                    <div class="week-card-header" onclick="toggleWeek('card-w3')">
-                        <div class="week-info">
-                            <h3>Week 3</h3>
-                            <span>Advanced components</span>
-                        </div>
-                        <span class="count-badge">8 Files ▾</span>
-                    </div>
-                    <div class="file-drawer">
-                        <div class="file-chips-grid">
-                            <button class="file-chip" onclick="loadPreview('week 3/1.html', '1.html', this)">💻 1.html</button>
-                            <button class="file-chip" onclick="loadPreview('week 3/2.html', '2.html', this)">💻 2.html</button>
-                            <button class="file-chip" onclick="loadPreview('week 3/3.html', '3.html', this)">💻 3.html</button>
-                            <button class="file-chip" onclick="loadPreview('week 3/4.html', '4.html', this)">💻 4.html</button>
-                            <button class="file-chip" onclick="loadPreview('week 3/5.html', '5.html', this)">💻 5.html</button>
-                            <button class="file-chip" onclick="loadPreview('week 3/6.html', '6.html', this)">💻 6.html</button>
-                            <button class="file-chip" onclick="loadPreview('week 3/7.html', '7.html', this)">💻 7.html</button>
-                            <button class="file-chip" onclick="loadPreview('week 3/8.html', '8.html', this)">💻 8.html</button>
-                        </div>
-                    </div>
-                </div>
+    <li class="week open">
+      <button class="week-head" aria-expanded="true">
+        <span class="wk-num">1</span>
+        <span><span class="wk-title">Week 1</span><span class="wk-desc">Foundational HTML files</span></span>
+        <span class="wk-count">8 files</span>
+      </button>
+      <div class="drawer"><div><div class="chips">
+        <button class="chip" data-path="week 1/suman1.html">suman1.html</button>
+        <button class="chip" data-path="week 1/suman2.html">suman2.html</button>
+        <button class="chip" data-path="week 1/suman3.html">suman3.html</button>
+        <button class="chip" data-path="week 1/suman4.html">suman4.html</button>
+        <button class="chip" data-path="week 1/suman5.html">suman5.html</button>
+        <button class="chip" data-path="week 1/suman6.html">suman6.html</button>
+        <button class="chip" data-path="week 1/suman7.html">suman7.html</button>
+        <button class="chip" data-path="week 1/suman8.html">suman8.html</button>
+      </div></div></div>
+    </li>
 
-                <!-- Week 3 Friday -->
-                <div class="week-card" id="card-w3fri">
-                    <div class="week-card-header" onclick="toggleWeek('card-w3fri')">
-                        <div class="week-info">
-                            <h3>Week 3 Friday</h3>
-                            <span>Special checkpoints</span>
-                        </div>
-                        <span class="count-badge">7 Files ▾</span>
-                    </div>
-                    <div class="file-drawer">
-                        <div class="file-chips-grid">
-                            <button class="file-chip" onclick="loadPreview('week 3 friday/1.html', '1.html', this)">🚀 1.html</button>
-                            <button class="file-chip" onclick="loadPreview('week 3 friday/2.html', '2.html', this)">🚀 2.html</button>
-                            <button class="file-chip" onclick="loadPreview('week 3 friday/3.html', '3.html', this)">🚀 3.html</button>
-                            <button class="file-chip" onclick="loadPreview('week 3 friday/4.html', '4.html', this)">🚀 4.html</button>
-                            <button class="file-chip" onclick="loadPreview('week 3 friday/5.html', '5.html', this)">🚀 5.html</button>
-                            <button class="file-chip" onclick="loadPreview('week 3 friday/6.html', '6.html', this)">🚀 6.html</button>
-                            <button class="file-chip" onclick="loadPreview('week 3 friday/7.html', '7.html', this)">🚀 7.html</button>
-                        </div>
-                    </div>
-                </div>
+    <li class="week">
+      <button class="week-head" aria-expanded="false">
+        <span class="wk-num">2</span>
+        <span><span class="wk-title">Week 2</span><span class="wk-desc">Structured layout pages</span></span>
+        <span class="wk-count">8 files</span>
+      </button>
+      <div class="drawer"><div><div class="chips">
+        <button class="chip" data-path="week2/s1.html">s1.html</button>
+        <button class="chip" data-path="week2/s2.html">s2.html</button>
+        <button class="chip" data-path="week2/s3.html">s3.html</button>
+        <button class="chip" data-path="week2/s4.html">s4.html</button>
+        <button class="chip" data-path="week2/s5.html">s5.html</button>
+        <button class="chip" data-path="week2/s6.html">s6.html</button>
+        <button class="chip" data-path="week2/s7.html">s7.html</button>
+        <button class="chip" data-path="week2/s8.html">s8.html</button>
+      </div></div></div>
+    </li>
 
-                <!-- Week 4 -->
-                <div class="week-card" id="card-w4">
-                    <div class="week-card-header" onclick="toggleWeek('card-w4')">
-                        <div class="week-info">
-                            <h3>Week 4</h3>
-                            <span>Refined code & debugging</span>
-                        </div>
-                        <span class="count-badge">4 Files ▾</span>
-                    </div>
-                    <div class="file-drawer">
-                        <div class="file-chips-grid">
-                            <button class="file-chip" onclick="loadPreview('WEEK 4/1.html', '1.html', this)">🔥 1.html</button>
-                            <button class="file-chip" onclick="loadPreview('WEEK 4/2.html', '2.html', this)">🔥 2.html</button>
-                            <button class="file-chip" onclick="loadPreview('WEEK 4/3.html', '3.html', this)">🔥 3.html</button>
-                            <button class="file-chip" onclick="loadPreview('WEEK 4/4.html', '4.html', this)">🔥 4.html</button>
-                        </div>
-                    </div>
-                </div>
+    <li class="week">
+      <button class="week-head" aria-expanded="false">
+        <span class="wk-num">3</span>
+        <span><span class="wk-title">Week 3</span><span class="wk-desc">Advanced components</span></span>
+        <span class="wk-count">8 files</span>
+      </button>
+      <div class="drawer"><div><div class="chips">
+        <button class="chip" data-path="week 3/1.html">1.html</button>
+        <button class="chip" data-path="week 3/2.html">2.html</button>
+        <button class="chip" data-path="week 3/3.html">3.html</button>
+        <button class="chip" data-path="week 3/4.html">4.html</button>
+        <button class="chip" data-path="week 3/5.html">5.html</button>
+        <button class="chip" data-path="week 3/6.html">6.html</button>
+        <button class="chip" data-path="week 3/7.html">7.html</button>
+        <button class="chip" data-path="week 3/8.html">8.html</button>
+      </div></div></div>
+    </li>
 
-                <!-- Week 5 -->
-                <div class="week-card" style="opacity: 0.5;">
-                    <div class="week-card-header" style="cursor: default;">
-                        <div class="week-info">
-                            <h3>Week 5</h3>
-                            <span>Final Capstone</span>
-                        </div>
-                        <span class="count-badge" style="color: #94a3b8; border-color: #94a3b8;">Locked</span>
-                    </div>
-                </div>
+    <li class="week">
+      <button class="week-head" aria-expanded="false">
+        <span class="wk-num">3+</span>
+        <span><span class="wk-title">Week 3 Friday</span><span class="wk-desc">Special checkpoints</span></span>
+        <span class="wk-count">7 files</span>
+      </button>
+      <div class="drawer"><div><div class="chips">
+        <button class="chip" data-path="week 3 friday/1.html">1.html</button>
+        <button class="chip" data-path="week 3 friday/2.html">2.html</button>
+        <button class="chip" data-path="week 3 friday/3.html">3.html</button>
+        <button class="chip" data-path="week 3 friday/4.html">4.html</button>
+        <button class="chip" data-path="week 3 friday/5.html">5.html</button>
+        <button class="chip" data-path="week 3 friday/6.html">6.html</button>
+        <button class="chip" data-path="week 3 friday/7.html">7.html</button>
+      </div></div></div>
+    </li>
 
-            </div>
+    <li class="week">
+      <button class="week-head" aria-expanded="false">
+        <span class="wk-num">4</span>
+        <span><span class="wk-title">Week 4</span><span class="wk-desc">Refined code and debugging</span></span>
+        <span class="wk-count">4 files</span>
+      </button>
+      <div class="drawer"><div><div class="chips">
+        <button class="chip" data-path="WEEK 4/1.html">1.html</button>
+        <button class="chip" data-path="WEEK 4/2.html">2.html</button>
+        <button class="chip" data-path="WEEK 4/3.html">3.html</button>
+        <button class="chip" data-path="WEEK 4/4.html">4.html</button>
+      </div></div></div>
+    </li>
 
-            <!-- Right Side: Live Viewport Pane with View Code Option -->
-            <div class="viewport-column">
-                <div class="viewport-topbar">
-                    <div class="viewport-title" id="viewport-title-text">
-                        <span>⚡</span> Select a file to launch preview
-                    </div>
-                    <div class="viewport-actions">
-                        <button id="toggle-code-btn" class="action-btn" onclick="toggleCodeView()" style="display: none;">View Code &lt;/&gt;</button>
-                        <a id="popout-btn" href="#" target="_blank" class="action-btn" style="display: none;">Open Tab ↗</a>
-                    </div>
-                </div>
-                <div class="viewport-body">
-                    <div class="viewport-placeholder" id="viewport-placeholder">
-                        <div class="placeholder-icon">📂</div>
-                        <h3>Workspace Ready</h3>
-                        <p>Click any task file on the left sidebar to execute preview or review source code.</p>
-                    </div>
-                    <iframe id="live-iframe" title="Live Preview"></iframe>
-                    <pre id="code-container"></pre>
-                </div>
-            </div>
+    <li class="week locked">
+      <div class="week-head">
+        <span class="wk-num">5</span>
+        <span><span class="wk-title">Week 5</span><span class="wk-desc">Final capstone</span></span>
+        <span class="wk-count">Locked</span>
+      </div>
+    </li>
+  </ul>
 
-        </div>
-
-        <footer>
-            <p>&copy; 2026 Suman Sapkota.</p>
-        </footer>
+  <section class="viewport" aria-label="File preview">
+    <div class="bar">
+      <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
+      <div class="addr" id="addr">Pick a file to preview it</div>
+      <button class="btn" id="prev" hidden aria-label="Previous file">&larr;</button>
+      <button class="btn" id="next" hidden aria-label="Next file">&rarr;</button>
+      <button class="btn" id="codeBtn" hidden>View code</button>
+      <a class="btn" id="popout" href="#" target="_blank" rel="noopener" hidden>Open in tab</a>
     </div>
+    <div class="body">
+      <div class="empty" id="empty">
+        <h2>Choose a file</h2>
+        <p>Select a task from the list to preview it here, or switch to its source code.</p>
+      </div>
+      <iframe id="frame" title="Live preview"></iframe>
+      <pre id="code"></pre>
+    </div>
+  </section>
 
-    <!-- JavaScript Logic -->
-    <script>
-        let currentFilePath = '';
-        let isCodeView = false;
+</div>
 
-        function toggleWeek(cardId) {
-            const target = document.getElementById(cardId);
-            const isOpen = target.classList.contains('active-week');
+<footer>&copy; 2026 Suman Sapkota</footer>
+</div>
 
-            document.querySelectorAll('.week-card').forEach(c => c.classList.remove('active-week'));
-            if (!isOpen) {
-                target.classList.add('active-week');
-            }
-        }
+<script>
+const $ = id => document.getElementById(id);
+const chips = [...document.querySelectorAll('.chip')];
+let current = -1, codeView = false, codeFor = '';
 
-        function loadPreview(filePath, fileName, element) {
-            currentFilePath = filePath;
-            isCodeView = false;
+// Open/close weeks
+document.querySelectorAll('.week:not(.locked) .week-head').forEach(head => {
+  head.addEventListener('click', () => {
+    const week = head.parentElement, wasOpen = week.classList.contains('open');
+    document.querySelectorAll('.week').forEach(w => {
+      w.classList.remove('open');
+      const h = w.querySelector('button.week-head'); if (h) h.setAttribute('aria-expanded', 'false');
+    });
+    if (!wasOpen) { week.classList.add('open'); head.setAttribute('aria-expanded', 'true'); }
+  });
+});
 
-            // Highlight active button
-            document.querySelectorAll('.file-chip').forEach(btn => btn.classList.remove('active-file'));
-            element.classList.add('active-file');
+chips.forEach((chip, i) => chip.addEventListener('click', () => load(i)));
 
-            // Show UI elements
-            document.getElementById('viewport-placeholder').style.display = 'none';
-            const iframe = document.getElementById('live-iframe');
-            const codeBox = document.getElementById('code-container');
-            const title = document.getElementById('viewport-title-text');
-            const popout = document.getElementById('popout-btn');
-            const codeBtn = document.getElementById('toggle-code-btn');
+function load(i) {
+  if (i < 0 || i >= chips.length) return;
+  current = i; codeView = false;
+  const chip = chips[i], path = chip.dataset.path;
 
-            iframe.style.display = 'block';
-            codeBox.style.display = 'none';
-            iframe.src = filePath;
+  chips.forEach(c => c.classList.remove('active'));
+  chip.classList.add('active');
 
-            title.innerHTML = `<span>🟢</span> File: <strong style="color:#fff; margin-left:4px;">${fileName}</strong>`;
-            popout.style.display = 'inline-block';
-            popout.href = filePath;
-            codeBtn.style.display = 'inline-block';
-            codeBtn.textContent = 'View Code </>';
-        }
+  // keep the matching week open
+  const week = chip.closest('.week');
+  if (!week.classList.contains('open')) week.querySelector('.week-head').click();
 
-        async function toggleCodeView() {
-            const iframe = document.getElementById('live-iframe');
-            const codeBox = document.getElementById('code-container');
-            const codeBtn = document.getElementById('toggle-code-btn');
+  $('empty').style.display = 'none';
+  $('code').style.display = 'none';
+  $('frame').style.display = 'block';
+  $('frame').src = path;
 
-            isCodeView = !isCodeView;
+  $('addr').innerHTML = path.replace(/[&<>]/g, '') .replace(/([^/]+)$/, '<strong>$1</strong>');
+  $('popout').href = path;
+  $('codeBtn').textContent = 'View code';
+  ['prev','next','codeBtn','popout'].forEach(id => $(id).hidden = false);
+}
 
-            if (isCodeView) {
-                iframe.style.display = 'none';
-                codeBox.style.display = 'block';
-                codeBtn.textContent = 'View Preview 👁';
-                
-                if (codeBox.textContent === '') {
-                    codeBox.textContent = 'Loading source code...';
-                    try {
-                        const response = await fetch(currentFilePath);
-                        const text = await response.text();
-                        // Escape HTML tags so they display safely as text code
-                        codeBox.textContent = text;
-                    } catch (error) {
-                        codeBox.textContent = 'Error loading source code. Try opening in a new tab.';
-                    }
-                }
-            } else {
-                codeBox.style.display = 'none';
-                iframe.style.display = 'block';
-                codeBtn.textContent = 'View Code </>';
-            }
-        }
-    </script>
+$('prev').onclick = () => load(current - 1);
+$('next').onclick = () => load(current + 1);
 
+$('codeBtn').onclick = async () => {
+  codeView = !codeView;
+  $('frame').style.display = codeView ? 'none' : 'block';
+  $('code').style.display = codeView ? 'block' : 'none';
+  $('codeBtn').textContent = codeView ? 'View preview' : 'View code';
+  if (!codeView) return;
+
+  const path = chips[current].dataset.path;
+  if (codeFor === path) return;          // already loaded for this file
+  $('code').textContent = 'Loading source code...';
+  try {
+    const res = await fetch(path);
+    if (!res.ok) throw new Error(res.status);
+    $('code').textContent = await res.text();
+    codeFor = path;
+  } catch (e) {
+    $('code').textContent = 'Could not load the source. Open the file in a new tab instead.';
+  }
+};
+</script>
 </body>
 </html>
