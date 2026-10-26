@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 1: My Smart Counter</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --accent: #38bdf8;
+            --accent-hover: #0284c7;
+            --danger: #ef4444;
+            --border: #334155;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding: 2rem 1rem;
+            line-height: 1.6;
+        }
+
+        main {
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+
+        .task-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.8rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .task-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .task-header h2 {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            font-size: 0.8rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            margin-top: 0.3rem;
+        }
+
+        .desc {
+            color: var(--text-sub);
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+
+        .module {
+            background-color: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.2rem;
+        }
+
+        .counter-display {
+            text-align: center;
+            padding: 1.5rem 0;
+        }
+
+        .counter-number {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: var(--accent);
+        }
+
+        .counter-controls {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        button {
+            background-color: var(--accent);
+            color: #0f172a;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--accent-hover);
+            color: #fff;
+        }
+
+        button.btn-danger {
+            background-color: var(--danger);
+            color: #fff;
+        }
+
+        button.btn-danger:hover {
+            background-color: #dc2626;
+        }
+
+        .text-center {
+            text-align: center;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <main>
+        <section class="task-card">
+            <div class="task-header">
+                <h2>Task 1: My Smart Counter</h2>
+                <span class="tag">Week 5 · JavaScript & localStorage</span>
+                <p class="desc">Increase or decrease the counter between -20 and 20. Your count is saved in the browser, so it stays after refreshing the page.</p>
+            </div>
+
+            <div class="module">
+                <div class="counter-display">
+                    <div id="counterVal" class="counter-number">0</div>
+                    <p id="counterMsg" class="desc">Your counter is ready!</p>
+                </div>
+                <div class="counter-controls">
+                    <button id="btnDecrement">- Decrease</button>
+                    <button id="btnReset" class="btn-danger">Reset</button>
+                    <button id="btnIncrement">+ Increase</button>
+                </div>
+                <p class="desc text-center">Minimum: -20 · Maximum: 20</p>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const MIN_COUNT = -20;
+        const MAX_COUNT = 20;
+
+        // Load saved count from localStorage or default to 0
+        let count = parseInt(localStorage.getItem('smartCount')) || 0;
+
+        const counterVal = document.getElementById('counterVal');
+        const counterMsg = document.getElementById('counterMsg');
+        const btnIncrement = document.getElementById('btnIncrement');
+        const btnDecrement = document.getElementById('btnDecrement');
+        const btnReset = document.getElementById('btnReset');
+
+        function updateCounterDisplay() {
+            counterVal.textContent = count;
+            // Save current count to browser's localStorage
+            localStorage.setItem('smartCount', count);
+
+            if (count === MAX_COUNT) {
+                counterMsg.textContent = "Maximum limit reached! (20)";
+            } else if (count === MIN_COUNT) {
+                counterMsg.textContent = "Minimum limit reached! (-20)";
+            } else {
+                counterMsg.textContent = "Your counter is ready!";
+            }
+        }
+
+        btnIncrement.addEventListener('click', () => {
+            if (count < MAX_COUNT) {
+                count++;
+                updateCounterDisplay();
+            }
+        });
+
+        btnDecrement.addEventListener('click', () => {
+            if (count > MIN_COUNT) {
+                count--;
+                updateCounterDisplay();
+            }
+        });
+
+        btnReset.addEventListener('click', () => {
+            count = 0;
+            updateCounterDisplay();
+        });
+
+        // Initialize on page load
+        updateCounterDisplay();
+    </script>
+</body>
+</html>

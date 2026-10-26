@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task 2: JavaScript Learning Hub</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --accent: #38bdf8;
+            --accent-hover: #0284c7;
+            --danger: #ef4444;
+            --border: #334155;
+            --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding: 2rem 1rem;
+            line-height: 1.6;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .task-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.8rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .task-header {
+            margin-bottom: 1.5rem;
+        }
+
+        .task-header h2 {
+            font-size: 1.5rem;
+            color: var(--accent);
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(56, 189, 248, 0.1);
+            color: var(--accent);
+            font-size: 0.8rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            margin-top: 0.3rem;
+        }
+
+        .desc {
+            color: var(--text-sub);
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+
+        .module {
+            background-color: rgba(15, 23, 42, 0.6);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .module:last-child {
+            margin-bottom: 0;
+        }
+
+        .module h3 {
+            font-size: 1.1rem;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        input[type="text"], input[type="number"], select, textarea {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 0.6rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        textarea {
+            width: 100%;
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        button {
+            background-color: var(--accent);
+            color: #0f172a;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: var(--accent-hover);
+            color: #fff;
+        }
+
+        button.btn-danger {
+            background-color: var(--danger);
+            color: #fff;
+        }
+
+        button.btn-danger:hover {
+            background-color: #dc2626;
+        }
+
+        .output {
+            margin-top: 1rem;
+            padding: 0.8rem;
+            background-color: var(--bg-color);
+            border-left: 3px solid var(--accent);
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        .code-block {
+            background: #090d16;
+            padding: 0.8rem;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.85rem;
+            color: #a7f3d0;
+            white-space: pre-wrap;
+            margin-top: 0.5rem;
+        }
+
+        ul {
+            list-style: none;
+            margin-top: 0.8rem;
+        }
+
+        ul li {
+            background: var(--bg-color);
+            padding: 0.6rem 0.8rem;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mt-1 { margin-top: 1rem; }
+        .mb-1 { margin-bottom: 1rem; }
+        .subtext { color: var(--text-sub); }
+    </style>
+</head>
+<body>
+
+    <main>
+        <section class="task-card">
+            <div class="task-header">
+                <h2>Task 2: JavaScript Learning Hub</h2>
+                <span class="tag">Week 5 · JavaScript Practice</span>
+                <p class="desc">Explore variables, DOM manipulation, a grade calculator, arrays and loops, and a notes feature that saves notes in your browser.</p>
+            </div>
+
+            <!-- 1. Variables and Output -->
+            <div class="module">
+                <h3>1. Variables and Output</h3>
+                <p class="desc">Enter your name and favourite programming language to generate a custom greeting.</p>
+                <div class="form-group">
+                    <input type="text" id="userName" placeholder="Your Name">
+                    <select id="userLang">
+                        <option value="JavaScript">JavaScript</option>
+                        <option value="Python">Python</option>
+                        <option value="Java">Java</option>
+                        <option value="C">C</option>
+                        <option value="HTML and CSS">HTML and CSS</option>
+                    </select>
+                    <button id="btnGreeting">Generate Message</button>
+                </div>
+                <div id="greetingOutput" class="output">Your message will appear here.</div>
+            </div>
+
+            <!-- 2. DOM Manipulation -->
+            <div class="module">
+                <h3>2. DOM Manipulation</h3>
+                <p class="desc">Click the buttons to dynamically alter the text and style below.</p>
+                <div id="domBox" class="output mb-1">Hello! This text can be changed using JavaScript.</div>
+                <div class="form-group">
+                    <button id="btnChangeText">Change Text</button>
+                    <button id="btnToggleStyle">Toggle Style</button>
+                </div>
+            </div>
+
+            <!-- 3. Grade Calculator -->
+            <div class="module">
+                <h3>3. Grade Calculator</h3>
+                <p class="desc">Enter a score from 0 to 100 to calculate your grade.</p>
+                <div class="form-group">
+                    <input type="number" id="scoreInput" min="0" max="100" placeholder="Score (0-100)">
+                    <button id="btnCalcGrade">Calculate Grade</button>
+                </div>
+                <div id="gradeOutput" class="output">Your grade will appear here.</div>
+            </div>
+
+            <!-- 4. Arrays and Loops -->
+            <div class="module">
+                <h3>4. Arrays and Loops</h3>
+                <p class="desc">An array stores multiple values. A loop iterates through each value to display it.</p>
+                <div class="code-block">const subjects = ["HTML", "CSS", "JavaScript", "Python"];
+
+subjects.forEach(function(subject) {
+  console.log(subject);
+});</div>
+                <div class="form-group">
+                    <button id="btnShowSubjects">Display Subjects</button>
+                </div>
+                <ul id="subjectsList">
+                    <li class="subtext">Click the button to display the subjects.</li>
+                </ul>
+            </div>
+
+            <!-- 5. Save Your Notes -->
+            <div class="module">
+                <h3>5. Save Your Notes</h3>
+                <p class="desc">Write a note and save it. Notes are stored in localStorage and persist across refreshes.</p>
+                <div class="mt-1">
+                    <textarea id="noteInput" placeholder="Write your note here..."></textarea>
+                </div>
+                <div class="form-group">
+                    <button id="btnSaveNote">Save Note</button>
+                    <button id="btnClearNotes" class="btn-danger">Clear All</button>
+                </div>
+                <div class="desc mt-1">Saved Notes:</div>
+                <ul id="notesList"></ul>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // 1. Variables and Output
+        document.getElementById('btnGreeting').addEventListener('click', () => {
+            const name = document.getElementById('userName').value.trim();
+            const lang = document.getElementById('userLang').value;
+            const output = document.getElementById('greetingOutput');
+
+            if (name) {
+                output.textContent = `Hello, ${name}! It's awesome that your favorite programming language is ${lang}.`;
+            } else {
+                output.textContent = "Please enter your name first!";
+            }
+        });
+
+        // 2. DOM Manipulation
+        const domBox = document.getElementById('domBox');
+        document.getElementById('btnChangeText').addEventListener('click', () => {
+            domBox.textContent = "JavaScript successfully modified this paragraph's content!";
+        });
+
+        document.getElementById('btnToggleStyle').addEventListener('click', () => {
+            if (domBox.style.backgroundColor === 'rgb(56, 189, 248)') {
+                domBox.style.backgroundColor = 'var(--bg-color)';
+                domBox.style.color = 'var(--text-main)';
+            } else {
+                domBox.style.backgroundColor = '#38bdf8';
+                domBox.style.color = '#0f172a';
+            }
+        });
+
+        // 3. Grade Calculator
+        document.getElementById('btnCalcGrade').addEventListener('click', () => {
+            const scoreVal = document.getElementById('scoreInput').value;
+            const output = document.getElementById('gradeOutput');
+
+            if (scoreVal === '') {
+                output.textContent = 'Please enter a numerical score.';
+                return;
+            }
+
+            const score = Number(scoreVal);
+            if (score < 0 || score > 100) {
+                output.textContent = 'Please enter a valid score between 0 and 100.';
+            } else if (score >= 90) {
+                output.textContent = `Score: ${score}% → Grade A (Excellent!)`;
+            } else if (score >= 80) {
+                output.textContent = `Score: ${score}% → Grade B (Good job!)`;
+            } else if (score >= 70) {
+                output.textContent = `Score: ${score}% → Grade C (Satisfactory)`;
+            } else if (score >= 60) {
+                output.textContent = `Score: ${score}% → Grade D (Needs improvement)`;
+            } else {
+                output.textContent = `Score: ${score}% → Grade F (Fail)`;
+            }
+        });
+
+        // 4. Arrays and Loops
+        document.getElementById('btnShowSubjects').addEventListener('click', () => {
+            const subjects = ["HTML", "CSS", "JavaScript", "Python"];
+            const listContainer = document.getElementById('subjectsList');
+            listContainer.innerHTML = '';
+
+            subjects.forEach((subj, idx) => {
+                const li = document.createElement('li');
+                li.textContent = `${idx + 1}. ${subj}`;
+                listContainer.appendChild(li);
+            });
+        });
+
+        // 5. Save Your Notes
+        const noteInput = document.getElementById('noteInput');
+        const notesList = document.getElementById('notesList');
+
+        let savedNotes = JSON.parse(localStorage.getItem('userNotes')) || [];
+
+        function renderNotes() {
+            notesList.innerHTML = '';
+            if (savedNotes.length === 0) {
+                notesList.innerHTML = '<li class="subtext">No notes saved yet.</li>';
+                return;
+            }
+
+            savedNotes.forEach((noteText, idx) => {
+                const li = document.createElement('li');
+                li.textContent = noteText;
+                
+                const deleteBtn = document.createElement('button');
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.className = 'btn-danger';
+                deleteBtn.style.padding = '0.3rem 0.6rem';
+                deleteBtn.style.fontSize = '0.8rem';
+                deleteBtn.onclick = () => {
+                    savedNotes.splice(idx, 1);
+                    localStorage.setItem('userNotes', JSON.stringify(savedNotes));
+                    renderNotes();
+                };
+
+                li.appendChild(deleteBtn);
+                notesList.appendChild(li);
+            });
+        }
+
+        document.getElementById('btnSaveNote').addEventListener('click', () => {
+            const text = noteInput.value.trim();
+            if (text) {
+                savedNotes.push(text);
+                localStorage.setItem('userNotes', JSON.stringify(savedNotes));
+                noteInput.value = '';
+                renderNotes();
+            }
+        });
+
+        document.getElementById('btnClearNotes').addEventListener('click', () => {
+            savedNotes = [];
+            localStorage.removeItem('userNotes');
+            renderNotes();
+        });
+
+        renderNotes();
+    </script>
+</body>
+</html>
