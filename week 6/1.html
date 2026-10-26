@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Joke Fetcher</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --accent: #ec4899;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #0f172a;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --error: #ef4444;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 520px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 32px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+            border: 1px solid var(--border);
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        .joke-card {
+            background-color: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 24px;
+            min-height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .setup-text {
+            font-size: 1.15rem;
+            font-weight: 600;
+            line-height: 1.5;
+            margin-bottom: 14px;
+            color: var(--text);
+        }
+
+        .punchline-text {
+            font-size: 1.1rem;
+            font-weight: 500;
+            line-height: 1.5;
+            color: var(--primary-hover);
+            background: #e0e7ff;
+            padding: 10px 16px;
+            border-radius: 8px;
+            width: 100%;
+        }
+
+        /* Loading Spinner Challenge */
+        .loading-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .spinner {
+            width: 28px;
+            height: 28px;
+            border: 3px solid var(--border);
+            border-top: 3px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            color: var(--error);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px 18px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background-color: #f1f5f9;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background-color: #e2e8f0;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Favorites Section Extra */
+        .favorites-section {
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+        }
+
+        .favorites-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .favorites-header h2 {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .fav-list {
+            list-style: none;
+            max-height: 180px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .fav-item {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 0.875rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .fav-item span {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .remove-btn {
+            background: none;
+            border: none;
+            color: var(--error);
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 2px 6px;
+            border-radius: 4px;
+            flex: unset;
+        }
+
+        .remove-btn:hover {
+            background-color: #fee2e2;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>😂 Random Joke Fetcher</h1>
+        </header>
+
+        <div class="joke-card">
+            <!-- Initial State -->
+            <div id="initialState" style="color: var(--text-muted);">
+                Click "Load Joke" to display a joke!
+            </div>
+
+            <!-- Loading State with Spinner -->
+            <div id="loadingState" class="loading-container hidden">
+                <div class="spinner"></div>
+                <span>Fetching a fresh joke...</span>
+            </div>
+
+            <!-- Content State: Setup and Punchline displayed separately -->
+            <div id="contentState" class="hidden" style="width: 100%;">
+                <div class="setup-text" id="setupText"></div>
+                
+                <button id="revealBtn" class="btn-secondary" style="width: 100%; margin-top: 4px;">
+                    Reveal Punchline 🤫
+                </button>
+
+                <div id="punchlineWrapper" class="hidden" style="margin-top: 10px;">
+                    <div class="punchline-text" id="punchlineText"></div>
+                </div>
+            </div>
+
+            <!-- Error State -->
+            <div id="errorState" class="error-message hidden">
+                Failed to fetch joke. Please try again!
+            </div>
+        </div>
+
+        <div class="btn-group">
+            <button id="loadBtn" class="btn-primary">Load Joke</button>
+            <button id="saveBtn" class="btn-secondary hidden">Save Favourite ❤️</button>
+        </div>
+
+        <!-- Extra: LocalStorage Saved Favorites -->
+        <div class="favorites-section">
+            <div class="favorites-header">
+                <h2>Saved Favourites</h2>
+            </div>
+            <ul id="favList" class="fav-list">
+                <!-- Dynamically populated -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'https://official-joke-api.appspot.com/random_joke';
+
+        // DOM Elements
+        const loadBtn = document.getElementById('loadBtn');
+        const saveBtn = document.getElementById('saveBtn');
+        const revealBtn = document.getElementById('revealBtn');
+
+        const initialState = document.getElementById('initialState');
+        const loadingState = document.getElementById('loadingState');
+        const contentState = document.getElementById('contentState');
+        const errorState = document.getElementById('errorState');
+
+        const setupText = document.getElementById('setupText');
+        const punchlineText = document.getElementById('punchlineText');
+        const punchlineWrapper = document.getElementById('punchlineWrapper');
+        const favList = document.getElementById('favList');
+
+        let currentJoke = null;
+
+        // Initialize saved favorites from localStorage
+        document.addEventListener('DOMContentLoaded', renderFavorites);
+
+        loadBtn.addEventListener('click', fetchJoke);
+        revealBtn.addEventListener('click', () => {
+            revealBtn.classList.add('hidden');
+            punchlineWrapper.classList.remove('hidden');
+        });
+        saveBtn.addEventListener('click', saveFavorite);
+
+        async function fetchJoke() {
+            // Set Loading UI state
+            initialState.classList.add('hidden');
+            contentState.classList.add('hidden');
+            errorState.classList.add('hidden');
+            saveBtn.classList.add('hidden');
+            
+            loadingState.classList.remove('hidden');
+            loadBtn.disabled = true;
+
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error('API Request Failed');
+                
+                const data = await response.json();
+                currentJoke = data;
+
+                // Update separate elements for Setup and Punchline
+                setupText.textContent = data.setup;
+                punchlineText.textContent = data.punchline;
+
+                // Reset reveal button state
+                revealBtn.classList.remove('hidden');
+                punchlineWrapper.classList.add('hidden');
+
+                // Update UI state to Content
+                loadingState.classList.add('hidden');
+                contentState.classList.remove('hidden');
+                saveBtn.classList.remove('hidden');
+            } catch (error) {
+                console.error('Error:', error);
+                loadingState.classList.add('hidden');
+                errorState.classList.remove('hidden');
+            } finally {
+                loadBtn.disabled = false;
+            }
+        }
+
+        function getFavorites() {
+            return JSON.parse(localStorage.getItem('favorite_jokes')) || [];
+        }
+
+        function saveFavorite() {
+            if (!currentJoke) return;
+
+            let favorites = getFavorites();
+            const isAlreadySaved = favorites.some(j => j.id === currentJoke.id);
+
+            if (!isAlreadySaved) {
+                favorites.push(currentJoke);
+                localStorage.setItem('favorite_jokes', JSON.stringify(favorites));
+                renderFavorites();
+            }
+        }
+
+        function removeFavorite(index) {
+            let favorites = getFavorites();
+            favorites.splice(index, 1);
+            localStorage.setItem('favorite_jokes', JSON.stringify(favorites));
+            renderFavorites();
+        }
+
+        function renderFavorites() {
+            favList.innerHTML = '';
+            const favorites = getFavorites();
+
+            if (favorites.length === 0) {
+                favList.innerHTML = `<li style="text-align: center; color: var(--text-muted); font-size: 0.85rem; padding: 10px;">No saved jokes yet.</li>`;
+                return;
+            }
+
+            favorites.forEach((joke, index) => {
+                const li = document.createElement('li');
+                li.className = 'fav-item';
+
+                const textSpan = document.createElement('span');
+                textSpan.innerHTML = `<strong>${joke.setup}</strong> — <em>${joke.punchline}</em>`;
+
+                const delBtn = document.createElement('button');
+                delBtn.className = 'remove-btn';
+                delBtn.innerHTML = '&times;';
+                delBtn.title = 'Remove';
+                delBtn.onclick = () => removeFavorite(index);
+
+                li.appendChild(textSpan);
+                li.appendChild(delBtn);
+                favList.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
