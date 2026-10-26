@@ -200,12 +200,27 @@ footer{margin-top:3rem;padding-top:1.25rem;border-top:2px solid var(--ink);color
       </div></div></div>
     </li>
 
-    <li class="week locked">
-      <div class="week-head">
+    <li class="week">
+      <button class="week-head" aria-expanded="false">
         <span class="wk-num">5</span>
-        <span><span class="wk-title">Week 5</span><span class="wk-desc">Final capstone</span></span>
-        <span class="wk-count">Locked</span>
-      </div>
+        <span><span class="wk-title">Week 5</span><span class="wk-desc">Smart counter & learning hub</span></span>
+        <span class="wk-count">2 files</span>
+      </button>
+      <div class="drawer"><div><div class="chips">
+        <button class="chip" data-path="week 5/task1.html">Task 01: Smart Counter</button>
+        <button class="chip" data-path="week 5/task2.html">Task 02: Learning Hub</button>
+      </div></div></div>
+    </li>
+
+    <li class="week">
+      <button class="week-head" aria-expanded="false">
+        <span class="wk-num">6</span>
+        <span><span class="wk-title">Week 6</span><span class="wk-desc">JavaScript APIs & extensions</span></span>
+        <span class="wk-count">1 file</span>
+      </button>
+      <div class="drawer"><div><div class="chips">
+        <button class="chip" data-path="week 6/task1.html">Task 01: Joke Corner</button>
+      </div></div></div>
     </li>
   </ul>
 
@@ -286,7 +301,7 @@ $('codeBtn').onclick = async () => {
   if (!codeView) return;
 
   const path = chips[current].dataset.path;
-  if (codeFor === path) return;          // already loaded for this file
+  if (codeFor === path) return;         // already loaded for this file
   $('code').textContent = 'Loading source code...';
   try {
     const res = await fetch(path);
