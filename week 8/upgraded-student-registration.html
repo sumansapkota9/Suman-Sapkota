@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upgraded Student Registration</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #EAEEF6; background-image: radial-gradient(#C9D1E4 1px, transparent 1px); background-size: 22px 22px; color: #0D1633; padding: 24px 16px 48px; }
+  .wrap { max-width: 640px; margin: 0 auto; }
+  h1 { font-size: 1.8rem; margin-bottom: 4px; }
+  p.sub { color: #4A5578; margin-bottom: 18px; }
+  form, .list-box { background: #fff; border-radius: 16px; padding: 22px; }
+  label { display: block; font-size: 0.92rem; margin: 12px 0 4px; }
+  input, select, textarea { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 10px; font-size: 1rem; background: #fff; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  fieldset { border: 0; margin-top: 12px; }
+  fieldset legend { font-size: 0.92rem; margin-bottom: 4px; }
+  fieldset label { display: inline-block; margin: 0 14px 0 0; font-size: 0.95rem; }
+  fieldset input { width: auto; }
+  button { padding: 11px 18px; border: 0; border-radius: 10px; background: #2F4BFF; color: #fff; font-size: 1rem; cursor: pointer; margin-top: 18px; }
+  button:hover { background: #1E33CC; }
+  button.small { padding: 6px 12px; font-size: 0.9rem; background: #4A5578; margin: 0; }
+  .list-box { margin-top: 16px; }
+  .list-box h2 { font-size: 1.2rem; margin-bottom: 10px; }
+  .student { display: flex; justify-content: space-between; gap: 10px; align-items: center; padding: 10px 0; border-top: 1px solid #EAEEF6; }
+  .student p { color: #4A5578; font-size: 0.95rem; line-height: 1.4; }
+  .student b { color: #0D1633; }
+  #msg { margin-top: 12px; color: #166534; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🎓 Upgraded Student Registration</h1>
+  <p class="sub">Upgraded version of Week 7: more fields, plus a saved list of registered students you can delete from.</p>
+  <form id="regForm">
+    <label for="name">Full name</label>
+    <input id="name" type="text" required minlength="3" placeholder="Suman Sapkota">
+    <div class="row">
+      <div>
+        <label for="sid">Student ID</label>
+        <input id="sid" type="text" required placeholder="e.g. 202637609">
+      </div>
+      <div>
+        <label for="dob">Date of birth</label>
+        <input id="dob" type="date" required>
+      </div>
+    </div>
+    <label for="email">Email</label>
+    <input id="email" type="email" required placeholder="you@example.com">
+    <fieldset>
+      <legend>Gender</legend>
+      <label><input type="radio" name="gender" value="Male" required> Male</label>
+      <label><input type="radio" name="gender" value="Female"> Female</label>
+      <label><input type="radio" name="gender" value="Other"> Other</label>
+    </fieldset>
+    <div class="row">
+      <div>
+        <label for="program">Program</label>
+        <select id="program" required>
+          <option value="">Choose a program</option>
+          <option>Computer Engineering</option>
+          <option>Software Engineering</option>
+          <option>Information Technology</option>
+        </select>
+      </div>
+      <div>
+        <label for="semester">Semester</label>
+        <select id="semester" required>
+          <option value="">Choose a semester</option>
+          <option>1st Semester</option>
+          <option>2nd Semester</option>
+          <option>3rd Semester</option>
+          <option>4th Semester</option>
+        </select>
+      </div>
+    </div>
+    <label for="address">Address</label>
+    <textarea id="address" rows="2" placeholder="City, Country"></textarea>
+    <button type="submit">Register Student</button>
+    <p id="msg"></p>
+  </form>
+  <div class="list-box">
+    <h2>Registered Students</h2>
+    <div id="list"></div>
+  </div>
+</div>
+<script>
+  const form = document.getElementById('regForm');
+  const listEl = document.getElementById('list');
+  const msgEl = document.getElementById('msg');
+  let students = JSON.parse(localStorage.getItem('registered_students') || '[]');
+
+  function render() {
+    if (!students.length) {
+      listEl.innerHTML = '<p style="color:#4A5578;">No students registered yet.</p>';
+      return;
+    }
+    listEl.innerHTML = students.map((s, i) =>
+      '<div class="student"><p><b>' + s.name + '</b> (' + s.sid + ')<br>' +
+      s.email + ' &middot; ' + s.program + ', ' + s.semester + ' &middot; ' + s.gender +
+      (s.address ? '<br>' + s.address : '') + '</p>' +
+      '<button class="small" data-i="' + i + '">Delete</button></div>'
+    ).join('');
+    listEl.querySelectorAll('button').forEach(btn => {
+      btn.addEventListener('click', () => {
+        students.splice(Number(btn.dataset.i), 1);
+        localStorage.setItem('registered_students', JSON.stringify(students));
+        render();
+      });
+    });
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const gender = form.querySelector('input[name="gender"]:checked');
+    students.push({
+      name: document.getElementById('name').value.trim(),
+      sid: document.getElementById('sid').value.trim(),
+      email: document.getElementById('email').value.trim(),
+      dob: document.getElementById('dob').value,
+      gender: gender ? gender.value : '',
+      program: document.getElementById('program').value,
+      semester: document.getElementById('semester').value,
+      address: document.getElementById('address').value.trim()
+    });
+    localStorage.setItem('registered_students', JSON.stringify(students));
+    msgEl.textContent = 'Student registered successfully!';
+    form.reset();
+    render();
+  });
+  render();
+</script>
+</body>
+</html>
