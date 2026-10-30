@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Registration</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, sans-serif; background: #EAEEF6; background-image: radial-gradient(#C9D1E4 1px, transparent 1px); background-size: 22px 22px; color: #0D1633; padding: 24px 16px 48px; }
+  .wrap { max-width: 560px; margin: 0 auto; }
+  h1 { font-size: 1.8rem; margin-bottom: 4px; }
+  p.sub { color: #4A5578; margin-bottom: 18px; }
+  form { background: #fff; border-radius: 16px; padding: 22px; }
+  h2 { font-size: 1.1rem; margin: 18px 0 4px; }
+  h2:first-child { margin-top: 0; }
+  label { display: block; font-size: 0.92rem; margin: 12px 0 4px; }
+  input, select { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 10px; font-size: 1rem; background: #fff; }
+  input[type="range"] { padding: 0; }
+  input[type="checkbox"] { width: auto; }
+  input.invalid { border-color: #dc2626; }
+  .err { font-size: 0.85rem; color: #dc2626; margin-top: 4px; display: none; }
+  .err.show { display: block; }
+  button { width: 100%; padding: 11px; border: 0; border-radius: 10px; background: #2F4BFF; color: #fff; font-size: 1rem; cursor: pointer; margin-top: 18px; }
+  button:hover:not(:disabled) { background: #1E33CC; }
+  button:disabled { opacity: 0.5; cursor: default; }
+  #msg { margin-top: 14px; padding: 12px; border-radius: 10px; display: none; background: #dcfce7; color: #166534; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Student Registration</h1>
+  <p class="sub">Upgraded form: inline errors show from the start, and Submit stays disabled until every field is valid.</p>
+  <form id="regForm">
+    <h2>Personal Information</h2>
+    <label for="name">Full Name</label>
+    <input id="name" type="text" placeholder="Suman Sapkota">
+    <p class="err show" id="err-name">Full name is required.</p>
+    <label for="sid">Student ID (9 digits)</label>
+    <input id="sid" type="text" placeholder="e.g. 202637609">
+    <p class="err show" id="err-sid">Student ID must be 9 digits.</p>
+    <label for="dob">Date of Birth</label>
+    <input id="dob" type="date">
+    <label for="major">Major</label>
+    <select id="major">
+      <option value="">Choose a major</option>
+      <option>Computer Engineering</option>
+      <option>Software Engineering</option>
+      <option>Business Administration</option>
+      <option>Electrical Engineering</option>
+      <option>Artificial Intelligence</option>
+    </select>
+    <p class="err show" id="err-major">Please choose a major.</p>
+    <h2>Account Information</h2>
+    <label for="email">Email</label>
+    <input id="email" type="email" placeholder="you@example.com">
+    <p class="err show" id="err-email">Please enter a valid email.</p>
+    <label for="password">Password (at least 8 characters)</label>
+    <input id="password" type="password" placeholder="********">
+    <p class="err show" id="err-password">Password must be at least 8 characters.</p>
+    <label for="confirm">Confirm Password</label>
+    <input id="confirm" type="password" placeholder="********">
+    <p class="err show" id="err-confirm">Passwords do not match.</p>
+    <label for="phone">Phone Number</label>
+    <input id="phone" type="tel" placeholder="010-1234-5678">
+    <label for="years">Years of Coding Experience: <span id="yearsVal">0 years</span></label>
+    <input id="years" type="range" min="0" max="10" value="0">
+    <label><input id="terms" type="checkbox"> I agree to the terms and conditions</label>
+    <p class="err show" id="err-terms">You must agree to the terms.</p>
+    <button id="submitBtn" type="submit" disabled>Submit Registration</button>
+    <div id="msg"></div>
+  </form>
+</div>
+<script>
+  const $ = id => document.getElementById(id);
+  const submitBtn = $('submitBtn');
+  $('years').addEventListener('input', e => { $('yearsVal').textContent = e.target.value + ' years'; });
+  function validate() {
+    const checks = [
+      ['name', $('name').value.trim().length >= 3, 'err-name'],
+      ['sid', /^[0-9]{9}$/.test($('sid').value.trim()), 'err-sid'],
+      ['major', $('major').value !== '', 'err-major'],
+      ['email', /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('email').value.trim()), 'err-email'],
+      ['password', $('password').value.length >= 8, 'err-password'],
+      ['confirm', $('confirm').value !== '' && $('confirm').value === $('password').value, 'err-confirm'],
+      ['terms', $('terms').checked, 'err-terms']
+    ];
+    let allValid = true;
+    checks.forEach(([field, ok, errId]) => {
+      $(errId).classList.toggle('show', !ok);
+      const el = $(field);
+      if (el && el.tagName !== 'INPUT' || (el && el.type !== 'checkbox')) el.classList.toggle('invalid', !ok);
+      if (!ok) allValid = false;
+    });
+    submitBtn.disabled = !allValid;
+    return allValid;
+  }
+  ['name', 'sid', 'major', 'email', 'password', 'confirm', 'terms'].forEach(id => {
+    $(id).addEventListener('input', validate);
+    $(id).addEventListener('change', validate);
+  });
+  validate();
+  $('regForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!validate()) return;
+    const msg = $('msg');
+    msg.style.display = 'block';
+    msg.textContent = 'Registration submitted successfully! Welcome, ' + $('name').value.trim() + '.';
+  });
+</script>
+</body>
+</html>

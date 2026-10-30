@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Email Validation</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, sans-serif; background: #EAEEF6; background-image: radial-gradient(#C9D1E4 1px, transparent 1px); background-size: 22px 22px; color: #0D1633; padding: 24px 16px 48px; }
+  .wrap { max-width: 480px; margin: 0 auto; }
+  h1 { font-size: 1.8rem; margin-bottom: 4px; }
+  p.sub { color: #4A5578; margin-bottom: 18px; }
+  .box { background: #fff; border-radius: 16px; padding: 22px; }
+  label { display: block; font-size: 0.92rem; margin-bottom: 4px; }
+  input { width: 100%; padding: 10px 12px; border: 2px solid #d1d5db; border-radius: 10px; font-size: 1rem; outline: none; }
+  input.valid { border-color: #16a34a; background: #f0fdf4; }
+  input.invalid { border-color: #dc2626; background: #fef2f2; }
+  .hint { font-size: 0.85rem; margin-top: 6px; display: none; }
+  .hint.err { display: block; color: #dc2626; }
+  .hint.ok { display: block; color: #166534; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Email Validation</h1>
+  <p class="sub">Live validation, no button: type an email and watch the field react.</p>
+  <div class="box">
+    <label for="email">Email Address</label>
+    <input id="email" type="text" placeholder="you@example.com" autocomplete="off">
+    <p class="hint" id="hint"></p>
+  </div>
+</div>
+<script>
+  const input = document.getElementById('email');
+  const hint = document.getElementById('hint');
+  input.addEventListener('input', () => {
+    const v = input.value.trim();
+    if (v === '') { input.className = ''; hint.className = 'hint'; hint.textContent = ''; return; }
+    const ok = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    input.classList.toggle('valid', ok);
+    input.classList.toggle('invalid', !ok);
+    hint.className = ok ? 'hint ok' : 'hint err';
+    hint.textContent = ok ? 'Valid email format!' : 'Not a valid email format.';
+  });
+</script>
+</body>
+</html>

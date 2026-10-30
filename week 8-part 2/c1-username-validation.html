@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Username Validation</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, sans-serif; background: #EAEEF6; background-image: radial-gradient(#C9D1E4 1px, transparent 1px); background-size: 22px 22px; color: #0D1633; padding: 24px 16px 48px; }
+  .wrap { max-width: 480px; margin: 0 auto; }
+  h1 { font-size: 1.8rem; margin-bottom: 4px; }
+  p.sub { color: #4A5578; margin-bottom: 18px; }
+  .box { background: #fff; border-radius: 16px; padding: 22px; }
+  label { display: block; font-size: 0.92rem; margin-bottom: 4px; }
+  input { width: 100%; padding: 10px 12px; border: 2px solid #d1d5db; border-radius: 10px; font-size: 1rem; outline: none; }
+  input.valid { border-color: #16a34a; background: #f0fdf4; }
+  input.invalid { border-color: #dc2626; background: #fef2f2; }
+  .hint { font-size: 0.85rem; margin-top: 6px; color: #4A5578; }
+  .hint.err { color: #dc2626; }
+  .hint.ok { color: #166534; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Username Validation</h1>
+  <p class="sub">Live validation, no button: type a username and watch the field change color.</p>
+  <div class="box">
+    <label for="username">Username (at least 3 alphanumeric characters)</label>
+    <input id="username" type="text" placeholder="e.g. suman123" autocomplete="off">
+    <p class="hint" id="hint">Username must be at least 3 alphanumeric characters.</p>
+  </div>
+</div>
+<script>
+  const input = document.getElementById('username');
+  const hint = document.getElementById('hint');
+  input.addEventListener('input', () => {
+    const v = input.value.trim();
+    const ok = /^[A-Za-z0-9]{3,}$/.test(v);
+    input.classList.toggle('valid', v !== '' && ok);
+    input.classList.toggle('invalid', v !== '' && !ok);
+    if (v === '') { hint.className = 'hint'; hint.textContent = 'Username must be at least 3 alphanumeric characters.'; }
+    else if (ok) { hint.className = 'hint ok'; hint.textContent = 'Username looks good!'; }
+    else { hint.className = 'hint err'; hint.textContent = 'Username must be at least 3 alphanumeric characters.'; }
+  });
+</script>
+</body>
+</html>
