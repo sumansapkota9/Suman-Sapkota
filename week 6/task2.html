@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JSONPlaceholder Posts</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #EAEEF6; background-image: radial-gradient(#C9D1E4 1px, transparent 1px); background-size: 22px 22px; color: #0D1633; padding: 24px 16px 48px; }
+  .wrap { max-width: 700px; margin: 0 auto; }
+  h1 { font-size: 1.8rem; margin-bottom: 4px; }
+  p.sub { color: #4A5578; margin-bottom: 18px; }
+  input { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 10px; font-size: 1rem; background: #fff; margin-bottom: 16px; }
+  button { padding: 10px 18px; border: 0; border-radius: 10px; background: #2F4BFF; color: #fff; font-size: 1rem; cursor: pointer; margin-bottom: 16px; }
+  button:hover { background: #1E33CC; }
+  #status { color: #4A5578; margin: 10px 0; }
+  #status.error { color: #dc2626; }
+  .card { background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+  .card h3 { text-transform: capitalize; margin-bottom: 6px; }
+  .card p { color: #4A5578; line-height: 1.5; }
+  .meta { font-size: 0.85rem; color: #9ca3af; margin-top: 8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>📰 Sample Posts</h1>
+  <p class="sub">Simple list of sample posts from JSONPlaceholder. Type to search by title.</p>
+  <input id="search" type="text" placeholder="Search posts...">
+  <button id="loadBtn">Load Posts</button>
+  <div id="status">Click "Load Posts" to see the posts.</div>
+  <div id="posts"></div>
+</div>
+<script>
+  const postsEl = document.getElementById('posts');
+  const statusEl = document.getElementById('status');
+  const searchEl = document.getElementById('search');
+  let allPosts = [];
+
+  function render() {
+    const q = searchEl.value.trim().toLowerCase();
+    const filtered = allPosts.filter(p => !q || p.title.toLowerCase().includes(q));
+    statusEl.textContent = filtered.length + ' post(s) shown.';
+    postsEl.innerHTML = filtered.map(p =>
+      '<article class="card"><h3>' + p.title + '</h3>' +
+      '<p>' + p.body.slice(0, 120) + '...</p>' +
+      '<div class="meta">Post #' + p.id + ' &middot; User ' + p.userId + '</div></article>'
+    ).join('') || '<p>No posts found.</p>';
+  }
+
+  async function loadPosts() {
+    statusEl.textContent = 'Loading...';
+    try {
+      const res = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=10');
+      allPosts = await res.json();
+      render();
+    } catch (e) {
+      statusEl.className = 'error';
+      statusEl.textContent = 'Failed to load. Please try again!';
+    }
+  }
+
+  document.getElementById('loadBtn').addEventListener('click', loadPosts);
+  searchEl.addEventListener('input', render);
+  loadPosts();
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PokéAPI Explorer</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #EAEEF6; background-image: radial-gradient(#C9D1E4 1px, transparent 1px); background-size: 22px 22px; color: #0D1633; padding: 24px 16px 48px; }
+  .wrap { max-width: 640px; margin: 0 auto; text-align: center; }
+  h1 { font-size: 1.9rem; margin-bottom: 4px; }
+  p.sub { color: #4A5578; margin-bottom: 20px; }
+  .controls { display: flex; gap: 10px; margin-bottom: 18px; }
+  .controls input { flex: 1; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 10px; font-size: 1rem; background: #fff; }
+  button { padding: 10px 16px; border: 0; border-radius: 10px; background: #2F4BFF; color: #fff; font-size: 1rem; cursor: pointer; }
+  button:hover { background: #1E33CC; }
+  button.secondary { background: #4b5563; }
+  #status { color: #4A5578; margin: 12px 0; }
+  #status.error { color: #dc2626; }
+  .card { background: #fff; border-radius: 18px; padding: 22px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+  .card img { width: 180px; height: 180px; }
+  .types span { display: inline-block; background: #E8ECF8; color: #0D1633; border-radius: 999px; padding: 4px 12px; margin: 4px; font-size: 0.9rem; text-transform: capitalize; }
+  .stat { display: flex; align-items: center; gap: 8px; margin: 6px 0; text-align: left; }
+  .stat label { width: 120px; text-transform: capitalize; font-size: 0.9rem; color: #4A5578; }
+  .bar { flex: 1; height: 10px; background: #e5e7eb; border-radius: 999px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: #2F4BFF; }
+  .nav { display: flex; justify-content: center; gap: 10px; margin-top: 16px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>⚡ PokéAPI Explorer</h1>
+  <p class="sub">Search any Pokémon by name or number and see its type, height, weight and base stats.</p>
+  <div class="controls">
+    <input id="query" type="text" placeholder="e.g. pikachu, charizard, 25" value="pikachu">
+    <button id="searchBtn">Search</button>
+  </div>
+  <div id="status">Click "Search" to load a Pokémon.</div>
+  <div id="poke"></div>
+  <div class="nav">
+    <button id="prevBtn" class="secondary">← Previous</button>
+    <button id="nextBtn" class="secondary">Next →</button>
+    <button id="randomBtn">Random</button>
+  </div>
+</div>
+<script>
+  const statusEl = document.getElementById('status');
+  const pokeEl = document.getElementById('poke');
+  const queryEl = document.getElementById('query');
+  let currentId = 25;
+
+  function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
+
+  async function loadPokemon(q) {
+    statusEl.className = '';
+    statusEl.textContent = 'Loading...';
+    pokeEl.innerHTML = '';
+    try {
+      const res = await fetch('https://pokeapi.co/api/v2/pokemon/' + encodeURIComponent(String(q).toLowerCase().trim()));
+      if (!res.ok) throw new Error('Not found');
+      const p = await res.json();
+      currentId = p.id;
+      statusEl.textContent = '#' + p.id + ' — ' + cap(p.name);
+      const img = (p.sprites.other && p.sprites.other['official-artwork'] && p.sprites.other['official-artwork'].front_default) || p.sprites.front_default;
+      pokeEl.innerHTML = '<div class="card"><img src="' + img + '" alt="' + p.name + '">' +
+        '<h2>' + cap(p.name) + '</h2>' +
+        '<div class="types">' + p.types.map(t => '<span>' + t.type.name + '</span>').join('') + '</div>' +
+        '<p style="margin:10px 0">Height: ' + (p.height / 10) + ' m &middot; Weight: ' + (p.weight / 10) + ' kg</p>' +
+        p.stats.map(s => '<div class="stat"><label>' + s.stat.name + '</label><div class="bar"><i style="width:' + Math.min(100, s.base_stat) + '%"></i></div><span>' + s.base_stat + '</span></div>').join('') +
+        '</div>';
+    } catch (e) {
+      statusEl.className = 'error';
+      statusEl.textContent = 'Pokémon not found. Check the name or number and try again!';
+    }
+  }
+
+  document.getElementById('searchBtn').addEventListener('click', () => loadPokemon(queryEl.value));
+  queryEl.addEventListener('keydown', e => { if (e.key === 'Enter') loadPokemon(queryEl.value); });
+  document.getElementById('prevBtn').addEventListener('click', () => { if (currentId > 1) loadPokemon(currentId - 1); });
+  document.getElementById('nextBtn').addEventListener('click', () => loadPokemon(currentId + 1));
+  document.getElementById('randomBtn').addEventListener('click', () => loadPokemon(Math.floor(Math.random() * 1025) + 1));
+  loadPokemon(25);
+</script>
+</body>
+</html>
