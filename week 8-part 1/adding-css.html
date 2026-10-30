@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Validation Styles Demo</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, sans-serif; background: #EAEEF6; background-image: radial-gradient(#C9D1E4 1px, transparent 1px); background-size: 22px 22px; color: #0D1633; padding: 24px 16px 48px; }
+  .wrap { max-width: 480px; margin: 0 auto; }
+  h1 { font-size: 1.8rem; margin-bottom: 4px; }
+  p.sub { color: #4A5578; margin-bottom: 18px; }
+  form { background: #fff; border-radius: 16px; padding: 22px; }
+  label { display: block; font-size: 0.92rem; margin: 12px 0 4px; }
+  input { width: 100%; padding: 10px 12px; border: 2px solid #d1d5db; border-radius: 10px; font-size: 1rem; outline: none; }
+  input:valid { border-color: #16a34a; background: #f0fdf4; }
+  input:invalid { border-color: #dc2626; background: #fef2f2; }
+  input:focus { box-shadow: 0 0 0 3px rgba(47, 75, 255, 0.2); }
+  .hint { font-size: 0.85rem; margin-top: 4px; display: none; }
+  input:invalid + .hint { display: block; color: #dc2626; }
+  button { width: 100%; padding: 11px; border: 0; border-radius: 10px; background: #2F4BFF; color: #fff; font-size: 1rem; cursor: pointer; margin-top: 18px; }
+  button:hover { background: #1E33CC; }
+  #result { margin-top: 14px; padding: 12px; border-radius: 10px; display: none; background: #dcfce7; color: #166534; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Validation Styles Demo</h1>
+  <p class="sub">CSS shows validity live: green means valid, red means invalid. No JavaScript changes the colors.</p>
+  <form id="demoForm">
+    <label for="email">Email (required)</label>
+    <input id="email" type="email" required placeholder="you@example.com">
+    <p class="hint">Please enter a valid email address.</p>
+    <label for="password">Password (minimum 8 characters)</label>
+    <input id="password" type="password" required minlength="8" placeholder="********">
+    <p class="hint">Please lengthen this text to 8 characters or more.</p>
+    <label for="age">Age (18–65)</label>
+    <input id="age" type="number" required min="18" max="65" placeholder="20">
+    <p class="hint">Age must be between 18 and 65.</p>
+    <button type="submit">Check Validation</button>
+    <div id="result"></div>
+  </form>
+</div>
+<script>
+  const form = document.getElementById('demoForm');
+  const result = document.getElementById('result');
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    result.style.display = 'block';
+    result.textContent = 'All fields are valid!';
+  });
+</script>
+</body>
+</html>
