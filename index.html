@@ -4,314 +4,203 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Suman Sapkota | Lab Archive</title>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700&family=Figtree:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{
-  --paper:#EAEEF6; --ink:#0D1633; --ink-2:#4A5578; --line:#C9D1E4;
-  --cobalt:#2F4BFF; --sun:#FFC933; --white:#fff; --win:#0D1633;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  font-family:'Figtree',system-ui,sans-serif;background:var(--paper);color:var(--ink);
-  min-height:100vh;padding:clamp(1.25rem,3vw,2.75rem);
-  background-image:radial-gradient(var(--line) 1px,transparent 1px);background-size:22px 22px;
-}
-.wrap{max-width:1360px;margin:0 auto}
-:focus-visible{outline:3px solid var(--cobalt);outline-offset:3px}
-
-/* Header */
-header{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap;
-  padding-bottom:2rem;margin-bottom:2rem;border-bottom:2px solid var(--ink)}
-h1{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:clamp(3rem,9vw,7.5rem);
-  line-height:.9;letter-spacing:-.045em}
-h1 em{font-style:normal;color:var(--cobalt)}
-.sub{margin-top:1rem;color:var(--ink-2);font-size:1.05rem;max-width:34ch}
-.badges{display:flex;gap:.75rem;align-items:center;flex-wrap:wrap}
-.sticker{background:var(--sun);color:var(--ink);font-weight:600;padding:.7rem 1.1rem;border-radius:999px;
-  transform:rotate(-3deg);box-shadow:3px 3px 0 var(--ink);border:2px solid var(--ink)}
-.sticker b{font-family:'JetBrains Mono',monospace;font-weight:500}
-.live{display:flex;align-items:center;gap:.5rem;font-weight:600;font-size:.95rem}
-.live i{width:10px;height:10px;border-radius:50%;background:#16A34A;box-shadow:0 0 0 4px rgba(22,163,74,.2)}
-
-/* Layout */
-.grid{display:grid;grid-template-columns:minmax(300px,380px) 1fr;gap:clamp(1.25rem,3vw,3rem);align-items:start}
-
-/* Weeks */
-.weeks{list-style:none;border-top:1px solid var(--ink)}
-.week{border-bottom:1px solid var(--ink)}
-.week-head{width:100%;display:grid;grid-template-columns:3.2rem 1fr auto;align-items:center;gap:.75rem;
-  background:none;border:0;padding:1.1rem .25rem;text-align:left;cursor:pointer;color:inherit;font:inherit}
-.week-head:hover .wk-title{color:var(--cobalt)}
-.wk-num{font-family:'Bricolage Grotesque',sans-serif;font-weight:800;font-size:2.4rem;line-height:1;
-  color:transparent;-webkit-text-stroke:1.5px var(--ink)}
-.wk-title{font-family:'Bricolage Grotesque',sans-serif;font-weight:700;font-size:1.2rem;display:block;transition:color .2s}
-.wk-desc{font-size:.88rem;color:var(--ink-2)}
-.wk-count{font-size:.85rem;font-weight:600;background:var(--white);border:1.5px solid var(--ink);
-  padding:.2rem .65rem;border-radius:999px;white-space:nowrap}
-.week.open .wk-num{color:var(--cobalt);-webkit-text-stroke-color:var(--cobalt)}
-.week.open .wk-count{background:var(--ink);color:var(--white)}
-.drawer{display:grid;grid-template-rows:0fr;transition:grid-template-rows .35s ease}
-.week.open .drawer{grid-template-rows:1fr}
-.drawer>div{overflow:hidden}
-.chips{display:flex;flex-wrap:wrap;gap:.45rem;padding:.25rem .25rem 1.25rem 4rem}
-.chip{font-family:'JetBrains Mono',monospace;font-weight:500;font-size:.8rem;background:var(--white);color:var(--ink);
-  border:1.5px solid var(--ink);padding:.4rem .75rem;border-radius:8px;cursor:pointer;transition:transform .15s,background .15s}
-.chip:hover{background:var(--sun);transform:translateY(-2px)}
-.chip.active{background:var(--cobalt);border-color:var(--cobalt);color:var(--white)}
-.week.locked{opacity:.55}
-.week.locked .week-head{cursor:default}
-.week.locked .wk-count{border-style:dashed}
-
-/* Viewport */
-.viewport{position:sticky;top:1.25rem;background:var(--win);border-radius:16px;overflow:hidden;
-  height:min(760px,calc(100vh - 2.5rem));display:flex;flex-direction:column;
-  box-shadow:8px 8px 0 var(--cobalt)}
-.bar{display:flex;align-items:center;gap:.75rem;padding:.7rem 1rem;color:#fff}
-.dots{display:flex;gap:6px}
-.dots span{width:11px;height:11px;border-radius:50%;background:#33405F}
-.dots span:first-child{background:#FF6B6B}.dots span:nth-child(2){background:var(--sun)}.dots span:nth-child(3){background:#4ADE80}
-.addr{flex:1;min-width:0;background:rgba(255,255,255,.1);border-radius:8px;padding:.4rem .8rem;font-size:.85rem;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.addr strong{font-weight:600}
-.btn{background:rgba(255,255,255,.12);color:#fff;border:0;border-radius:8px;padding:.4rem .8rem;font:600 .82rem 'Figtree',sans-serif;
-  cursor:pointer;text-decoration:none;white-space:nowrap;transition:background .15s}
-.btn:hover{background:var(--cobalt)}
-.btn[hidden]{display:none}
-.body{flex:1;position:relative;background:#fff;display:flex}
-.body iframe{flex:1;width:100%;border:0;display:none}
-#code{flex:1;display:none;background:#0A1129;color:#C7D2FE;padding:1.25rem;overflow:auto;
-  font:500 .82rem/1.6 'JetBrains Mono',monospace;white-space:pre-wrap;word-break:break-word}
-.empty{position:absolute;inset:0;background:var(--paper);display:flex;flex-direction:column;align-items:center;
-  justify-content:center;text-align:center;padding:2rem;gap:.5rem}
-.empty h2{font-family:'Bricolage Grotesque',sans-serif;font-size:1.8rem;letter-spacing:-.02em}
-.empty p{color:var(--ink-2);max-width:34ch}
-
-footer{margin-top:3rem;padding-top:1.25rem;border-top:2px solid var(--ink);color:var(--ink-2);font-size:.9rem}
-
-@media(max-width:960px){
-  .grid{grid-template-columns:1fr}
-  .viewport{position:relative;top:0;height:72vh;box-shadow:5px 5px 0 var(--cobalt)}
-  .chips{padding-left:.25rem}
-}
-@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+  :root{ --paper:#EAEEF6; --ink:#0D1633; --ink-2:#4A5578; --line:#C9D1E4; --cobalt:#2F4BFF; --sun:#FFC933; --white:#fff; --win:#0D1633; }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  body{ font-family:"Figtree",system-ui,sans-serif; background:var(--paper); background-image:radial-gradient(#C9D1E4 1px, transparent 1px); background-size:22px 22px; color:var(--ink); padding:24px 16px 48px; }
+  .shell{ max-width:1100px; margin:0 auto; }
+  header{ margin-bottom:20px; }
+  header h1{ font-family:"Bricolage Grotesque",sans-serif; font-size:2.4rem; line-height:1.05; }
+  header h1 span{ display:block; }
+  header p{ color:var(--ink-2); margin-top:6px; }
+  .badges{ display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+  .badge{ background:var(--white); border:1px solid var(--line); border-radius:999px; padding:5px 12px; font-size:.85rem; }
+  .badge.online{ color:#16A34A; }
+  .layout{ display:grid; grid-template-columns:340px 1fr; gap:18px; align-items:start; }
+  @media (max-width:800px){ .layout{ grid-template-columns:1fr; } }
+  .weeks{ display:flex; flex-direction:column; gap:12px; }
+  details{ background:var(--white); border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+  details summary{ cursor:pointer; font-weight:600; list-style:none; }
+  details summary::-webkit-details-marker{ display:none; }
+  details summary::before{ content:"▸ "; color:var(--cobalt); }
+  details[open ] summary::before{ content:"▾ "; }
+  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+  .chip{ border:1px solid var(--line); background:var(--paper); border-radius:999px; padding:6px 12px; font-size:.88rem; cursor:pointer; }
+  .chip:hover{ border-color:var(--cobalt); }
+  .chip.active{ background:var(--cobalt); color:#fff; border-color:var(--cobalt); }
+  .viewport{ background:var(--white); border:1px solid var(--line); border-radius:16px; overflow:hidden; position:sticky; top:16px; }
+  .bar{ background:var(--win); color:#fff; padding:10px 14px; display:flex; align-items:center; gap:8px; }
+  .dot{ width:11px; height:11px; border-radius:50%; }
+  .dot.r{ background:#FF6B6B; } .dot.y{ background:#FFC933; } .dot.g{ background:#4ADE80; }
+  .addr{ flex:1; background:rgba(255,255,255,.12); border-radius:8px; padding:6px 10px; font-family:"JetBrains Mono",monospace; font-size:.8rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .controls{ display:flex; gap:8px; padding:10px 14px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+  .controls button{ border:1px solid var(--line); background:var(--paper); border-radius:999px; padding:6px 14px; cursor:pointer; font-size:.88rem; }
+  .controls button:hover{ border-color:var(--cobalt); }
+  .controls button:disabled{ opacity:.45; cursor:default; }
+  iframe{ width:100%; height:520px; border:0; display:block; background:#fff; }
+  pre.code{ display:none; margin:0; padding:16px; background:#0A1129; color:#C7D2FE; font-family:"JetBrains Mono",monospace; font-size:.82rem; line-height:1.5; white-space:pre-wrap; word-break:break-all; max-height:520px; overflow:auto; }
+  pre.code.show{ display:block; }
+  iframe.hidden{ display:none; }
+  footer{ text-align:center; color:var(--ink-2); font-size:.88rem; margin-top:24px; }
 </style>
 </head>
 <body>
-<div class="wrap">
-
-<header>
-  <div>
-    <h1>Suman<br><em>Sapkota</em></h1>
-    <p class="sub">Lab archive and practical task repository.</p>
-  </div>
-  <div class="badges">
-    <div class="sticker">ID: <b>202637609</b></div>
-    <div class="live"><i></i>Online</div>
-  </div>
-</header>
-
-<div class="grid">
-
-  <ul class="weeks" id="weeks">
-
-    <li class="week open">
-      <button class="week-head" aria-expanded="true">
-        <span class="wk-num">1</span>
-        <span><span class="wk-title">Week 1</span><span class="wk-desc">Foundational HTML files</span></span>
-        <span class="wk-count">8 files</span>
-      </button>
-      <div class="drawer"><div><div class="chips">
-        <button class="chip" data-path="week 1/suman1.html">suman1.html</button>
-        <button class="chip" data-path="week 1/suman2.html">suman2.html</button>
-        <button class="chip" data-path="week 1/suman3.html">suman3.html</button>
-        <button class="chip" data-path="week 1/suman4.html">suman4.html</button>
-        <button class="chip" data-path="week 1/suman5.html">suman5.html</button>
-        <button class="chip" data-path="week 1/suman6.html">suman6.html</button>
-        <button class="chip" data-path="week 1/suman7.html">suman7.html</button>
-        <button class="chip" data-path="week 1/suman8.html">suman8.html</button>
-      </div></div></div>
-    </li>
-
-    <li class="week">
-      <button class="week-head" aria-expanded="false">
-        <span class="wk-num">2</span>
-        <span><span class="wk-title">Week 2</span><span class="wk-desc">Structured layout pages</span></span>
-        <span class="wk-count">8 files</span>
-      </button>
-      <div class="drawer"><div><div class="chips">
-        <button class="chip" data-path="week2/s1.html">s1.html</button>
-        <button class="chip" data-path="week2/s2.html">s2.html</button>
-        <button class="chip" data-path="week2/s3.html">s3.html</button>
-        <button class="chip" data-path="week2/s4.html">s4.html</button>
-        <button class="chip" data-path="week2/s5.html">s5.html</button>
-        <button class="chip" data-path="week2/s6.html">s6.html</button>
-        <button class="chip" data-path="week2/s7.html">s7.html</button>
-        <button class="chip" data-path="week2/s8.html">s8.html</button>
-      </div></div></div>
-    </li>
-
-    <li class="week">
-      <button class="week-head" aria-expanded="false">
-        <span class="wk-num">3</span>
-        <span><span class="wk-title">Week 3</span><span class="wk-desc">Advanced components</span></span>
-        <span class="wk-count">8 files</span>
-      </button>
-      <div class="drawer"><div><div class="chips">
-        <button class="chip" data-path="week 3/1.html">1.html</button>
-        <button class="chip" data-path="week 3/2.html">2.html</button>
-        <button class="chip" data-path="week 3/3.html">3.html</button>
-        <button class="chip" data-path="week 3/4.html">4.html</button>
-        <button class="chip" data-path="week 3/5.html">5.html</button>
-        <button class="chip" data-path="week 3/6.html">6.html</button>
-        <button class="chip" data-path="week 3/7.html">7.html</button>
-        <button class="chip" data-path="week 3/8.html">8.html</button>
-      </div></div></div>
-    </li>
-
-    <li class="week">
-      <button class="week-head" aria-expanded="false">
-        <span class="wk-num">3+</span>
-        <span><span class="wk-title">Week 3 Friday</span><span class="wk-desc">Special checkpoints</span></span>
-        <span class="wk-count">7 files</span>
-      </button>
-      <div class="drawer"><div><div class="chips">
-        <button class="chip" data-path="week 3 friday/1.html">1.html</button>
-        <button class="chip" data-path="week 3 friday/2.html">2.html</button>
-        <button class="chip" data-path="week 3 friday/3.html">3.html</button>
-        <button class="chip" data-path="week 3 friday/4.html">4.html</button>
-        <button class="chip" data-path="week 3 friday/5.html">5.html</button>
-        <button class="chip" data-path="week 3 friday/6.html">6.html</button>
-        <button class="chip" data-path="week 3 friday/7.html">7.html</button>
-      </div></div></div>
-    </li>
-
-    <li class="week">
-      <button class="week-head" aria-expanded="false">
-        <span class="wk-num">4</span>
-        <span><span class="wk-title">Week 4</span><span class="wk-desc">Refined code and debugging</span></span>
-        <span class="wk-count">4 files</span>
-      </button>
-      <div class="drawer"><div><div class="chips">
-        <button class="chip" data-path="WEEK 4/1.html">1.html</button>
-        <button class="chip" data-path="WEEK 4/2.html">2.html</button>
-        <button class="chip" data-path="WEEK 4/3.html">3.html</button>
-        <button class="chip" data-path="WEEK 4/4.html">4.html</button>
-      </div></div></div>
-    </li>
-
-    <li class="week">
-      <button class="week-head" aria-expanded="false">
-        <span class="wk-num">5</span>
-        <span><span class="wk-title">Week 5</span><span class="wk-desc">Smart counter & learning hub</span></span>
-        <span class="wk-count">2 files</span>
-      </button>
-      <div class="drawer"><div><div class="chips">
-        <button class="chip" data-path="week 5/task1.html">Task 01: Smart Counter</button>
-        <button class="chip" data-path="week 5/task2.html">Task 02: Learning Hub</button>
-      </div></div></div>
-    </li>
-
-    <li class="week">
-      <button class="week-head" aria-expanded="false">
-        <span class="wk-num">6</span>
-        <span><span class="wk-title">Week 6</span><span class="wk-desc">JavaScript APIs & extensions</span></span>
-        <span class="wk-count">1 file</span>
-      </button>
-      <div class="drawer"><div><div class="chips">
-        <button class="chip" data-path="week 6/task1.html">Task 01: Joke Corner</button>
-      </div></div></div>
-    </li>
-  </ul>
-
-  <section class="viewport" aria-label="File preview">
-    <div class="bar">
-      <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
-      <div class="addr" id="addr">Pick a file to preview it</div>
-      <button class="btn" id="prev" hidden aria-label="Previous file">&larr;</button>
-      <button class="btn" id="next" hidden aria-label="Next file">&rarr;</button>
-      <button class="btn" id="codeBtn" hidden>View code</button>
-      <a class="btn" id="popout" href="#" target="_blank" rel="noopener" hidden>Open in tab</a>
+<div class="shell">
+  <header>
+    <h1><span>Suman</span><span>Sapkota</span></h1>
+    <p>Lab archive and practical task repository.</p>
+    <div class="badges">
+      <span class="badge">ID: 202637609</span>
+      <span class="badge online">● Online</span>
     </div>
-    <div class="body">
-      <div class="empty" id="empty">
-        <h2>Choose a file</h2>
-        <p>Select a task from the list to preview it here, or switch to its source code.</p>
+  </header>
+  <div class="layout">
+    <div class="weeks" id="weeks"></div>
+    <div class="viewport">
+      <div class="bar">
+        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+        <span class="addr" id="addr">Select a file to preview</span>
       </div>
-      <iframe id="frame" title="Live preview"></iframe>
-      <pre id="code"></pre>
+      <div class="controls">
+        <button id="prevBtn" disabled>← Previous</button>
+        <button id="nextBtn" disabled>Next →</button>
+        <button id="codeBtn" disabled>View code</button>
+        <button id="openBtn" disabled>Open in tab</button>
+      </div>
+      <iframe id="frame" title="File preview"></iframe>
+      <pre class="code" id="codeView"></pre>
     </div>
-  </section>
-
+  </div>
+  <footer>© 2026 Suman Sapkota</footer>
 </div>
-
-<footer>&copy; 2026 Suman Sapkota</footer>
-</div>
-
 <script>
-const $ = id => document.getElementById(id);
-const chips = [...document.querySelectorAll('.chip')];
-let current = -1, codeView = false, codeFor = '';
+  const WEEKS = [
+    { title: "Week 1", files: [
+      { t: "suman1.html", p: "week 1/suman1.html" }, { t: "suman2.html", p: "week 1/suman2.html" },
+      { t: "suman3.html", p: "week 1/suman3.html" }, { t: "suman4.html", p: "week 1/suman4.html" },
+      { t: "suman5.html", p: "week 1/suman5.html" }, { t: "suman6.html", p: "week 1/suman6.html" },
+      { t: "suman7.html", p: "week 1/suman7.html" }, { t: "suman8.html", p: "week 1/suman8.html" } ] },
+    { title: "Week 2", files: [
+      { t: "s1.html", p: "week2/s1.html" }, { t: "s2.html", p: "week2/s2.html" },
+      { t: "s3.html", p: "week2/s3.html" }, { t: "s4.html", p: "week2/s4.html" },
+      { t: "s5.html", p: "week2/s5.html" }, { t: "s6.html", p: "week2/s6.html" },
+      { t: "s7.html", p: "week2/s7.html" }, { t: "s8.html", p: "week2/s8.html" } ] },
+    { title: "Week 3", files: [
+      { t: "1.html", p: "week 3/1.html" }, { t: "2.html", p: "week 3/2.html" },
+      { t: "3.html", p: "week 3/3.html" }, { t: "4.html", p: "week 3/4.html" },
+      { t: "5.html", p: "week 3/5.html" }, { t: "6.html", p: "week 3/6.html" },
+      { t: "7.html", p: "week 3/7.html" }, { t: "8.html", p: "week 3/8.html" } ] },
+    { title: "Week 3 Friday", files: [
+      { t: "1.html", p: "week 3 friday/1.html" }, { t: "2.html", p: "week 3 friday/2.html" },
+      { t: "3.html", p: "week 3 friday/3.html" }, { t: "4.html", p: "week 3 friday/4.html" },
+      { t: "5.html", p: "week 3 friday/5.html" }, { t: "6.html", p: "week 3 friday/6.html" },
+      { t: "7.html", p: "week 3 friday/7.html" } ] },
+    { title: "Week 4", files: [
+      { t: "1.html", p: "WEEK 4/1.html" }, { t: "2.html", p: "WEEK 4/2.html" },
+      { t: "3.html", p: "WEEK 4/3.html" }, { t: "4.html", p: "WEEK 4/4.html" } ] },
+    { title: "Week 5", files: [
+      { t: "Task 01: Smart Counter", p: "week 5/task1.html" },
+      { t: "Task 02: Learning Hub", p: "week 5/task2.html" } ] },
+    { title: "Week 6", files: [
+      { t: "Joke Corner", p: "week 6/task1.html" },
+      { t: "Sample Posts (JSONPlaceholder)", p: "week 6/task2.html" },
+      { t: "Seoul Weather", p: "week 6/task3.html" },
+      { t: "Random User", p: "week 6/task4.html" },
+      { t: "Pokémon Explorer", p: "week 6/task5.html" },
+      { t: "Countries Explorer", p: "week 6/task6.html" } ] },
+    { title: "Week 7", files: [
+      { t: "Book Search", p: "week 7/book-search.html" },
+      { t: "Login Form", p: "week 7/login-form.html" },
+      { t: "HTML5 Validation", p: "week 7/html5-validation.html" },
+      { t: "CSS Valid / Invalid States", p: "week 7/css-valid-invalid.html" },
+      { t: "Student Registration", p: "week 7/student-registration.html" } ] },
+    { title: "Week 8", files: [
+      { t: "Upgraded Student Registration", p: "week 8/upgraded-student-registration.html" } ] },
+    { title: "Week 9", files: [
+      { t: "Fix div to Button", p: "week 9/fix-div-to-button.html" },
+      { t: "Add Proper Alt Text", p: "week 9/add-proper-alt-text.html" },
+      { t: "Lighthouse Accessibility Fixes", p: "week 9/lighthouse-accessibility-fixes.html" },
+      { t: "Accessibility Report (95 to 100)", p: "week 9/accessibility-report.html" } ] }
+  ];
 
-// Open/close weeks
-document.querySelectorAll('.week:not(.locked) .week-head').forEach(head => {
-  head.addEventListener('click', () => {
-    const week = head.parentElement, wasOpen = week.classList.contains('open');
-    document.querySelectorAll('.week').forEach(w => {
-      w.classList.remove('open');
-      const h = w.querySelector('button.week-head'); if (h) h.setAttribute('aria-expanded', 'false');
+  const weeksEl = document.getElementById('weeks');
+  const frame = document.getElementById('frame');
+  const codeView = document.getElementById('codeView');
+  const addr = document.getElementById('addr');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const codeBtn = document.getElementById('codeBtn');
+  const openBtn = document.getElementById('openBtn');
+  const flat = [];
+  let current = -1, showingCode = false;
+
+  WEEKS.forEach((w, wi) => {
+    const d = document.createElement('details');
+    if (wi === 0) d.open = true;
+    const s = document.createElement('summary');
+    s.textContent = w.title;
+    const chips = document.createElement('div');
+    chips.className = 'chips';
+    w.files.forEach(f => {
+      const idx = flat.length;
+      flat.push(f);
+      const b = document.createElement('button');
+      b.className = 'chip';
+      b.textContent = f.t;
+      b.addEventListener('click', () => select(idx));
+      f.el = b;
+      chips.appendChild(b);
     });
-    if (!wasOpen) { week.classList.add('open'); head.setAttribute('aria-expanded', 'true'); }
+    d.appendChild(s);
+    d.appendChild(chips);
+    weeksEl.appendChild(d);
   });
-});
 
-chips.forEach((chip, i) => chip.addEventListener('click', () => load(i)));
-
-function load(i) {
-  if (i < 0 || i >= chips.length) return;
-  current = i; codeView = false;
-  const chip = chips[i], path = chip.dataset.path;
-
-  chips.forEach(c => c.classList.remove('active'));
-  chip.classList.add('active');
-
-  // keep the matching week open
-  const week = chip.closest('.week');
-  if (!week.classList.contains('open')) week.querySelector('.week-head').click();
-
-  $('empty').style.display = 'none';
-  $('code').style.display = 'none';
-  $('frame').style.display = 'block';
-  $('frame').src = path;
-
-  $('addr').innerHTML = path.replace(/[&<>]/g, '') .replace(/([^/]+)$/, '<strong>$1</strong>');
-  $('popout').href = path;
-  $('codeBtn').textContent = 'View code';
-  ['prev','next','codeBtn','popout'].forEach(id => $(id).hidden = false);
-}
-
-$('prev').onclick = () => load(current - 1);
-$('next').onclick = () => load(current + 1);
-
-$('codeBtn').onclick = async () => {
-  codeView = !codeView;
-  $('frame').style.display = codeView ? 'none' : 'block';
-  $('code').style.display = codeView ? 'block' : 'none';
-  $('codeBtn').textContent = codeView ? 'View preview' : 'View code';
-  if (!codeView) return;
-
-  const path = chips[current].dataset.path;
-  if (codeFor === path) return;         // already loaded for this file
-  $('code').textContent = 'Loading source code...';
-  try {
-    const res = await fetch(path);
-    if (!res.ok) throw new Error(res.status);
-    $('code').textContent = await res.text();
-    codeFor = path;
-  } catch (e) {
-    $('code').textContent = 'Could not load the source. Open the file in a new tab instead.';
+  function select(i) {
+    current = i;
+    showingCode = false;
+    codeView.classList.remove('show');
+    frame.classList.remove('hidden');
+    const f = flat[i];
+    frame.src = encodeURI(f.p);
+    addr.textContent = f.p;
+    flat.forEach(x => x.el && x.el.classList.remove('active'));
+    if (f.el) f.el.classList.add('active');
+    prevBtn.disabled = i === 0;
+    nextBtn.disabled = i === flat.length - 1;
+    codeBtn.disabled = false;
+    openBtn.disabled = false;
+    codeBtn.textContent = 'View code';
   }
-};
+  prevBtn.addEventListener('click', () => { if (current > 0) select(current - 1); });
+  nextBtn.addEventListener('click', () => { if (current < flat.length - 1) select(current + 1); });
+  openBtn.addEventListener('click', () => { if (current >= 0) window.open(encodeURI(flat[current].p), '_blank'); });
+  codeBtn.addEventListener('click', async () => {
+    if (current < 0) return;
+    if (showingCode) {
+      showingCode = false;
+      codeView.classList.remove('show');
+      frame.classList.remove('hidden');
+      codeBtn.textContent = 'View code';
+      return;
+    }
+    try {
+      const res = await fetch(encodeURI(flat[current].p));
+      const text = await res.text();
+      codeView.textContent = text;
+      codeView.classList.add('show');
+      frame.classList.add('hidden');
+      showingCode = true;
+      codeBtn.textContent = 'View preview';
+    } catch (e) {
+      codeView.textContent = 'Could not load the code for this file.';
+      codeView.classList.add('show');
+      frame.classList.add('hidden');
+      showingCode = true;
+    }
+  });
 </script>
 </body>
 </html>
