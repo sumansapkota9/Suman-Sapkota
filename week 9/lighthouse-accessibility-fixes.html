@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lighthouse Accessibility Fixes</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #EAEEF6; background-image: radial-gradient(#C9D1E4 1px, transparent 1px); background-size: 22px 22px; color: #0D1633; padding: 24px 16px 48px; }
+  .wrap { max-width: 680px; margin: 0 auto; }
+  h1 { font-size: 1.8rem; margin-bottom: 4px; }
+  p.sub { color: #4A5578; margin-bottom: 18px; line-height: 1.5; }
+  .skip { position: absolute; left: -9999px; }
+  .skip:focus { left: 16px; top: 16px; background: #FFC933; color: #0D1633; padding: 8px 14px; border-radius: 8px; z-index: 10; }
+  header, main, footer { background: #fff; border-radius: 16px; padding: 22px; margin-bottom: 16px; }
+  nav a { color: #2F4BFF; margin-right: 14px; }
+  label { display: block; font-size: 0.92rem; margin: 12px 0 4px; }
+  input { width: 100%; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 10px; font-size: 1rem; background: #fff; }
+  button { padding: 10px 18px; border: 0; border-radius: 10px; background: #2F4BFF; color: #fff; font-size: 1rem; cursor: pointer; margin-top: 12px; }
+  button:hover { background: #1E33CC; }
+  button:focus-visible, a:focus-visible, input:focus-visible { outline: 3px solid #FFC933; outline-offset: 2px; }
+  ul { margin: 10px 0 0 20px; line-height: 1.7; color: #4A5578; }
+  code { background: #E8ECF8; padding: 2px 6px; border-radius: 6px; font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to main content</a>
+<div class="wrap">
+  <header>
+    <h1>♿ Lighthouse Accessibility Fixes</h1>
+    <p class="sub">A demo page that applies the common Lighthouse accessibility fixes in one place.</p>
+    <nav aria-label="Main navigation">
+      <a href="#fixes">Fixes</a>
+      <a href="#demo">Demo form</a>
+    </nav>
+  </header>
+  <main id="main">
+    <section id="fixes" aria-labelledby="fixes-heading">
+      <h2 id="fixes-heading">Fixes applied on this page</h2>
+      <ul>
+        <li>Skip link at the top, so keyboard users can jump past navigation.</li>
+        <li>Semantic landmarks: <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;section&gt;</code>, <code>&lt;footer&gt;</code>.</li>
+        <li>Every input has a real <code>&lt;label&gt;</code> — no placeholder-only fields.</li>
+        <li>Dark text (#0D1633) on a light background for strong colour contrast.</li>
+        <li>Visible focus outline (gold) on links, buttons, and inputs.</li>
+        <li>Page language set: <code>lang="en"</code>, and a descriptive page title.</li>
+        <li>Buttons are real <code>&lt;button&gt;</code> elements, not divs.</li>
+      </ul>
+    </section>
+    <section id="demo" aria-labelledby="demo-heading" style="margin-top:16px;background:#fff;border-radius:16px;padding:22px;">
+      <h2 id="demo-heading">Demo form</h2>
+      <form onsubmit="event.preventDefault(); document.getElementById('done').textContent='Thanks! Your message was received (demo only).';">
+        <label for="demo-name">Your name</label>
+        <input id="demo-name" type="text" required placeholder="Suman Sapkota">
+        <label for="demo-email">Your email</label>
+        <input id="demo-email" type="email" required placeholder="you@example.com">
+        <button type="submit">Send Message</button>
+        <p id="done" role="status" style="margin-top:10px;color:#166534;"></p>
+      </form>
+    </section>
+  </main>
+  <footer>
+    <p style="color:#4A5578;">How to check: open this page in Chrome → right-click → Inspect → Lighthouse tab → Accessibility → Generate report.</p>
+  </footer>
+</div>
+</body>
+</html>
