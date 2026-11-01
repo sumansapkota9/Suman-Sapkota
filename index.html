@@ -7,212 +7,203 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700&family=Figtree:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  :root{ --paper:#EAEEF6; --ink:#0D1633; --ink-2:#4A5578; --line:#C9D1E4; --cobalt:#2F4BFF; --sun:#FFC933; --white:#fff; --win:#0D1633; }
-  *{ box-sizing:border-box; margin:0; padding:0; }
-  body{ font-family:"Figtree",system-ui,sans-serif; background:var(--paper); background-image:radial-gradient(#C9D1E4 1px, transparent 1px); background-size:22px 22px; color:var(--ink); padding:24px 16px 48px; }
-  .shell{ max-width:1100px; margin:0 auto; }
-  header{ margin-bottom:20px; }
-  header h1{ font-family:"Bricolage Grotesque",sans-serif; font-size:2.4rem; line-height:1.05; }
-  header h1 span{ display:block; }
-  header p{ color:var(--ink-2); margin-top:6px; }
-  .badges{ display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
-  .badge{ background:var(--white); border:1px solid var(--line); border-radius:999px; padding:5px 12px; font-size:.85rem; }
-  .badge.online{ color:#16A34A; }
-  .layout{ display:grid; grid-template-columns:340px 1fr; gap:18px; align-items:start; }
-  @media (max-width:800px){ .layout{ grid-template-columns:1fr; } }
-  .weeks{ display:flex; flex-direction:column; gap:12px; }
-  details{ background:var(--white); border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
-  details summary{ cursor:pointer; font-weight:600; list-style:none; }
-  details summary::-webkit-details-marker{ display:none; }
-  details summary::before{ content:"▸ "; color:var(--cobalt); }
-  details[open ] summary::before{ content:"▾ "; }
-  .chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
-  .chip{ border:1px solid var(--line); background:var(--paper); border-radius:999px; padding:6px 12px; font-size:.88rem; cursor:pointer; }
-  .chip:hover{ border-color:var(--cobalt); }
-  .chip.active{ background:var(--cobalt); color:#fff; border-color:var(--cobalt); }
-  .viewport{ background:var(--white); border:1px solid var(--line); border-radius:16px; overflow:hidden; position:sticky; top:16px; }
-  .bar{ background:var(--win); color:#fff; padding:10px 14px; display:flex; align-items:center; gap:8px; }
-  .dot{ width:11px; height:11px; border-radius:50%; }
-  .dot.r{ background:#FF6B6B; } .dot.y{ background:#FFC933; } .dot.g{ background:#4ADE80; }
-  .addr{ flex:1; background:rgba(255,255,255,.12); border-radius:8px; padding:6px 10px; font-family:"JetBrains Mono",monospace; font-size:.8rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  .controls{ display:flex; gap:8px; padding:10px 14px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
-  .controls button{ border:1px solid var(--line); background:var(--paper); border-radius:999px; padding:6px 14px; cursor:pointer; font-size:.88rem; }
-  .controls button:hover{ border-color:var(--cobalt); }
-  .controls button:disabled{ opacity:.45; cursor:default; }
-  iframe{ width:100%; height:520px; border:0; display:block; background:#fff; }
-  pre.code{ display:none; margin:0; padding:16px; background:#0A1129; color:#C7D2FE; font-family:"JetBrains Mono",monospace; font-size:.82rem; line-height:1.5; white-space:pre-wrap; word-break:break-all; max-height:520px; overflow:auto; }
-  pre.code.show{ display:block; }
-  iframe.hidden{ display:none; }
-  footer{ text-align:center; color:var(--ink-2); font-size:.88rem; margin-top:24px; }
+:root{ --paper:#EAEEF6; --ink:#0D1633; --ink-2:#4A5578; --line:#C9D1E4; --cobalt:#2F4BFF; --sun:#FFC933; --white:#fff; --win:#0D1633; }
+*{ box-sizing:border-box; margin:0; padding:0; }
+body{ font-family:"Figtree",system-ui,sans-serif; background:var(--paper); background-image:radial-gradient(#C9D1E4 1px, transparent 1px); background-size:22px 22px; color:var(--ink); padding:24px 16px 48px; }
+.shell{ max-width:1100px; margin:0 auto; }
+.badges{ display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
+.badge{ background:var(--white); border:1px solid var(--line); border-radius:999px; padding:5px 12px; font-size:.85rem; }
+.badge.online{ color:#16A34A; }
+.layout{ display:grid; grid-template-columns:340px 1fr; gap:18px; align-items:start; }
+@media (max-width:800px){ .layout{ grid-template-columns:1fr; } }
+.weeks{ display:flex; flex-direction:column; gap:12px; }
+details{ background:var(--white); border:1px solid var(--line); border-radius:14px; padding:14px 16px; }
+details summary{ cursor:pointer; font-weight:600; list-style:none; }
+details summary::-webkit-details-marker{ display:none; }
+details summary::before{ content:"▸ "; color:var(--cobalt); }
+details[open] summary::before{ content:"▾ "; }
+.chips{ display:flex; flex-wrap:wrap; gap:8px; margin-top:12px; }
+.chip{ border:1px solid var(--line); background:var(--paper); border-radius:999px; padding:6px 12px; font-size:.88rem; cursor:pointer; }
+.chip:hover{ border-color:var(--cobalt); }
+.chip.active{ background:var(--cobalt); color:#fff; border-color:var(--cobalt); }
+.viewport{ background:var(--white); border:1px solid var(--line); border-radius:16px; overflow:hidden; position:sticky; top:16px; }
+.bar{ background:var(--win); color:#fff; padding:10px 14px; display:flex; align-items:center; gap:8px; }
+.dot{ width:11px; height:11px; border-radius:50%; }
+.dot.r{ background:#FF6B6B; } .dot.y{ background:#FFC933; } .dot.g{ background:#4ADE80; }
+.addr{ flex:1; background:rgba(255,255,255,.12); border-radius:8px; padding:6px 10px; font-family:"JetBrains Mono",monospace; font-size:.8rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.controls{ display:flex; gap:8px; padding:10px 14px; border-bottom:1px solid var(--line); flex-wrap:wrap; }
+.controls button{ border:1px solid var(--line); background:var(--paper); border-radius:999px; padding:6px 14px; cursor:pointer; font-size:.88rem; }
+.controls button:hover{ border-color:var(--cobalt); }
+.controls button:disabled{ opacity:.45; cursor:default; }
+iframe{ width:100%; height:520px; border:0; display:block; background:#fff; }
+pre.code{ display:none; margin:0; padding:16px; background:#0A1129; color:#C7D2FE; font-family:"JetBrains Mono",monospace; font-size:.82rem; line-height:1.5; white-space:pre-wrap; word-break:break-all; max-height:520px; overflow:auto; }
+pre.code.show{ display:block; }
+iframe.hidden{ display:none; }
 </style>
 </head>
 <body>
 <div class="shell">
-  <header>
-    <h1><span>Suman</span><span>Sapkota</span></h1>
-    <p>Lab archive and practical task repository.</p>
-    <div class="badges">
-      <span class="badge">ID: 202637609</span>
-      <span class="badge online">● Online</span>
-    </div>
-  </header>
-  <div class="layout">
-    <div class="weeks" id="weeks"></div>
-    <div class="viewport">
-      <div class="bar">
-        <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
-        <span class="addr" id="addr">Select a file to preview</span>
-      </div>
-      <div class="controls">
-        <button id="prevBtn" disabled>← Previous</button>
-        <button id="nextBtn" disabled>Next →</button>
-        <button id="codeBtn" disabled>View code</button>
-        <button id="openBtn" disabled>Open in tab</button>
-      </div>
-      <iframe id="frame" title="File preview"></iframe>
-      <pre class="code" id="codeView"></pre>
-    </div>
-  </div>
-  <footer>© 2026 Suman Sapkota</footer>
+<header>
+<h1><span>Suman</span><span>Sapkota</span></h1>
+<p>Lab archive and practical task repository.</p>
+<div class="badges">
+<span class="badge">ID: 202637609</span>
+<span class="badge online">● Online</span>
+</div>
+</header>
+<div class="layout">
+<div class="weeks" id="weeks"></div>
+<div class="viewport">
+<div class="bar">
+<span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+<span class="addr" id="addr">Select a file to preview</span>
+</div>
+<div class="controls">
+<button id="prevBtn" disabled>← Previous</button>
+<button id="nextBtn" disabled>Next →</button>
+<button id="codeBtn" disabled>View code</button>
+<button id="openBtn" disabled>Open in tab</button>
+</div>
+<iframe id="frame" title="File preview"></iframe>
+<pre class="code" id="codeView"></pre>
+</div>
+</div>
 </div>
 <script>
-  const WEEKS = [
-    { title: "Week 1", files: [
-      { t: "suman1.html", p: "week 1/suman1.html" }, { t: "suman2.html", p: "week 1/suman2.html" },
-      { t: "suman3.html", p: "week 1/suman3.html" }, { t: "suman4.html", p: "week 1/suman4.html" },
-      { t: "suman5.html", p: "week 1/suman5.html" }, { t: "suman6.html", p: "week 1/suman6.html" },
-      { t: "suman7.html", p: "week 1/suman7.html" }, { t: "suman8.html", p: "week 1/suman8.html" } ] },
-    { title: "Week 2", files: [
-      { t: "s1.html", p: "week2/s1.html" }, { t: "s2.html", p: "week2/s2.html" },
-      { t: "s3.html", p: "week2/s3.html" }, { t: "s4.html", p: "week2/s4.html" },
-      { t: "s5.html", p: "week2/s5.html" }, { t: "s6.html", p: "week2/s6.html" },
-      { t: "s7.html", p: "week2/s7.html" }, { t: "s8.html", p: "week2/s8.html" } ] },
-    { title: "Week 3", files: [
-      { t: "1.html", p: "week 3/1.html" }, { t: "2.html", p: "week 3/2.html" },
-      { t: "3.html", p: "week 3/3.html" }, { t: "4.html", p: "week 3/4.html" },
-      { t: "5.html", p: "week 3/5.html" }, { t: "6.html", p: "week 3/6.html" },
-      { t: "7.html", p: "week 3/7.html" }, { t: "8.html", p: "week 3/8.html" } ] },
-    { title: "Week 3 Friday", files: [
-      { t: "1.html", p: "week 3 friday/1.html" }, { t: "2.html", p: "week 3 friday/2.html" },
-      { t: "3.html", p: "week 3 friday/3.html" }, { t: "4.html", p: "week 3 friday/4.html" },
-      { t: "5.html", p: "week 3 friday/5.html" }, { t: "6.html", p: "week 3 friday/6.html" },
-      { t: "7.html", p: "week 3 friday/7.html" } ] },
-    { title: "Week 4", files: [
-      { t: "1.html", p: "WEEK 4/1.html" }, { t: "2.html", p: "WEEK 4/2.html" },
-      { t: "3.html", p: "WEEK 4/3.html" }, { t: "4.html", p: "WEEK 4/4.html" } ] },
-    { title: "Week 5", files: [
-      { t: "Task 01: Smart Counter", p: "week 5/task1.html" },
-      { t: "Task 02: Learning Hub", p: "week 5/task2.html" } ] },
-    { title: "Week 6", files: [
-      { t: "Joke Corner", p: "week 6/task1.html" },
-      { t: "Sample Posts (JSONPlaceholder)", p: "week 6/task2.html" },
-      { t: "Seoul Weather", p: "week 6/task3.html" },
-      { t: "Random User", p: "week 6/task4.html" },
-      { t: "Pokémon Explorer", p: "week 6/task5.html" },
-      { t: "Countries Explorer", p: "week 6/task6.html" } ] },
-    { title: "Week 7", files: [
-      { t: "Book Search", p: "week 7/book-search.html" },
-      { t: "Step 1", p: "week 7/step1.html" },
-      { t: "Step 2", p: "week 7/step2.html" },
-      { t: "Step 3", p: "week 7/step3.html" },
-      { t: "Step 4", p: "week 7/step4.html" },
-      { t: "Step 5", p: "week 7/step5.html" },
-      { t: "Step 6", p: "week 7/step6.html" } ] },
-    { title: "Week 8 · Part 1", files: [
-      { t: "Valid Attributes", p: "week 8-part 1/valid-attributes.html" },
-      { t: "Adding CSS", p: "week 8-part 1/adding-css.html" },
-      { t: "Login Form", p: "week 8-part 1/login-form.html" },
-      { t: "Student Registration", p: "week 8-part 1/student-registration.html" } ] },
-    { title: "Week 8 · Part 2", files: [
-      { t: "C1 — Username Validation", p: "week 8-part 2/c1-username-validation.html" },
-      { t: "C2 — Password Match", p: "week 8-part 2/c2-password-match.html" },
-      { t: "E1 — Login Demo", p: "week 8-part 2/e1-login-demo.html" },
-      { t: "E2 — Email Validation", p: "week 8-part 2/e2-email-validation.html" },
-      { t: "E3 — Password Match", p: "week 8-part 2/e3-password-match.html" },
-      { t: "Upgraded Registration Form", p: "week 8-part 2/upgraded-registration-form.html" } ] },
-    { title: "Week 9 · Part 1", files: [
-      { t: "Accessibility Audit Report", p: "week 9-part 1/accessibility-report.html" },
-      { t: "Alt Text", p: "week 9-part 1/add-proper-alt-text.html" },
-      { t: "Div Button", p: "week 9-part 1/fix-div-to-button.html" },
-      { t: "Lighthouse Fix", p: "week 9-part 1/lighthouse-accessibility-fixes.html" } ] }
-  ];
-
-  const weeksEl = document.getElementById('weeks');
-  const frame = document.getElementById('frame');
-  const codeView = document.getElementById('codeView');
-  const addr = document.getElementById('addr');
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  const codeBtn = document.getElementById('codeBtn');
-  const openBtn = document.getElementById('openBtn');
-  const flat = [];
-  let current = -1, showingCode = false;
-
-  WEEKS.forEach((w, wi) => {
-    const d = document.createElement('details');
-    if (wi === 0) d.open = true;
-    const s = document.createElement('summary');
-    s.textContent = w.title;
-    const chips = document.createElement('div');
-    chips.className = 'chips';
-    w.files.forEach(f => {
-      const idx = flat.length;
-      flat.push(f);
-      const b = document.createElement('button');
-      b.className = 'chip';
-      b.textContent = f.t;
-      b.addEventListener('click', () => select(idx));
-      f.el = b;
-      chips.appendChild(b);
-    });
-    d.appendChild(s);
-    d.appendChild(chips);
-    weeksEl.appendChild(d);
-  });
-
-  function select(i) {
-    current = i;
-    showingCode = false;
-    codeView.classList.remove('show');
-    frame.classList.remove('hidden');
-    const f = flat[i];
-    frame.src = encodeURI(f.p);
-    addr.textContent = f.p;
-    flat.forEach(x => x.el && x.el.classList.remove('active'));
-    if (f.el) f.el.classList.add('active');
-    prevBtn.disabled = i === 0;
-    nextBtn.disabled = i === flat.length - 1;
-    codeBtn.disabled = false;
-    openBtn.disabled = false;
-    codeBtn.textContent = 'View code';
-  }
-  prevBtn.addEventListener('click', () => { if (current > 0) select(current - 1); });
-  nextBtn.addEventListener('click', () => { if (current < flat.length - 1) select(current + 1); });
-  openBtn.addEventListener('click', () => { if (current >= 0) window.open(encodeURI(flat[current].p), '_blank'); });
-  codeBtn.addEventListener('click', async () => {
-    if (current < 0) return;
-    if (showingCode) {
-      showingCode = false;
-      codeView.classList.remove('show');
-      frame.classList.remove('hidden');
-      codeBtn.textContent = 'View code';
-      return;
-    }
-    try {
-      const res = await fetch(encodeURI(flat[current].p));
-      const text = await res.text();
-      codeView.textContent = text;
-      codeView.classList.add('show');
-      frame.classList.add('hidden');
-      showingCode = true;
-      codeBtn.textContent = 'View preview';
-    } catch (e) {
-      codeView.textContent = 'Could not load the code for this file.';
-      codeView.classList.add('show');
-      frame.classList.add('hidden');
-      showingCode = true;
-    }
-  });
+const WEEKS = [
+{ title: "Week 1", files: [
+{ t: "suman1.html", p: "week 1/suman1.html" }, { t: "suman2.html", p: "week 1/suman2.html" },
+{ t: "suman3.html", p: "week 1/suman3.html" }, { t: "suman4.html", p: "week 1/suman4.html" },
+{ t: "suman5.html", p: "week 1/suman5.html" }, { t: "suman6.html", p: "week 1/suman6.html" },
+{ t: "suman7.html", p: "week 1/suman7.html" }, { t: "suman8.html", p: "week 1/suman8.html" } ] },
+{ title: "Week 2", files: [
+{ t: "s1.html", p: "week2/s1.html" }, { t: "s2.html", p: "week2/s2.html" },
+{ t: "s3.html", p: "week2/s3.html" }, { t: "s4.html", p: "week2/s4.html" },
+{ t: "s5.html", p: "week2/s5.html" }, { t: "s6.html", p: "week2/s6.html" },
+{ t: "s7.html", p: "week2/s7.html" }, { t: "s8.html", p: "week2/s8.html" } ] },
+{ title: "Week 3", files: [
+{ t: "1.html", p: "week 3/1.html" }, { t: "2.html", p: "week 3/2.html" },
+{ t: "3.html", p: "week 3/3.html" }, { t: "4.html", p: "week 3/4.html" },
+{ t: "5.html", p: "week 3/5.html" }, { t: "6.html", p: "week 3/6.html" },
+{ t: "7.html", p: "week 3/7.html" }, { t: "8.html", p: "week 3/8.html" } ] },
+{ title: "Week 3 Friday", files: [
+{ t: "1.html", p: "week 3 friday/1.html" }, { t: "2.html", p: "week 3 friday/2.html" },
+{ t: "3.html", p: "week 3 friday/3.html" }, { t: "4.html", p: "week 3 friday/4.html" },
+{ t: "5.html", p: "week 3 friday/5.html" }, { t: "6.html", p: "week 3 friday/6.html" },
+{ t: "7.html", p: "week 3 friday/7.html" } ] },
+{ title: "Week 4", files: [
+{ t: "1.html", p: "WEEK 4/1.html" }, { t: "2.html", p: "WEEK 4/2.html" },
+{ t: "3.html", p: "WEEK 4/3.html" }, { t: "4.html", p: "WEEK 4/4.html" } ] },
+{ title: "Week 5", files: [
+{ t: "Counter", p: "week 5/Counter.html" },
+{ t: "Grade Calculator", p: "week 5/Grade-calculator.html" },
+{ t: "Loops", p: "week 5/Loops.html" } ] },
+{ title: "Week 6", files: [
+{ t: "Joke Corner", p: "week 6/task1.html" },
+{ t: "Sample Posts (JSONPlaceholder)", p: "week 6/task2.html" },
+{ t: "Seoul Weather", p: "week 6/task3.html" },
+{ t: "Random User", p: "week 6/task4.html" },
+{ t: "Pokémon Explorer", p: "week 6/task5.html" },
+{ t: "Countries Explorer", p: "week 6/task6.html" } ] },
+{ title: "Week 7", files: [
+{ t: "Book Search", p: "week 7/book-search.html" },
+{ t: "Step 1", p: "week 7/step1.html" },
+{ t: "Step 2", p: "week 7/step2.html" },
+{ t: "Step 3", p: "week 7/step3.html" },
+{ t: "Step 4", p: "week 7/step4.html" },
+{ t: "Step 5", p: "week 7/step5.html" },
+{ t: "Step 6", p: "week 7/step6.html" } ] },
+{ title: "Week 8 · Part 1", files: [
+{ t: "Valid Attributes", p: "week 8-part 1/valid-attributes.html" },
+{ t: "Adding CSS", p: "week 8-part 1/adding-css.html" },
+{ t: "Student Registration", p: "week 8-part 1/student-registration.html" } ] },
+{ title: "Week 8 · Part 2", files: [
+{ t: "C1 — Username Validation", p: "week 8-part 2/c1-username-validation.html" },
+{ t: "C2 — Password Match", p: "week 8-part 2/c2-password-match.html" },
+{ t: "E1 — Login Demo", p: "week 8-part 2/e1-login-demo.html" },
+{ t: "E2 — Email Validation", p: "week 8-part 2/e2-email-validation.html" },
+{ t: "E3 — Password Match", p: "week 8-part 2/e3-password-match.html" },
+{ t: "Upgraded Registration Form", p: "week 8-part 2/upgraded-registration-form.html" } ] },
+{ title: "Week 9 · Part 1", files: [
+{ t: "Accessibility Audit Report", p: "week 9-part 1/accessibility-report.html" },
+{ t: "Alt Text", p: "week 9-part 1/add-proper-alt-text.html" },
+{ t: "Div Button", p: "week 9-part 1/fix-div-to-button.html" },
+{ t: "Lighthouse Fix", p: "week 9-part 1/lighthouse-accessibility-fixes.html" } ] }
+];
+const weeksEl = document.getElementById('weeks');
+const frame = document.getElementById('frame');
+const codeView = document.getElementById('codeView');
+const addr = document.getElementById('addr');
+const prevBtn = document.getElementById('prevBtn');
+const nextBtn = document.getElementById('nextBtn');
+const codeBtn = document.getElementById('codeBtn');
+const openBtn = document.getElementById('openBtn');
+const flat = [];
+let current = -1, showingCode = false;
+WEEKS.forEach((w, wi) => {
+const d = document.createElement('details');
+if (wi === 0) d.open = true;
+const s = document.createElement('summary');
+s.textContent = w.title;
+const chips = document.createElement('div');
+chips.className = 'chips';
+w.files.forEach(f => {
+const idx = flat.length;
+flat.push(f);
+const b = document.createElement('button');
+b.className = 'chip';
+b.textContent = f.t;
+b.addEventListener('click', () => select(idx));
+f.el = b;
+chips.appendChild(b);
+});
+d.appendChild(s);
+d.appendChild(chips);
+weeksEl.appendChild(d);
+});
+function select(i) {
+current = i;
+showingCode = false;
+codeView.classList.remove('show');
+frame.classList.remove('hidden');
+const f = flat[i];
+frame.src = encodeURI(f.p);
+addr.textContent = f.p;
+flat.forEach(x => x.el && x.el.classList.remove('active'));
+if (f.el) f.el.classList.add('active');
+prevBtn.disabled = i === 0;
+nextBtn.disabled = i === flat.length - 1;
+codeBtn.disabled = false;
+openBtn.disabled = false;
+codeBtn.textContent = 'View code';
+}
+prevBtn.addEventListener('click', () => { if (current > 0) select(current - 1); });
+nextBtn.addEventListener('click', () => { if (current < flat.length - 1) select(current + 1); });
+openBtn.addEventListener('click', () => { if (current >= 0) window.open(encodeURI(flat[current].p), '_blank'); });
+codeBtn.addEventListener('click', async () => {
+if (current < 0) return;
+if (showingCode) {
+showingCode = false;
+codeView.classList.remove('show');
+frame.classList.remove('hidden');
+codeBtn.textContent = 'View code';
+return;
+}
+try {
+const res = await fetch(encodeURI(flat[current].p));
+const text = await res.text();
+codeView.textContent = text;
+codeView.classList.add('show');
+frame.classList.add('hidden');
+showingCode = true;
+codeBtn.textContent = 'View preview';
+} catch (e) {
+codeView.textContent = 'Could not load the code for this file.';
+codeView.classList.add('show');
+frame.classList.add('hidden');
+showingCode = true;
+}
+});
 </script>
 </body>
 </html>
