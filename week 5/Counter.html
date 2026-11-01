@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Counter</title>
+<style>
+body { font-family: system-ui, sans-serif; background: #EAEEF6; color: #0D1633; text-align: center; padding: 40px 16px; }
+h1 { margin-bottom: 16px; }
+#count { font-size: 4rem; font-weight: 700; margin: 16px 0; }
+button { padding: 10px 20px; margin: 4px; border: 0; border-radius: 10px; background: #2F4BFF; color: #fff; font-size: 1rem; cursor: pointer; }
+#counterMsg { color: #4A5578; margin-top: 12px; min-height: 1.5em; }
+</style>
+</head>
+<body>
+<h1>Counter</h1>
+<div id="count">0</div>
+<button onclick="change(-1)">-</button>
+<button onclick="change(1)">+</button>
+<button onclick="resetCount()">Reset</button>
+<p id="counterMsg"></p>
+<script>
+let count = 0;
+const countEl = document.getElementById('count');
+const msgEl = document.getElementById('counterMsg');
+function show() {
+  countEl.textContent = count;
+  if (count >= 20) msgEl.textContent = 'Maximum limit reached! (20)';
+  else if (count <= -20) msgEl.textContent = 'Minimum limit reached! (-20)';
+  else msgEl.textContent = '';
+}
+function change(n) {
+  if (count + n > 20 || count + n < -20) { show(); return; }
+  count += n; show();
+}
+function resetCount() { count = 0; show(); }
+show();
+</script>
+</body>
+</html>
