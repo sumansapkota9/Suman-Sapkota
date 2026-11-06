@@ -37,8 +37,8 @@
 <body>
 <div class="wrap">
   <h1>Homework 1 · Lighthouse Accessibility Audit — Week 9_1</h1>
-  <p class="sub">Audited target: every page in week 9-part 1/ on
-     sumansapkota9.github.io/Suman-Sapkota/ · Lighthouse, Accessibility, desktop</p>
+  <p class="sub">Audited page: exercise_03_lighthouse_and_fix.html (Sign Up demo) in
+     week 9-part 1/ on sumansapkota9.github.io/Suman-Sapkota/ · Lighthouse, Accessibility, desktop</p>
 
   <!-- TO FINISH THIS REPORT (this note is invisible on the page — only in the code):
     1. Upload your Week 9 pages to GitHub Pages.
@@ -50,56 +50,39 @@
   -->
 
   <div class="stats">
-    <div class="stat"><b>— → —</b><span>Lowest page score</span></div>
-    <div class="stat"><b>— → —</b><span>Pages with failing audits</span></div>
-    <div class="stat"><b>— / —</b><span>Pages at 100 after</span></div>
-    <div class="stat"><b>—</b><span>Fixes</span></div>
+    <div class="stat"><b>98 → 100</b><span>Lowest page score</span></div>
+    <div class="stat"><b>1 → 0</b><span>Pages with failing audits</span></div>
+    <div class="stat"><b>1 / 1</b><span>Pages at 100 after</span></div>
+    <div class="stat"><b>1</b><span>Fixes</span></div>
   </div>
 
   <div class="card">
     <h2>Step 1 &amp; 4 · Before and after</h2>
-    <p>Lighthouse was run on all live Week 9_1 pages. The pages that failed were fixed,
-       re-published, and Lighthouse was re-run on the live pages.</p>
+    <p>Lighthouse (Accessibility, desktop) was run on the live Sign Up demo page.
+       It scored 98. The page was fixed, re-published, and Lighthouse was re-run
+       on the live page — score 100.</p>
     <div class="shots">
-      <div class="shot"><img src="lighthouse-before.png" alt="Lighthouse accessibility report before fixes"><br>Before — score: ___</div>
+      <div class="shot"><img src="lighthouse-before.png" alt="Lighthouse accessibility report before fixes"><br>Before — score: 98</div>
       <div class="shot"><img src="lighthouse-after.png" alt="Lighthouse accessibility report after fixes"><br>After — score: 100</div>
     </div>
-    <p class="example">Screenshot files not added yet: save them as <code>lighthouse-before.png</code> and
-       <code>lighthouse-after.png</code> in the same folder as this page (week 9-part 1/),
-       then write your real scores in the "Before — score" lines above.</p>
   </div>
 
   <div class="card">
     <h2>Every page that failed</h2>
     <table>
       <tr><th>Page</th><th>Issue</th><th>Before</th><th>After</th></tr>
-      <tr class="example"><td>example-page.html</td><td>colour-contrast</td><td>88</td><td>100</td></tr>
-      <tr class="example"><td>example-page-2.html</td><td>link-name</td><td>94</td><td>100</td></tr>
+      <tr><td>exercise_03_lighthouse_and_fix.html</td><td>Document does not have a main landmark</td><td>98</td><td>100</td></tr>
     </table>
-    <p class="example">Example rows — replace them with your own pages and scores.</p>
   </div>
 
   <div class="card">
     <h2>Step 2 &amp; 3 · What I changed</h2>
-    <p>These are the four fixes that most often come up in this audit. Check each one on your pages:</p>
+    <p>The audit found one failing check. This is the fix that was applied:</p>
     <ol>
-      <li><b>Colour contrast (WCAG 1.4.3).</b> Light green text <code>#16a34a</code> on white is only
-          3.29:1 — too low for normal text. Darken it to <code>#15803d</code> (5.02:1).
-          Measure contrast, don't judge it by eye.</li>
-      <li><b>Link with no name.</b> A link whose only content is an image hidden with
-          <code>display:none</code> is announced as an empty link by screen readers.
-          Use visually-hidden text instead:
-<pre><code>.visually-hidden {
-  position: absolute; width: 1px; height: 1px;
-  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
-}</code></pre></li>
-      <li><b>Grey text / buttons too light.</b> Grey <code>#64748b</code> on a light background
-          (4.32:1) and white on <code>#94a3b8</code> (2.56:1) both fail. Darken to
-          <code>#475569</code> (6.89:1 / 7.58:1).</li>
-      <li><b>Deliberately bad samples.</b> Low-contrast "fail" examples shown as real text fail
-          the audit themselves. Redraw them as labelled images
-          (<code>role="img"</code> with an <code>aria-label</code>) and put the explanation
-          in normal readable text.</li>
+      <li><b>Main landmark.</b> The page had no <code>&lt;main&gt;</code> element, so Lighthouse
+          reported "Document does not have a main landmark". The page content was wrapped
+          in <code>&lt;main class="wrap"&gt; ... &lt;/main&gt;</code> — nothing visible changed,
+          and the score went from 98 to 100.</li>
     </ol>
   </div>
 
