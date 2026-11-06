@@ -3,37 +3,65 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WebP with picture and srcset</title>
+<title>WebP vs JPEG — Same Photo, Two Formats</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700&family=Figtree:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  body { font-family: Arial, sans-serif; margin: 0; background: #fff; color: #111827; }
-  .wrap { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
-  h1 { font-size: 28px; margin: 0 0 24px; }
-  picture img { width: 100%; height: auto; border-radius: 8px; display: block; }
-  p { color: #555; line-height: 1.7; }
-  a { color: #2563eb; }
+  :root { --paper:#EAEEF6; --ink:#0D1633; --ink-2:#4A5578; --line:#C9D1E4; --cobalt:#2F4BFF; --sun:#FFC933; --white:#fff; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:"Figtree",system-ui,sans-serif; background:var(--paper); background-image:radial-gradient(#C9D1E4 1px, transparent 1px); background-size:22px 22px; color:var(--ink); padding:32px 16px 48px; }
+  .wrap { max-width:800px; margin:0 auto; }
+  h1 { font-family:"Bricolage Grotesque",sans-serif; font-size:32px; margin:0 0 8px; }
+  h1 span { color:var(--cobalt); }
+  .sub { color:var(--ink-2); margin:0 0 24px; line-height:1.6; }
+  .card { background:var(--white); border:1px solid var(--line); border-radius:14px; padding:20px; margin-bottom:16px; }
+  picture img { width:100%; height:auto; border-radius:8px; display:block; }
+  .card p { color:var(--ink-2); line-height:1.7; margin:0 0 12px; }
+  .card p:last-child { margin-bottom:0; }
+  a { color:var(--cobalt); }
+  .sizes { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:4px; }
+  .size { background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:14px; text-align:center; }
+  .size b { display:block; font-family:"Bricolage Grotesque",sans-serif; font-size:24px; color:var(--ink); }
+  .size span { font-size:13px; color:var(--ink-2); }
+  code { font-family:"JetBrains Mono",monospace; }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <h1>Image format practice</h1>
+  <h1>WebP <span>vs JPEG</span></h1>
+  <p class="sub">The same photo, served in two formats. The browser picks WebP when it can,
+     and falls back to JPEG when it cannot — that is what the
+     <code>&lt;picture&gt;</code> element is for.</p>
 
-  <picture>
-    <source type="image/webp" srcset="https://picsum.photos/id/1043/400/200.webp 400w, https://picsum.photos/id/1043/800/400.webp 800w" sizes="(max-width: 600px) 400px, 800px">
-    <img src="https://picsum.photos/id/1043/800/400.jpg"
-         srcset="https://picsum.photos/id/1043/400/200.jpg 400w, https://picsum.photos/id/1043/800/400.jpg 800w"
-         sizes="(max-width: 600px) 400px, 800px"
-         alt="Forest path in autumn, practice photo" width="800" height="400">
-  </picture>
+  <div class="card">
+    <picture>
+      <source type="image/webp" srcset="https://picsum.photos/id/1036/400/200.webp 400w, https://picsum.photos/id/1036/800/400.webp 800w" sizes="(max-width: 600px) 400px, 800px">
+      <img src="https://picsum.photos/id/1036/800/400.jpg"
+           srcset="https://picsum.photos/id/1036/400/200.jpg 400w, https://picsum.photos/id/1036/800/400.jpg 800w"
+           sizes="(max-width: 600px) 400px, 800px"
+           alt="Snowy mountain camp with a yellow tent" width="800" height="400">
+    </picture>
+  </div>
 
-  <p>Compare the sizes yourself: open
-     <a href="https://picsum.photos/id/1043/800/400.jpg">the JPEG</a> and
-     <a href="https://picsum.photos/id/1043/800/400.webp">the WebP</a>
-     in the Network tab and look at the Size column.</p>
+  <div class="card">
+    <p>Check it yourself: open
+       <a href="https://picsum.photos/id/1036/800/400.jpg">the JPEG</a> and
+       <a href="https://picsum.photos/id/1036/800/400.webp">the WebP</a>
+       in the Network tab and look at the Size column.</p>
+    <div class="sizes">
+      <div class="size"><b>~53 KB</b><span>JPEG (800 × 400)</span></div>
+      <div class="size"><b>~41 KB</b><span>WebP (800 × 400)</span></div>
+    </div>
+  </div>
 
-  <p>Surprise: for this photo the WebP (about 87 KB) is slightly bigger than the JPEG
-     (about 85 KB). Picsum converts on the fly from an already-compressed JPEG, so there
-     is little left to save. WebP wins when you export it yourself from the original image
-     with a tool like Squoosh — always measure.</p>
+  <div class="card">
+    <p>For this photo the WebP is about 12 KB smaller — roughly a fifth less to
+       download, with the same picture on screen. That is not guaranteed for every
+       photo: a WebP converted from an already-compressed JPEG sometimes saves
+       almost nothing. So the rule is simple — measure the real files, do not
+       assume. The <code>srcset</code> above also serves a smaller 400 px version
+       on narrow screens, so a phone never downloads the big one.</p>
+  </div>
 </div>
 </body>
 </html>
