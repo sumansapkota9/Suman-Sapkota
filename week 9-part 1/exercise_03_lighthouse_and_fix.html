@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Run Lighthouse &amp; Fix Issues</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 0; background: #fff; color: #111827; }
+  .wrap { max-width: 400px; margin: 0 auto; padding: 40px 20px; }
+  h1 { font-size: 28px; margin: 0 0 24px; }
+  .search-row { display: flex; justify-content: flex-end; margin-bottom: 16px; }
+  #searchBtn {
+    background: #22c55e; color: #fff; border: none; border-radius: 50%;
+    width: 44px; height: 44px; font-size: 20px; cursor: pointer;
+  }
+  label { display: block; font-size: 14px; font-weight: bold; margin-bottom: 6px; }
+  input {
+    width: 100%; padding: 11px 12px; font-size: 15px;
+    border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box;
+  }
+  .field { margin-bottom: 18px; }
+  .error { color: #dc2626; font-size: 13px; margin: 6px 0 0; }
+  button[type="submit"] {
+    width: 100%; height: 46px; background: #2563eb; color: #fff;
+    border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer;
+  }
+  button[type="submit"]:hover { background: #1d4ed8; }
+  .team { margin-top: 24px; font-size: 15px; }
+  .team img { vertical-align: middle; margin-right: 6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Sign Up</h1>
+
+  <!-- Broken demo page, made to be audited with Lighthouse:
+       icon-only button, errors shown before any input, broken image. -->
+  <form>
+    <div class="search-row">
+      <button id="searchBtn" type="button" aria-label="Search">🔍</button>
+    </div>
+
+    <div class="field">
+      <label for="email">Email address</label>
+      <input id="email" name="email" type="text" placeholder="you@example.com">
+      <p class="error">⚠️ Error: Please enter a valid email address.</p>
+    </div>
+
+    <div class="field">
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password">
+      <p class="error">⚠️ Error: Password too short. Must be 8+ characters.</p>
+    </div>
+
+    <button type="submit">Create account</button>
+  </form>
+
+  <p class="team">
+    <a href="#">
+      <img src="team-photo.jpg" alt="Our team photo" width="80" height="40">
+      Learn about our team
+    </a>
+  </p>
+</div>
+</body>
+</html>

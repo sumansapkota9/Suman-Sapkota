@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Proper alt Text</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 0; background: #fff; color: #111827; }
+  .wrap { max-width: 520px; margin: 0 auto; padding: 40px 20px; }
+  h1 { font-size: 28px; margin: 0 0 24px; }
+  figure { margin: 0 0 20px; }
+  figure img {
+    width: 100%; height: 80px; object-fit: cover;
+    border: 2px dashed #cbd5e1; border-radius: 8px; display: block;
+  }
+  figcaption { color: #6b7280; font-size: 14px; margin-top: 6px; }
+  #checkBtn {
+    background: #22c55e; color: #fff; border: none; border-radius: 8px;
+    padding: 12px 20px; font-size: 15px; font-weight: bold; cursor: pointer;
+  }
+  #checkBtn:hover { background: #16a34a; }
+  #results { list-style: none; padding: 0; margin: 20px 0 0; }
+  #results li { padding: 8px 0; border-bottom: 1px solid #e5e7eb; font-size: 15px; }
+  #results li:last-child { border-bottom: none; }
+  #results code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Add proper alt text</h1>
+
+  <figure>
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='80'%3E%3Crect width='520' height='80' fill='%23dbeafe'/%3E%3Ctext x='260' y='50' font-size='36' text-anchor='middle'%3E%F0%9F%8F%A0%3C/text%3E%3C/svg%3E"
+         alt="Gachon University main building, a modern glass structure surrounded by trees">
+    <figcaption>Image 1: Campus building photo (informational)</figcaption>
+  </figure>
+
+  <figure>
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='80'%3E%3Crect width='520' height='80' fill='%23d1fae5'/%3E%3Ctext x='260' y='50' font-size='36' text-anchor='middle'%3E%E3%80%9C%3C/text%3E%3C/svg%3E"
+         alt="">
+    <figcaption>Image 2: Decorative wavy divider</figcaption>
+  </figure>
+
+  <figure>
+    <a href="../index.html">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='80'%3E%3Crect width='520' height='80' fill='%23fef9c3'/%3E%3Ctext x='260' y='50' font-size='36' text-anchor='middle'%3E%F0%9F%8F%A0%3C/text%3E%3C/svg%3E"
+           alt="Gachon University — go to homepage">
+    </a>
+    <figcaption>Image 3: University logo (inside a link to the homepage)</figcaption>
+  </figure>
+
+  <figure>
+    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='520' height='80'%3E%3Crect width='520' height='80' fill='%23ede9fe'/%3E%3Ctext x='260' y='50' font-size='36' text-anchor='middle'%3E%F0%9F%93%8A%3C/text%3E%3C/svg%3E"
+         alt="Bar chart of student enrollment: 2024: 1,200; 2025: 1,400; 2026: 1,476">
+    <figcaption>Image 4: Enrollment chart — 2024: 1,200 | 2025: 1,400 | 2026: 1,476 students</figcaption>
+  </figure>
+
+  <button id="checkBtn" type="button">Check my alt text</button>
+  <ul id="results"></ul>
+</div>
+
+<script>
+document.getElementById('checkBtn').addEventListener('click', () => {
+  const results = document.getElementById('results');
+  results.innerHTML = '';
+  document.querySelectorAll('figure img').forEach((img, i) => {
+    const li = document.createElement('li');
+    const alt = img.getAttribute('alt');
+    li.innerHTML = '✅ Image ' + (i + 1) + ': alt=' + '<code>"' + alt.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '"</code>' +
+      (alt === '' ? ' (decorative — empty alt is correct)' : '');
+    results.appendChild(li);
+  });
+});
+</script>
+</body>
+</html>

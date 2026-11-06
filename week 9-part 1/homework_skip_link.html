@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homework: Skip Link</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 0; background: #fff; color: #333; }
+  .skip-link {
+    position: absolute; left: -999px; top: 0;
+    background: #2563eb; color: #fff; padding: 10px 16px;
+    font-weight: bold; text-decoration: none; border-radius: 0 0 8px 0; z-index: 100;
+  }
+  .skip-link:focus { left: 0; }
+  a:focus { outline: 3px solid #f97316; outline-offset: 2px; }
+  header { background: #1e293b; color: #fff; padding: 20px; }
+  header h1 { margin: 0 0 12px; font-size: 28px; }
+  header nav a { color: #fff; margin-right: 16px; }
+  main { max-width: 600px; margin: 0 auto; padding: 32px 20px; }
+  main h2 { color: #1e293b; font-size: 24px; }
+  main p { color: #555; line-height: 1.6; }
+  main a { color: #2563eb; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+
+<header>
+  <h1>Gachon WIND CCA</h1>
+  <nav aria-label="Main">
+    <a href="#">Home</a>
+    <a href="#">About</a>
+    <a href="#">Events</a>
+    <a href="#">Gallery</a>
+    <a href="#">Members</a>
+    <a href="#">Schedule</a>
+    <a href="#">FAQ</a>
+    <a href="#">Join us</a>
+  </nav>
+</header>
+
+<main id="main-content" tabindex="-1">
+  <h2>Welcome</h2>
+  <p>Press Tab once after the page loads: the "Skip to main content" link appears.
+     Press Enter and focus jumps here, past all eight menu links.</p>
+  <p><a href="#main-content">The next Tab lands on this link</a>, not on "Home".</p>
+</main>
+</body>
+</html>

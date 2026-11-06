@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homework 1: Lighthouse Accessibility Audit — Week 9_1</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #eef2ff; color: #1e293b; margin: 0; }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 32px 20px 48px; }
+  h1 { color: #1d4ed8; font-size: 28px; margin: 0 0 8px; }
+  .sub { color: #64748b; margin: 0 0 24px; }
+  .card { background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06); }
+  .card h2 { color: #1d4ed8; font-size: 20px; margin: 0 0 12px; }
+  .card p, .card li { line-height: 1.7; color: #334155; }
+  .todo { background: #fef9c3; border: 1px solid #facc15; }
+  .todo h2 { color: #854d0e; }
+  .todo ol { margin: 8px 0 0; padding-left: 20px; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+  .stat { background: #fff; border: 1px solid #c7d2fe; border-radius: 10px;
+    padding: 16px 12px; text-align: center; }
+  .stat b { display: block; font-size: 26px; color: #1d4ed8; }
+  .stat span { font-size: 13px; color: #64748b; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { border: 1px solid #e2e8f0; padding: 8px 10px; text-align: left; }
+  th { background: #eef2ff; }
+  .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .shot { background: #f1f5f9; border: 2px dashed #cbd5e1; border-radius: 8px;
+    padding: 32px 12px; text-align: center; color: #64748b; font-size: 14px; }
+  pre { background: #f1f5f9; border-radius: 8px; padding: 14px; overflow-x: auto;
+    font-size: 13px; line-height: 1.6; }
+  code { font-family: Consolas, "Courier New", monospace; }
+  .example { color: #94a3b8; font-style: italic; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Homework 1 · Lighthouse Accessibility Audit — Week 9_1</h1>
+  <p class="sub">Audited target: every page in week 9-part 1/ on
+     sumansapkota9.github.io/Suman-Sapkota/ · Lighthouse, Accessibility, desktop</p>
+
+  <div class="card todo">
+    <h2>To finish this report — your own numbers go here</h2>
+    <ol>
+      <li>Upload your Week 9 pages to GitHub Pages.</li>
+      <li>In Chrome, open a page → F12 → <b>Lighthouse</b> → Categories: <b>Accessibility</b>, Device: <b>Desktop</b> → <b>Analyze page load</b>.</li>
+      <li>Fix every failing audit, re-publish, and run Lighthouse again.</li>
+      <li>Replace the "—" numbers below with your real before → after scores, and save your
+          before/after screenshots as <code>lighthouse-before.png</code> and
+          <code>lighthouse-after.png</code> in this folder.</li>
+    </ol>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>— → —</b><span>Lowest page score</span></div>
+    <div class="stat"><b>— → —</b><span>Pages with failing audits</span></div>
+    <div class="stat"><b>— / —</b><span>Pages at 100 after</span></div>
+    <div class="stat"><b>—</b><span>Fixes</span></div>
+  </div>
+
+  <div class="card">
+    <h2>Step 1 &amp; 4 · Before and after</h2>
+    <p>Lighthouse was run on all live Week 9_1 pages. The pages that failed were fixed,
+       re-published, and Lighthouse was re-run on the live pages.</p>
+    <div class="shots">
+      <div class="shot">Before screenshot<br><span class="example">lighthouse-before.png</span></div>
+      <div class="shot">After screenshot<br><span class="example">lighthouse-after.png</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Every page that failed</h2>
+    <table>
+      <tr><th>Page</th><th>Issue</th><th>Before</th><th>After</th></tr>
+      <tr class="example"><td>example-page.html</td><td>colour-contrast</td><td>88</td><td>100</td></tr>
+      <tr class="example"><td>example-page-2.html</td><td>link-name</td><td>94</td><td>100</td></tr>
+    </table>
+    <p class="example">Example rows — replace them with your own pages and scores.</p>
+  </div>
+
+  <div class="card">
+    <h2>Step 2 &amp; 3 · What I changed</h2>
+    <p>These are the four fixes that most often come up in this audit. Check each one on your pages:</p>
+    <ol>
+      <li><b>Colour contrast (WCAG 1.4.3).</b> Light green text <code>#16a34a</code> on white is only
+          3.29:1 — too low for normal text. Darken it to <code>#15803d</code> (5.02:1).
+          Measure contrast, don't judge it by eye.</li>
+      <li><b>Link with no name.</b> A link whose only content is an image hidden with
+          <code>display:none</code> is announced as an empty link by screen readers.
+          Use visually-hidden text instead:
+<pre><code>.visually-hidden {
+  position: absolute; width: 1px; height: 1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap;
+}</code></pre></li>
+      <li><b>Grey text / buttons too light.</b> Grey <code>#64748b</code> on a light background
+          (4.32:1) and white on <code>#94a3b8</code> (2.56:1) both fail. Darken to
+          <code>#475569</code> (6.89:1 / 7.58:1).</li>
+      <li><b>Deliberately bad samples.</b> Low-contrast "fail" examples shown as real text fail
+          the audit themselves. Redraw them as labelled images
+          (<code>role="img"</code> with an <code>aria-label</code>) and put the explanation
+          in normal readable text.</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>Takeaways</h2>
+    <ul>
+      <li>Contrast must be measured, not judged by eye.</li>
+      <li><code>display:none</code> hides content from screen readers too.</li>
+      <li>Lighthouse checks only part of WCAG — keyboard use, focus order and alt-text
+          quality still need manual testing.</li>
+    </ul>
+  </div>
+</div>
+</body>
+</html>
