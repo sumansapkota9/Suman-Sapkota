@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Run Lighthouse &amp; Fix the Page — Before</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<style>
+  body { font-family: Arial, sans-serif; margin: 0; background: #fff; color: #111827; }
+  .wrap { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
+  h1 { font-size: 28px; margin: 0 0 8px; }
+  .intro { color: #555; margin: 0 0 24px; }
+  figure { margin: 0 0 20px; }
+  figure img { width: 100%; height: auto; border-radius: 8px; display: block; }
+  figcaption { color: #6b7280; font-size: 14px; margin-top: 6px; }
+  h2 { color: #ea580c; font-size: 22px; margin: 32px 0 12px; }
+  li { line-height: 1.7; }
+  code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 14px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Performance test page</h1>
+  <p class="intro">Before fixes: render-blocking script, no image dimensions, no lazy loading.</p>
+
+  <figure>
+    <img src="https://picsum.photos/id/1015/1200/800" alt="River valley between mountains">
+    <figcaption>River valley between mountains</figcaption>
+  </figure>
+
+  <figure>
+    <img src="https://picsum.photos/id/1016/1200/800" alt="Canyon with rocky cliffs">
+    <figcaption>Canyon with rocky cliffs</figcaption>
+  </figure>
+
+  <figure>
+    <img src="https://picsum.photos/id/1018/1200/800" alt="Mountain landscape with green hills">
+    <figcaption>Mountain landscape with green hills</figcaption>
+  </figure>
+
+  <p>This is the unoptimized version, used for the Lighthouse baseline run.
+     The fixed version is exercise_01_lighthouse_fixes.html.</p>
+</div>
+</body>
+</html>
