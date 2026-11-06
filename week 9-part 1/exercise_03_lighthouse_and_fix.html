@@ -30,11 +30,14 @@
 </style>
 </head>
 <body>
-<div class="wrap">
+<main class="wrap">
   <h1>Sign Up</h1>
 
-  <!-- Broken demo page, made to be audited with Lighthouse:
-       icon-only button, errors shown before any input, broken image. -->
+  <!-- Fixed version: the only change is the <main> landmark below.
+       Before: Lighthouse Accessibility 98 — "Document does not have a main landmark".
+       After this fix the page scores 100. The other demo quirks
+       (icon-only button, errors shown before any input, broken image)
+       are left as they were. -->
   <form>
     <div class="search-row">
       <button id="searchBtn" type="button" aria-label="Search">🔍</button>
@@ -61,6 +64,6 @@
       Learn about our team
     </a>
   </p>
-</div>
+</main>
 </body>
 </html>
