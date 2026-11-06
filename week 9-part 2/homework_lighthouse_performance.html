@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Homework 2: Lighthouse Performance Audit — Week 9_2</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #faf5eb; color: #1e293b; margin: 0; }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 32px 20px 48px; }
+  h1 { color: #c2410c; font-size: 28px; margin: 0 0 8px; }
+  .sub { color: #78716c; margin: 0 0 24px; }
+  .card { background: #fff; border-radius: 12px; padding: 24px; margin-bottom: 20px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06); }
+  .card h2 { color: #c2410c; font-size: 20px; margin: 0 0 12px; }
+  .card p, .card li { line-height: 1.7; color: #44403c; }
+  .todo { background: #fef9c3; border: 1px solid #facc15; }
+  .todo h2 { color: #854d0e; }
+  .todo ol { margin: 8px 0 0; padding-left: 20px; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+  .stat { background: #fff; border: 1px solid #fed7aa; border-radius: 10px;
+    padding: 16px 12px; text-align: center; }
+  .stat b { display: block; font-size: 26px; color: #c2410c; }
+  .stat span { font-size: 13px; color: #78716c; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { border: 1px solid #e7e5e4; padding: 8px 10px; text-align: left; }
+  th { background: #ffedd5; }
+  .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .shot { background: #f5f5f4; border: 2px dashed #d6d3d1; border-radius: 8px;
+    padding: 32px 12px; text-align: center; color: #78716c; font-size: 14px; }
+  pre { background: #f5f5f4; border-radius: 8px; padding: 14px; overflow-x: auto;
+    font-size: 13px; line-height: 1.6; }
+  code { font-family: Consolas, "Courier New", monospace; }
+  .example { color: #a8a29e; font-style: italic; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Homework 2 · Lighthouse Performance Audit — Week 9_2</h1>
+  <p class="sub">Audited target: your most image-heavy page · Lighthouse · Mobile and Desktop</p>
+
+  <div class="card todo">
+    <h2>To finish this report — your own numbers go here</h2>
+    <ol>
+      <li>Pick your heaviest page (the one with the biggest images) and upload it to GitHub Pages.</li>
+      <li>In Chrome, open the page → F12 → <b>Lighthouse</b> → Categories: <b>Performance</b>,
+          Device: <b>Mobile</b> and then <b>Desktop</b> → <b>Analyze page load</b>.</li>
+      <li>Apply the five optimizations in Step 3, re-publish, and run Lighthouse again.</li>
+      <li>Replace the "—" numbers below with your real before → after scores, and save your
+          screenshots as <code>perf-before.png</code> and <code>perf-after.png</code> in this folder.</li>
+    </ol>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>— → —</b><span>Mobile score</span></div>
+    <div class="stat"><b>— → —</b><span>Desktop score</span></div>
+    <div class="stat"><b>— → —</b><span>Mobile LCP</span></div>
+    <div class="stat"><b>— → —</b><span>Page weight</span></div>
+  </div>
+
+  <div class="card">
+    <h2>Step 1 · Baseline</h2>
+    <table>
+      <tr><th>Metric</th><th>Mobile</th><th>Desktop</th><th>Target</th></tr>
+      <tr><td>Performance score</td><td>—</td><td>—</td><td>90+</td></tr>
+      <tr><td>First Contentful Paint</td><td>—</td><td>—</td><td>&lt; 1.8 s</td></tr>
+      <tr><td>Largest Contentful Paint</td><td>—</td><td>—</td><td>&lt; 2.5 s</td></tr>
+      <tr><td>Total Blocking Time</td><td>—</td><td>—</td><td>&lt; 200 ms</td></tr>
+      <tr><td>Cumulative Layout Shift</td><td>—</td><td>—</td><td>&lt; 0.1</td></tr>
+      <tr><td>Speed Index</td><td>—</td><td>—</td><td>&lt; 3.4 s</td></tr>
+      <tr><td>Data transferred</td><td>—</td><td>—</td><td>as small as possible</td></tr>
+    </table>
+    <div class="shots" style="margin-top:16px">
+      <div class="shot">Mobile before<br><span class="example">perf-before.png</span></div>
+      <div class="shot">Desktop before<br><span class="example">perf-before.png</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Step 2 · Five issues to check</h2>
+    <ol>
+      <li><b>Image far larger than displayed</b> — a photo shown at 200–300 px wide should not be 1536 px wide.</li>
+      <li><b>Legacy image format</b> — a PNG saved with a <code>.jpg</code> name, or a photo that could be WebP.</li>
+      <li><b>No viewport meta tag</b> — adds a 300 ms delay to taps on mobile.</li>
+      <li><b>Image without width and height</b> — causes layout shift (unsized-images).</li>
+      <li><b>LCP image not prioritised</b> — no <code>fetchpriority="high"</code> on the largest image.</li>
+    </ol>
+    <p>Note: GitHub Pages sets a short cache lifetime (about 10 minutes) on every file — that one cannot be changed.</p>
+  </div>
+
+  <div class="card">
+    <h2>Step 3 · Five optimizations</h2>
+    <ol>
+      <li><b>Resize and convert to WebP.</b> Resize the photo to about 2× its display size
+          (e.g. 600×400 for a 300 px display) and export it as WebP at quality 75.
+          A 1536×1024 PNG at 2,280 KiB can drop to about 38 KiB — 98% smaller.
+<pre><code>&lt;!-- before --&gt;
+&lt;img src="photo.jpg" alt="A photo"&gt;
+
+&lt;!-- after --&gt;
+&lt;img src="photo.webp" alt="A photo" width="600" height="400" fetchpriority="high"&gt;</code></pre></li>
+      <li><b>Add the viewport meta tag</b> right after the charset meta:
+<pre><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></pre></li>
+      <li><b>Give every image width and height</b>, plus CSS so it stays responsive:
+<pre><code>img { max-width: 100%; height: auto; }</code></pre></li>
+      <li><b>Prioritise the LCP image:</b> <code>fetchpriority="high"</code> on the largest image.</li>
+      <li><b>Inline favicon</b> to remove a failing <code>/favicon.ico</code> request:
+<pre><code>&lt;link rel="icon" href="data:,"&gt;</code></pre></li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>Step 4 · Results</h2>
+    <table>
+      <tr><th>Metric</th><th>Mobile before</th><th>Mobile after</th><th>Desktop before</th><th>Desktop after</th></tr>
+      <tr><td>Score</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>LCP</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>FCP</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>Speed Index</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>Data transferred</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+    </table>
+    <div class="shots" style="margin-top:16px">
+      <div class="shot">Mobile after<br><span class="example">perf-after.png</span></div>
+      <div class="shot">Desktop after<br><span class="example">perf-after.png</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Step 5 · Reflection</h2>
+    <p>Resizing and converting images usually has by far the most impact: on a slow mobile
+       connection, downloading a 2 MB photo takes most of the load time, while the server
+       response and drawing take only a fraction of a second. The viewport tag affects tap
+       responsiveness, not loading. Width and height stop layout jumping. Fetchpriority
+       matters most on pages with many requests.</p>
+  </div>
+</div>
+</body>
+</html>

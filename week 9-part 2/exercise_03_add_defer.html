@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add defer to Scripts</title>
+<script type="module">
+  // A module script is deferred by default: even though this script sits in
+  // <head>, it runs only after the HTML is fully parsed — so #status already
+  // exists when this line runs. Same idea as <script src="app.js" defer>.
+  document.getElementById('status').textContent =
+    '✅ DOM was ready when this script ran — even though it sits in <head>.';
+</script>
+<style>
+  body { font-family: Arial, sans-serif; margin: 0; background: #fff; color: #111827; }
+  .wrap { max-width: 600px; margin: 0 auto; padding: 40px 20px; }
+  h1 { color: #1e293b; font-size: 28px; margin: 0 0 12px; }
+  .intro { color: #555; margin: 0 0 20px; line-height: 1.6; }
+  #status {
+    background: #dcfce7; color: #166534; border-radius: 8px;
+    padding: 14px 16px; font-size: 15px; min-height: 20px;
+  }
+  h2 { color: #1e293b; font-size: 20px; margin: 32px 0 12px; }
+  pre {
+    background: #f1f5f9; border-radius: 8px; padding: 16px;
+    overflow-x: auto; font-size: 14px; line-height: 1.6; margin: 0;
+  }
+  code { font-family: Consolas, "Courier New", monospace; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Script loading test</h1>
+  <p class="intro">Without waiting, a <code>&lt;head&gt;</code> script can't find
+     <code>#status</code> because it doesn't exist yet.</p>
+
+  <p id="status"></p>
+
+  <h2>Before</h2>
+  <pre><code>&lt;head&gt;
+  &lt;script src="app.js"&gt;&lt;/script&gt; &lt;!-- blocks parsing --&gt;
+  &lt;script src="analytics.js"&gt;&lt;/script&gt; &lt;!-- blocks parsing --&gt;
+&lt;/head&gt;</code></pre>
+
+  <h2>After</h2>
+  <pre><code>&lt;head&gt;
+  &lt;script src="app.js" defer&gt;&lt;/script&gt; &lt;!-- runs after parsing, in order --&gt;
+  &lt;script src="analytics.js" async&gt;&lt;/script&gt; &lt;!-- runs whenever it arrives --&gt;
+&lt;/head&gt;</code></pre>
+</div>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WebP with picture and srcset</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 0; background: #fff; color: #111827; }
+  .wrap { max-width: 800px; margin: 0 auto; padding: 40px 20px; }
+  h1 { font-size: 28px; margin: 0 0 24px; }
+  picture img { width: 100%; height: auto; border-radius: 8px; display: block; }
+  p { color: #555; line-height: 1.7; }
+  a { color: #2563eb; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Image format practice</h1>
+
+  <picture>
+    <source type="image/webp" srcset="https://picsum.photos/id/1043/400/200.webp 400w, https://picsum.photos/id/1043/800/400.webp 800w" sizes="(max-width: 600px) 400px, 800px">
+    <img src="https://picsum.photos/id/1043/800/400.jpg"
+         srcset="https://picsum.photos/id/1043/400/200.jpg 400w, https://picsum.photos/id/1043/800/400.jpg 800w"
+         sizes="(max-width: 600px) 400px, 800px"
+         alt="Forest path in autumn, practice photo" width="800" height="400">
+  </picture>
+
+  <p>Compare the sizes yourself: open
+     <a href="https://picsum.photos/id/1043/800/400.jpg">the JPEG</a> and
+     <a href="https://picsum.photos/id/1043/800/400.webp">the WebP</a>
+     in the Network tab and look at the Size column.</p>
+
+  <p>Surprise: for this photo the WebP (about 87 KB) is slightly bigger than the JPEG
+     (about 85 KB). Picsum converts on the fly from an already-compressed JPEG, so there
+     is little left to save. WebP wins when you export it yourself from the original image
+     with a tool like Squoosh — always measure.</p>
+</div>
+</body>
+</html>
