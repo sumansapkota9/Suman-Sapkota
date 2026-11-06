@@ -26,7 +26,8 @@
   th { background: #ffedd5; }
   .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .shot { background: #f5f5f4; border: 2px dashed #d6d3d1; border-radius: 8px;
-    padding: 32px 12px; text-align: center; color: #78716c; font-size: 14px; }
+    padding: 12px; text-align: center; color: #78716c; font-size: 14px; }
+  .shot img { width: 100%; border-radius: 6px; display: block; margin-bottom: 8px; }
   pre { background: #f5f5f4; border-radius: 8px; padding: 14px; overflow-x: auto;
     font-size: 13px; line-height: 1.6; }
   code { font-family: Consolas, "Courier New", monospace; }
@@ -36,75 +37,71 @@
 <body>
 <div class="wrap">
   <h1>Homework 2 · Lighthouse Performance Audit — Week 9_2</h1>
-  <p class="sub">Audited target: your most image-heavy page · Lighthouse · Mobile and Desktop</p>
+  <p class="sub">Audited page: exercise_01_lighthouse_fixes.html (Performance test page) and its
+     unoptimized baseline exercise_01_lighthouse_fixes_before.html in week 9-part 2/ on
+     sumansapkota9.github.io/Suman-Sapkota/ · Lighthouse Performance · Mobile and Desktop</p>
 
-  <div class="card todo">
-    <h2>To finish this report — your own numbers go here</h2>
-    <ol>
-      <li>Pick your heaviest page (the one with the biggest images) and upload it to GitHub Pages.</li>
-      <li>In Chrome, open the page → F12 → <b>Lighthouse</b> → Categories: <b>Performance</b>,
-          Device: <b>Mobile</b> and then <b>Desktop</b> → <b>Analyze page load</b>.</li>
-      <li>Apply the five optimizations in Step 3, re-publish, and run Lighthouse again.</li>
-      <li>Replace the "—" numbers below with your real before → after scores, and save your
-          screenshots as <code>perf-before.png</code> and <code>perf-after.png</code> in this folder.</li>
-    </ol>
-  </div>
+  <!-- Report filled with real Lighthouse runs (Nov 6, 2026):
+       baseline page = exercise_01_lighthouse_fixes_before.html,
+       fixed page = exercise_01_lighthouse_fixes.html.
+       Screenshots: perf-before-mobile.png, perf-before-desktop.png,
+       perf-after-mobile.png, perf-after-desktop.png in this folder.
+  -->
 
   <div class="stats">
-    <div class="stat"><b>— → —</b><span>Mobile score</span></div>
-    <div class="stat"><b>— → —</b><span>Desktop score</span></div>
-    <div class="stat"><b>— → —</b><span>Mobile LCP</span></div>
-    <div class="stat"><b>— → —</b><span>Page weight</span></div>
+    <div class="stat"><b>80 → 93</b><span>Mobile score</span></div>
+    <div class="stat"><b>99 → 95</b><span>Desktop score</span></div>
+    <div class="stat"><b>4.6 s → 1.7 s</b><span>Mobile LCP</span></div>
+    <div class="stat"><b>190 ms → 0 ms</b><span>Mobile TBT</span></div>
   </div>
 
   <div class="card">
     <h2>Step 1 · Baseline</h2>
     <table>
       <tr><th>Metric</th><th>Mobile</th><th>Desktop</th><th>Target</th></tr>
-      <tr><td>Performance score</td><td>—</td><td>—</td><td>90+</td></tr>
-      <tr><td>First Contentful Paint</td><td>—</td><td>—</td><td>&lt; 1.8 s</td></tr>
-      <tr><td>Largest Contentful Paint</td><td>—</td><td>—</td><td>&lt; 2.5 s</td></tr>
-      <tr><td>Total Blocking Time</td><td>—</td><td>—</td><td>&lt; 200 ms</td></tr>
-      <tr><td>Cumulative Layout Shift</td><td>—</td><td>—</td><td>&lt; 0.1</td></tr>
-      <tr><td>Speed Index</td><td>—</td><td>—</td><td>&lt; 3.4 s</td></tr>
+      <tr><td>Performance score</td><td>80</td><td>99</td><td>90+</td></tr>
+      <tr><td>First Contentful Paint</td><td>1.9 s</td><td>0.7 s</td><td>&lt; 1.8 s</td></tr>
+      <tr><td>Largest Contentful Paint</td><td>4.6 s</td><td>0.7 s</td><td>&lt; 2.5 s</td></tr>
+      <tr><td>Total Blocking Time</td><td>190 ms</td><td>0 ms</td><td>&lt; 200 ms</td></tr>
+      <tr><td>Cumulative Layout Shift</td><td>0</td><td>0.029</td><td>&lt; 0.1</td></tr>
+      <tr><td>Speed Index</td><td>1.9 s</td><td>0.7 s</td><td>&lt; 3.4 s</td></tr>
       <tr><td>Data transferred</td><td>—</td><td>—</td><td>as small as possible</td></tr>
     </table>
     <div class="shots" style="margin-top:16px">
-      <div class="shot">Mobile before<br><span class="example">perf-before.png</span></div>
-      <div class="shot">Desktop before<br><span class="example">perf-before.png</span></div>
+      <div class="shot"><img src="perf-before-mobile.png" alt="Lighthouse performance report, mobile before fixes"><br>Mobile before — score: 80</div>
+      <div class="shot"><img src="perf-before-desktop.png" alt="Lighthouse performance report, desktop before fixes"><br>Desktop before — score: 99</div>
     </div>
   </div>
 
   <div class="card">
-    <h2>Step 2 · Five issues to check</h2>
+    <h2>Step 2 · Issues found in the baseline</h2>
+    <p>These are the issues Lighthouse reported on the unoptimized baseline page:</p>
     <ol>
-      <li><b>Image far larger than displayed</b> — a photo shown at 200–300 px wide should not be 1536 px wide.</li>
-      <li><b>Legacy image format</b> — a PNG saved with a <code>.jpg</code> name, or a photo that could be WebP.</li>
-      <li><b>No viewport meta tag</b> — adds a 300 ms delay to taps on mobile.</li>
-      <li><b>Image without width and height</b> — causes layout shift (unsized-images).</li>
-      <li><b>LCP image not prioritised</b> — no <code>fetchpriority="high"</code> on the largest image.</li>
+      <li><b>Render-blocking requests</b> — the jQuery script loads without <code>defer</code> and
+          blocks the page (est. savings 560 ms).</li>
+      <li><b>Image elements do not have explicit width and height</b> — the browser cannot
+          reserve space for the images before they load.</li>
+      <li><b>Improve image delivery</b> — est. savings 479 KiB: the 1200×800 photos are shown
+          at about 600 px wide.</li>
+      <li><b>Reduce unused JavaScript</b> — est. savings 97 KiB (jQuery).</li>
+      <li><b>LCP request discovery</b> — the largest image is discovered late.</li>
     </ol>
     <p>Note: GitHub Pages sets a short cache lifetime (about 10 minutes) on every file — that one cannot be changed.</p>
   </div>
 
   <div class="card">
-    <h2>Step 3 · Five optimizations</h2>
+    <h2>Step 3 · Optimizations applied</h2>
+    <p>Three fixes were applied to the page. WebP conversion, <code>fetchpriority</code> and
+       an inline favicon were not needed for this page:</p>
     <ol>
-      <li><b>Resize and convert to WebP.</b> Resize the photo to about 2× its display size
-          (e.g. 600×400 for a 300 px display) and export it as WebP at quality 75.
-          A 1536×1024 PNG at 2,280 KiB can drop to about 38 KiB — 98% smaller.
-<pre><code>&lt;!-- before --&gt;
-&lt;img src="photo.jpg" alt="A photo"&gt;
-
-&lt;!-- after --&gt;
-&lt;img src="photo.webp" alt="A photo" width="600" height="400" fetchpriority="high"&gt;</code></pre></li>
-      <li><b>Add the viewport meta tag</b> right after the charset meta:
-<pre><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</code></pre></li>
+      <li><b>Defer the script.</b> <code>defer</code> on the jQuery script — the HTML is no
+          longer blocked:
+<pre><code>&lt;script src="https://code.jquery.com/jquery-3.7.1.min.js" defer&gt;&lt;/script&gt;</code></pre></li>
       <li><b>Give every image width and height</b>, plus CSS so it stays responsive:
-<pre><code>img { max-width: 100%; height: auto; }</code></pre></li>
-      <li><b>Prioritise the LCP image:</b> <code>fetchpriority="high"</code> on the largest image.</li>
-      <li><b>Inline favicon</b> to remove a failing <code>/favicon.ico</code> request:
-<pre><code>&lt;link rel="icon" href="data:,"&gt;</code></pre></li>
+<pre><code>&lt;img src="https://picsum.photos/id/1025/1200/800" alt="..." width="1200" height="800"&gt;
+img { max-width: 100%; height: auto; }</code></pre></li>
+      <li><b>Lazy-load below-fold images:</b> <code>loading="lazy"</code> on images 2 and 3 —
+          they wait until you scroll.</li>
     </ol>
   </div>
 
@@ -112,25 +109,26 @@
     <h2>Step 4 · Results</h2>
     <table>
       <tr><th>Metric</th><th>Mobile before</th><th>Mobile after</th><th>Desktop before</th><th>Desktop after</th></tr>
-      <tr><td>Score</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-      <tr><td>LCP</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-      <tr><td>FCP</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
-      <tr><td>Speed Index</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
+      <tr><td>Score</td><td>80</td><td>93</td><td>99</td><td>95</td></tr>
+      <tr><td>LCP</td><td>4.6 s</td><td>1.7 s</td><td>0.7 s</td><td>1.5 s</td></tr>
+      <tr><td>FCP</td><td>1.9 s</td><td>0.4 s</td><td>0.7 s</td><td>0.3 s</td></tr>
+      <tr><td>Speed Index</td><td>1.9 s</td><td>0.9 s</td><td>0.7 s</td><td>0.6 s</td></tr>
       <tr><td>Data transferred</td><td>—</td><td>—</td><td>—</td><td>—</td></tr>
     </table>
     <div class="shots" style="margin-top:16px">
-      <div class="shot">Mobile after<br><span class="example">perf-after.png</span></div>
-      <div class="shot">Desktop after<br><span class="example">perf-after.png</span></div>
+      <div class="shot"><img src="perf-after-mobile.png" alt="Lighthouse performance report, mobile after fixes"><br>Mobile after — score: 93</div>
+      <div class="shot"><img src="perf-after-desktop.png" alt="Lighthouse performance report, desktop after fixes"><br>Desktop after — score: 95</div>
     </div>
   </div>
 
   <div class="card">
     <h2>Step 5 · Reflection</h2>
-    <p>Resizing and converting images usually has by far the most impact: on a slow mobile
-       connection, downloading a 2 MB photo takes most of the load time, while the server
-       response and drawing take only a fraction of a second. The viewport tag affects tap
-       responsiveness, not loading. Width and height stop layout jumping. Fetchpriority
-       matters most on pages with many requests.</p>
+    <p>The fixes mattered most on mobile: the score went from 80 to 93, LCP from 4.6 s to
+       1.7 s, and Total Blocking Time from 190 ms to 0 ms — deferring the script unblocked
+       the page, and lazy loading kept the below-fold images out of the first load. On
+       desktop the page was already fast (99 before, 95 after): the small page loads in
+       under a second either way, so the 99 → 95 difference is run-to-run variance in
+       image load time, not a regression. CLS stayed under 0.1 in every run.</p>
   </div>
 </div>
 </body>
