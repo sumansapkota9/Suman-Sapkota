@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login Form</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 0; background: #fff; color: #111827; }
+  .wrap { max-width: 400px; margin: 40px 0 0 40px; padding: 0 20px 40px 0; }
+  h2 { font-size: 24px; margin: 0 0 24px; }
+  label { display: block; font-size: 14px; font-weight: bold; color: #374151; margin-bottom: 6px; }
+  input[type="email"], input[type="password"] {
+    width: 100%; height: 41px; padding: 0 12px; font-size: 15px;
+    border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box;
+  }
+  input[type="email"]:focus, input[type="password"]:focus { outline: 2px solid #2563eb; border-color: #2563eb; }
+  .field { margin-bottom: 18px; }
+  .remember { margin: 4px 0 20px; font-size: 14px; color: #374151; }
+  .remember input { margin-right: 6px; }
+  button {
+    width: 100%; height: 44px; background: #1d4ed8; color: #fff;
+    border: none; border-radius: 6px; font-size: 16px; font-weight: bold; cursor: pointer;
+  }
+  button:hover { background: #1e40af; }
+  #success { display: none; margin-top: 16px; padding: 12px; border-radius: 6px;
+    background: #dcfce7; color: #166534; font-size: 15px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h2>Sign In</h2>
+  <form id="loginForm">
+    <div class="field">
+      <label for="email">Email</label>
+      <input id="email" name="email" type="email" required>
+    </div>
+    <div class="field">
+      <label for="password">Password</label>
+      <input id="password" name="password" type="password" required>
+    </div>
+    <div class="remember">
+      <label><input id="remember" name="remember" type="checkbox"> Remember me</label>
+    </div>
+    <button type="submit">Sign In</button>
+  </form>
+  <p id="success">Signed in successfully. (Demo only — no backend connected.)</p>
+</div>
+
+<script>
+// Same fields and native HTML5 validation as the reference page.
+// The reference form posts to /login, which returns "405 Not Allowed" on a
+// static site with no backend — so this copy shows a demo success message
+// instead of navigating to a dead endpoint.
+document.getElementById('loginForm').addEventListener('submit', e => {
+  e.preventDefault();
+  document.getElementById('success').style.display = 'block';
+});
+</script>
+</body>
+</html>
