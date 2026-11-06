@@ -4,46 +4,57 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Homework: Skip Link</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700&family=Figtree:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  body { font-family: Arial, sans-serif; margin: 0; background: #fff; color: #333; }
+  :root { --paper:#EAEEF6; --ink:#0D1633; --ink-2:#4A5578; --line:#C9D1E4; --cobalt:#2F4BFF; --sun:#FFC933; --white:#fff; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { font-family:"Figtree",system-ui,sans-serif; background:var(--paper); background-image:radial-gradient(#C9D1E4 1px, transparent 1px); background-size:22px 22px; color:var(--ink); }
   .skip-link {
-    position: absolute; left: -999px; top: 0;
-    background: #2563eb; color: #fff; padding: 10px 16px;
-    font-weight: bold; text-decoration: none; border-radius: 0 0 8px 0; z-index: 100;
+    position:absolute; left:-999px; top:0;
+    background:var(--cobalt); color:#fff; padding:10px 16px;
+    font-weight:600; text-decoration:none; border-radius:0 0 10px 0; z-index:100;
   }
-  .skip-link:focus { left: 0; }
-  a:focus { outline: 3px solid #f97316; outline-offset: 2px; }
-  header { background: #1e293b; color: #fff; padding: 20px; }
-  header h1 { margin: 0 0 12px; font-size: 28px; }
-  header nav a { color: #fff; margin-right: 16px; }
-  main { max-width: 600px; margin: 0 auto; padding: 32px 20px; }
-  main h2 { color: #1e293b; font-size: 24px; }
-  main p { color: #555; line-height: 1.6; }
-  main a { color: #2563eb; }
+  .skip-link:focus { left:0; }
+  a:focus { outline:3px solid var(--sun); outline-offset:2px; }
+  header { background:var(--ink); color:#fff; padding:24px 20px; }
+  header h1 { font-family:"Bricolage Grotesque",sans-serif; font-size:30px; margin:0 0 12px; }
+  header h1 span { color:var(--sun); }
+  header nav a { color:#fff; margin-right:18px; text-decoration:none; }
+  header nav a:hover { text-decoration:underline; }
+  main { max-width:640px; margin:0 auto; padding:36px 20px; }
+  main h2 { font-family:"Bricolage Grotesque",sans-serif; font-size:24px; margin:0 0 12px; }
+  main p { color:var(--ink-2); line-height:1.7; margin:0 0 12px; }
+  main a { color:var(--cobalt); }
+  .tip { background:var(--white); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-top:20px; }
+  .tip p { margin:0; }
 </style>
 </head>
 <body>
 <a class="skip-link" href="#main-content">Skip to main content</a>
 
 <header>
-  <h1>Gachon WIND CCA</h1>
+  <h1>Nepal <span>→ Korea</span> Student Guide</h1>
   <nav aria-label="Main">
     <a href="#">Home</a>
-    <a href="#">About</a>
-    <a href="#">Events</a>
-    <a href="#">Gallery</a>
-    <a href="#">Members</a>
-    <a href="#">Schedule</a>
-    <a href="#">FAQ</a>
-    <a href="#">Join us</a>
+    <a href="#">Living Costs</a>
+    <a href="#">Splitter</a>
+    <a href="#">Phrases</a>
+    <a href="#">Checklist</a>
+    <a href="#">Contact</a>
   </nav>
 </header>
 
 <main id="main-content" tabindex="-1">
   <h2>Welcome</h2>
-  <p>Press Tab once after the page loads: the "Skip to main content" link appears.
-     Press Enter and focus jumps here, past all eight menu links.</p>
-  <p><a href="#main-content">The next Tab lands on this link</a>, not on "Home".</p>
+  <p>This page has a skip link. It stays hidden until you press Tab — then it
+     appears at the top-left. Press Enter and you jump straight here, past all
+     six menu links above.</p>
+  <div class="tip">
+    <p>Try it: press Tab once, then Enter. The next Tab after that lands on
+       <a href="#main-content">this link</a>, not on "Home" — that is how you
+       know the skip worked.</p>
+  </div>
 </main>
 </body>
 </html>
