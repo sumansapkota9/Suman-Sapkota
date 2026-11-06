@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Color Palette</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #f9fafb; color: #111827; margin: 0; }
+  .wrap { max-width: 768px; margin: 0 auto; padding: 32px 20px; }
+  h1 { font-size: 32px; margin: 0 0 8px; }
+  .hint { color: #6b7280; margin: 0 0 24px; }
+  .controls { display: flex; gap: 12px; margin-bottom: 8px; }
+  .controls input {
+    flex: 1; padding: 10px 12px; font-size: 15px;
+    border: 1px solid #d1d5db; border-radius: 8px; background: #fff;
+  }
+  .controls button {
+    padding: 10px 18px; font-size: 15px; font-weight: 600; color: #fff;
+    border: none; border-radius: 8px; cursor: pointer; white-space: nowrap;
+  }
+  #addBtn { background: #2563eb; }
+  #addBtn:hover { background: #1d4ed8; }
+  #exportBtn { background: #334155; }
+  #exportBtn:hover { background: #1e293b; }
+  #error { color: #dc2626; font-size: 14px; margin: 4px 0 0; min-height: 20px; }
+  #palette { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+  .swatch {
+    width: 100px; height: 100px; border-radius: 12px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: #111827; font-weight: 600; font-size: 15px;
+    transition: width 0.25s ease; user-select: none;
+  }
+  .swatch.expanded { width: 270px; }
+  .swatch span { display: none; }
+  .swatch.expanded span { display: block; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Interactive Color Palette</h1>
+  <p class="hint">Click a box to expand it and see its hex code. Double-click a box to remove it.</p>
+
+  <div class="controls">
+    <input id="hexInput" type="text" placeholder="Hex color, e.g. #ff6600" maxlength="7" aria-label="Hex color">
+    <button id="addBtn" type="button">Add Color</button>
+    <button id="exportBtn" type="button">Export PNG</button>
+  </div>
+  <p id="error" role="alert"></p>
+
+  <div id="palette"></div>
+</div>
+
+<script>
+const palette = document.getElementById('palette');
+const hexInput = document.getElementById('hexInput');
+const errorEl = document.getElementById('error');
+let colors = ['#ef4444', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6', '#ec4899'];
+
+function render() {
+  palette.innerHTML = '';
+  colors.forEach(hex => {
+    const box = document.createElement('div');
+    box.className = 'swatch';
+    box.style.backgroundColor = hex;
+    box.innerHTML = '<span>' + hex + '</span>';
+    box.addEventListener('click', () => box.classList.toggle('expanded'));
+    box.addEventListener('dblclick', () => {
+      colors = colors.filter(c => c !== hex);
+      render();
+    });
+    palette.appendChild(box);
+  });
+}
+
+function normalizeHex(value) {
+  const m = value.trim().match(/^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/);
+  if (!m) return null;
+  let h = m[1].toLowerCase();
+  if (h.length === 3) h = h.split('').map(ch => ch + ch).join('');
+  return '#' + h;
+}
+
+function addColor() {
+  const hex = normalizeHex(hexInput.value);
+  if (!hex) {
+    errorEl.textContent = 'Please enter a valid hex color such as #ff6600 or #f60.';
+    return;
+  }
+  errorEl.textContent = '';
+  colors.push(hex);
+  hexInput.value = '';
+  render();
+}
+
+document.getElementById('addBtn').addEventListener('click', addColor);
+hexInput.addEventListener('keydown', e => { if (e.key === 'Enter') addColor(); });
+
+document.getElementById('exportBtn').addEventListener('click', () => {
+  const size = 100, gap = 12, cols = 4;
+  const rows = Math.ceil(colors.length / cols);
+  const canvas = document.createElement('canvas');
+  canvas.width = cols * size + (cols - 1) * gap;
+  canvas.height = rows * size + (rows - 1) * gap;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#f9fafb';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.font = '600 15px Arial, sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  colors.forEach((hex, i) => {
+    const x = (i % cols) * (size + gap);
+    const y = Math.floor(i / cols) * (size + gap);
+    ctx.fillStyle = hex;
+    ctx.beginPath();
+    ctx.roundRect(x, y, size, size, 12);
+    ctx.fill();
+    ctx.fillStyle = '#111827';
+    ctx.fillText(hex, x + size / 2, y + size / 2);
+  });
+  const a = document.createElement('a');
+  a.href = canvas.toDataURL('image/png');
+  a.download = 'color-palette.png';
+  a.click();
+});
+
+render();
+</script>
+</body>
+</html>
