@@ -5,109 +5,175 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>REST Countries Explorer</title>
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background: #EAEEF6; background-image: radial-gradient(#C9D1E4 1px, transparent 1px); background-size: 22px 22px; color: #0D1633; padding: 24px 16px 48px; }
-  .wrap { max-width: 900px; margin: 0 auto; }
-  h1 { font-size: 1.9rem; margin-bottom: 4px; }
-  p.sub { color: #4A5578; margin-bottom: 20px; }
-  .controls { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 18px; }
-  .controls input, .controls select { flex: 1 1 180px; padding: 10px 12px; border: 1px solid #d1d5db; border-radius: 10px; font-size: 1rem; background: #fff; }
-  button { padding: 10px 18px; border: 0; border-radius: 10px; background: #2F4BFF; color: #fff; font-size: 1rem; cursor: pointer; }
-  button:hover { background: #1E33CC; }
-  #status { color: #4A5578; margin: 12px 0; }
-  #status.error { color: #dc2626; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
-  .card { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.06); cursor: pointer; }
-  .card img { width: 100%; height: 150px; object-fit: cover; }
-  .card .body { padding: 14px; }
-  .card h3 { margin-bottom: 6px; }
-  .card p { color: #4A5578; font-size: 0.92rem; line-height: 1.5; }
-  #detail { background: #fff; border-radius: 16px; padding: 20px; margin-bottom: 18px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
-  #detail img { width: 220px; max-width: 100%; border: 1px solid #e5e7eb; margin: 10px 0; }
+  body { font-family: Arial, sans-serif; max-width: 960px; margin: 30px auto; padding: 0 20px; color: #222; }
+  h1 { margin-bottom: 4px; }
+  p { color: #555; }
+  .controls { display: flex; gap: 12px; flex-wrap: wrap; margin: 20px 0; align-items: center; }
+  .controls input, .controls select { padding: 10px 12px; font-size: 15px; border: 1.5px solid #cbd5e1; border-radius: 8px; }
+  .controls input { flex: 1; min-width: 220px; }
+  .controls button {
+    background: #2563eb; color: #fff; border: none; border-radius: 8px;
+    padding: 10px 18px; font-size: 15px; font-weight: 600; cursor: pointer;
+  }
+  .controls button:hover { background: #1d4ed8; }
+  .controls button:disabled { background: #93c5fd; cursor: wait; }
+  #status { color: #555; margin: 12px 0; }
+  #status.error { color: #dc2626; font-weight: 600; }
+  #grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; }
+  .card { border: 1px solid #ddd; border-radius: 8px; padding: 12px; cursor: pointer; background: #fff; text-align: left; font: inherit; }
+  .card:hover { border-color: #2563eb; }
+  .card img { width: 100%; height: 120px; object-fit: cover; border-radius: 4px; background: #f1f5f9; }
+  .card h3 { margin: 10px 0 4px; font-size: 16px; }
+  .card p { margin: 2px 0; font-size: 14px; }
+  #modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.55); align-items: center; justify-content: center; padding: 20px; }
+  #modal.open { display: flex; }
+  #modalBox { background: #fff; max-width: 560px; width: 100%; max-height: 90vh; overflow: auto; border-radius: 10px; padding: 22px; }
+  #modalBox img { width: 100%; max-height: 220px; object-fit: cover; border-radius: 6px; background: #f1f5f9; }
+  #modalBox button { padding: 8px 14px; font-size: 15px; cursor: pointer; }
+  dl { display: grid; grid-template-columns: 140px 1fr; gap: 6px 12px; }
+  dt { font-weight: bold; }
+  dd { margin: 0; }
+  .note { font-size: 13px; color: #777; margin-top: 24px; }
 </style>
 </head>
 <body>
-<div class="wrap">
-  <h1>🌍 REST Countries Explorer</h1>
-  <p class="sub">Search countries, filter by region, and click a card for full details.</p>
-  <div class="controls">
-    <input id="search" type="text" placeholder="Search a country...">
-    <select id="region">
-      <option value="">All regions</option>
-      <option value="Africa">Africa</option>
-      <option value="Americas">Americas</option>
-      <option value="Asia">Asia</option>
-      <option value="Europe">Europe</option>
-      <option value="Oceania">Oceania</option>
-    </select>
-    <button id="loadBtn">Load Countries</button>
-  </div>
-  <div id="status">Click "Load Countries" to fetch the list.</div>
-  <div id="detail" hidden></div>
-  <div id="countries" class="grid"></div>
+<h1>🌍 REST Countries Explorer</h1>
+<p>Search countries, filter by region, and click a card for full details.</p>
+
+<div class="controls">
+  <input id="search" type="search" placeholder="Search by country name..." aria-label="Search by country name">
+  <select id="region" aria-label="Filter by region">
+    <option value="">All regions</option>
+  </select>
+  <button id="loadBtn" type="button">Load Countries</button>
 </div>
+
+<p id="status">Click "Load Countries" to fetch the list.</p>
+<div id="grid"></div>
+
+<div id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div id="modalBox">
+    <button id="closeBtn" type="button">Close</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+
+<p class="note">Data: World Bank country list + 2024 population (api.worldbank.org, no key needed).
+  Flags: flagcdn.com. The old restcountries.com v3 API was shut down in 2026, so this
+  version uses the World Bank API instead — same features, same page.</p>
+
 <script>
-  const statusEl = document.getElementById('status');
-  const countriesEl = document.getElementById('countries');
-  const detailEl = document.getElementById('detail');
-  const searchEl = document.getElementById('search');
-  const regionEl = document.getElementById('region');
-  let allCountries = [];
+/*
+  Why World Bank and not restcountries.com?
+  restcountries.com v1–v4 were taken down in 2026 (their v5 needs an account
+  and an API key). The World Bank API is free, needs no key, and returns the
+  same kind of data: name, capital, region, population, coordinates.
+*/
+const COUNTRIES_URL = 'https://api.worldbank.org/v2/country?format=json&per_page=300';
+const POPULATION_URL = 'https://api.worldbank.org/v2/country/all/indicator/SP.POP.TOTL?format=json&per_page=500&date=2024';
 
-  function render() {
-    const q = searchEl.value.trim().toLowerCase();
-    const region = regionEl.value;
-    const filtered = allCountries.filter(c =>
-      (!region || c.region === region) &&
-      (!q || c.name.common.toLowerCase().includes(q))
-    );
-    statusEl.className = '';
-    statusEl.textContent = filtered.length + ' countr(ies) shown. Click a card for details.';
-    countriesEl.innerHTML = filtered.map((c, i) =>
-      '<article class="card" data-i="' + allCountries.indexOf(c) + '">' +
-      '<img src="' + c.flags.png + '" alt="Flag of ' + c.name.common + '">' +
-      '<div class="body"><h3>' + c.name.common + '</h3>' +
-      '<p>Capital: ' + (c.capital ? c.capital.join(', ') : '—') + '<br>Region: ' + c.region +
-      '<br>Population: ' + c.population.toLocaleString() + '</p></div></article>'
-    ).join('') || '<p>No countries match your search.</p>';
-    countriesEl.querySelectorAll('.card').forEach(card => {
-      card.addEventListener('click', () => showDetail(allCountries[Number(card.dataset.i)]));
+const grid = document.getElementById('grid');
+const statusEl = document.getElementById('status');
+const searchEl = document.getElementById('search');
+const regionEl = document.getElementById('region');
+const loadBtn = document.getElementById('loadBtn');
+const modal = document.getElementById('modal');
+const modalContent = document.getElementById('modalContent');
+let countries = [];
+
+function formatNumber(n) { return typeof n === 'number' ? n.toLocaleString() : '—'; }
+function regionOf(c) { return (c.region && c.region.value ? c.region.value : '').trim(); }
+function flagUrl(c) {
+  return c.iso2Code ? 'https://flagcdn.com/w320/' + c.iso2Code.toLowerCase() + '.png' : '';
+}
+
+function buildRegionOptions() {
+  const regions = [...new Set(countries.map(regionOf).filter(Boolean))].sort();
+  regionEl.innerHTML = '<option value="">All regions</option>' +
+    regions.map(r => '<option value="' + r + '">' + r + '</option>').join('');
+}
+
+function render() {
+  const q = searchEl.value.trim().toLowerCase();
+  const region = regionEl.value;
+  const filtered = countries.filter(c => {
+    const name = (c.name || '').toLowerCase();
+    return (!q || name.includes(q)) && (!region || regionOf(c) === region);
+  });
+  statusEl.classList.remove('error');
+  statusEl.textContent = filtered.length + ' countr' + (filtered.length === 1 ? 'y' : 'ies') + ' found.';
+  grid.innerHTML = '';
+  filtered.forEach(c => {
+    const btn = document.createElement('button');
+    btn.className = 'card';
+    btn.type = 'button';
+    btn.innerHTML =
+      '<img src="' + flagUrl(c) + '" alt="Flag of ' + (c.name || '') + '" loading="lazy" onerror="this.style.display=\'none\'">' +
+      '<h3>' + (c.name || '') + '</h3>' +
+      '<p>Capital: ' + (c.capitalCity || '—') + '</p>' +
+      '<p>Region: ' + (regionOf(c) || '—') + '</p>' +
+      '<p>Population: ' + formatNumber(c.population) + '</p>';
+    btn.addEventListener('click', () => showDetails(c));
+    grid.appendChild(btn);
+  });
+}
+
+function showDetails(c) {
+  modalContent.innerHTML =
+    '<h2 id="modalTitle">' + (c.name || '') + '</h2>' +
+    '<img src="' + flagUrl(c) + '" alt="Flag of ' + (c.name || '') + '" onerror="this.style.display=\'none\'">' +
+    '<dl>' +
+    '<dt>Capital</dt><dd>' + (c.capitalCity || '—') + '</dd>' +
+    '<dt>Region</dt><dd>' + (regionOf(c) || '—') + '</dd>' +
+    '<dt>Income level</dt><dd>' + (c.incomeLevel && c.incomeLevel.value ? c.incomeLevel.value : '—') + '</dd>' +
+    '<dt>Population (2024)</dt><dd>' + formatNumber(c.population) + '</dd>' +
+    '<dt>Latitude</dt><dd>' + (c.latitude || '—') + '</dd>' +
+    '<dt>Longitude</dt><dd>' + (c.longitude || '—') + '</dd>' +
+    '<dt>Country code</dt><dd>' + (c.id || '—') + ' (' + (c.iso2Code || '—') + ')</dd>' +
+    '</dl>';
+  modal.classList.add('open');
+}
+
+document.getElementById('closeBtn').addEventListener('click', () => modal.classList.remove('open'));
+modal.addEventListener('click', e => { if (e.target === modal) modal.classList.remove('open'); });
+searchEl.addEventListener('input', render);
+regionEl.addEventListener('change', render);
+
+async function loadCountries() {
+  loadBtn.disabled = true;
+  statusEl.classList.remove('error');
+  statusEl.textContent = 'Loading countries...';
+  try {
+    const [countryRes, popRes] = await Promise.all([fetch(COUNTRIES_URL), fetch(POPULATION_URL)]);
+    if (!countryRes.ok || !popRes.ok) throw new Error('Request failed');
+    const [, countryList] = await countryRes.json();
+    const [, popList] = await popRes.json();
+
+    // Population by 3-letter country code (e.g. NPL -> 29651054).
+    const populationByCode = {};
+    (popList || []).forEach(p => {
+      if (p && p.countryiso3code && typeof p.value === 'number') populationByCode[p.countryiso3code] = p.value;
     });
-  }
 
-  function showDetail(c) {
-    detailEl.hidden = false;
-    detailEl.innerHTML = '<h2>' + c.name.common + ' (' + c.name.official + ')</h2>' +
-      '<img src="' + c.flags.png + '" alt="Flag of ' + c.name.common + '">' +
-      '<p>Capital: ' + (c.capital ? c.capital.join(', ') : '—') + '<br>' +
-      'Region: ' + c.region + ' &middot; Subregion: ' + (c.subregion || '—') + '<br>' +
-      'Population: ' + c.population.toLocaleString() + '<br>' +
-      'Languages: ' + (c.languages ? Object.values(c.languages).join(', ') : '—') + '<br>' +
-      'Currencies: ' + (c.currencies ? Object.values(c.currencies).map(x => x.name + ' (' + x.symbol + ')').join(', ') : '—') + '<br>' +
-      'Timezones: ' + (c.timezones ? c.timezones.join(', ') : '—') + '</p>';
-    detailEl.scrollIntoView({ behavior: 'smooth' });
-  }
+    // Drop aggregates (continents / income groups): they have region id "NA".
+    countries = (countryList || [])
+      .filter(c => c && c.region && c.region.id !== 'NA' && c.iso2Code)
+      .map(c => ({ ...c, population: populationByCode[c.id] ?? null }))
+      .sort((a, b) => (a.name || '').localeCompare(b.name || ''));
 
-  async function loadCountries() {
-    statusEl.className = '';
-    statusEl.textContent = 'Loading countries...';
-    countriesEl.innerHTML = '';
-    try {
-      const res = await fetch('https://restcountries.com/v3.1/all?fields=name,capital,region,subregion,population,flags,languages,currencies,timezones');
-      if (!res.ok) throw new Error('Request failed');
-      allCountries = await res.json();
-      allCountries.sort((a, b) => a.name.common.localeCompare(b.name.common));
-      render();
-    } catch (e) {
-      statusEl.className = 'error';
-      statusEl.textContent = 'Failed to load countries. Please try again!';
-    }
+    if (countries.length === 0) throw new Error('Empty response');
+    buildRegionOptions();
+    render();
+  } catch (err) {
+    statusEl.textContent = 'Failed to load countries. Please try again!';
+    statusEl.classList.add('error');
+  } finally {
+    loadBtn.disabled = false;
   }
+}
 
-  document.getElementById('loadBtn').addEventListener('click', loadCountries);
-  searchEl.addEventListener('input', render);
-  regionEl.addEventListener('change', render);
-  loadCountries();
+loadBtn.addEventListener('click', loadCountries);
+loadCountries(); // load automatically on open; the button reloads
 </script>
 </body>
 </html>
