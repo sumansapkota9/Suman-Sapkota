@@ -1,1 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Search | Suman Sapkota</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700&family=Figtree:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{ --paper:#EAEEF6; --ink:#0D1633; --ink-2:#4A5578; --line:#C9D1E4; --cobalt:#2F4BFF; --sun:#FFC933; --white:#fff; }
+*{ box-sizing:border-box; margin:0; padding:0; }
+body{ font-family:"Figtree",system-ui,sans-serif; background:var(--paper); background-image:radial-gradient(#C9D1E4 1px, transparent 1px); background-size:22px 22px; color:var(--ink); padding:24px 16px 48px; }
+.skip-link{ position:fixed; top:-60px; left:16px; z-index:100; background:var(--ink); color:#fff; padding:10px 16px; border-radius:10px; text-decoration:none; font-weight:600; }
+.skip-link:focus{ top:12px; outline:3px solid var(--sun); }
+.wrap{ max-width:860px; margin:0 auto; }
+.eyebrow{ font-family:"JetBrains Mono",monospace; font-size:.8rem; letter-spacing:.08em; color:var(--cobalt); margin-bottom:8px; }
+h1{ font-family:"Bricolage Grotesque","Figtree",sans-serif; font-size:2rem; margin-bottom:8px; }
+.lead{ color:var(--ink-2); line-height:1.6; margin-bottom:20px; }
+.search{ display:flex; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+.search input{ flex:1; min-width:220px; padding:12px 14px; border:1px solid var(--line); border-radius:12px; font:inherit; background:var(--white); }
+.search input:focus{ outline:3px solid var(--sun); border-color:var(--cobalt); }
+.search button{ background:var(--cobalt); color:#fff; border:0; border-radius:12px; padding:12px 22px; font:inherit; font-weight:600; cursor:pointer; }
+.search button:hover{ opacity:.9; }
+.hint{ font-size:.85rem; color:var(--ink-2); margin-bottom:20px; }
+.status{ background:var(--white); border:1px solid var(--line); border-radius:12px; padding:14px 16px; color:var(--ink-2); margin-bottom:20px; }
+.status.error{ border-color:#DC2626; color:#991B1B; background:#FEF2F2; }
+.status[hidden]{ display:none; }
+.results{ display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; }
+.book{ background:var(--white); border:1px solid var(--line); border-radius:14px; padding:14px; display:flex; gap:12px; }
+.book img{ width:64px; height:96px; object-fit:cover; border-radius:6px; background:var(--paper); flex-shrink:0; }
+.book h2{ font-size:1rem; line-height:1.35; margin-bottom:4px; }
+.book p{ font-size:.88rem; color:var(--ink-2); line-height:1.5; }
+.back{ display:inline-block; margin-top:28px; color:var(--cobalt); font-weight:600; text-decoration:none; }
+.back:hover{ text-decoration:underline; }
+@media (max-width:560px){ h1{ font-size:1.6rem; } }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<main id="main" tabindex="-1">
+<div class="wrap">
+<p class="eyebrow">WEEK 10 &middot; HOMEWORK &middot; OPEN LIBRARY API</p>
+<h1>Book Search</h1>
+<p class="lead">Search books by title or author. Results come from the Open Library
+search API, with a cover, author and first published year for each book.</p>
+<form class="search" id="searchForm">
+<input type="search" id="query" placeholder="Try: atomic habits, harry potter, nepal" aria-label="Search books">
+<button type="submit">Search</button>
+</form>
+<p class="hint">Example: type a book title or an author name, then press Enter.</p>
+<p class="status" id="status" hidden></p>
+<div class="results" id="results"></div>
+<a class="back" href="../index.html">&larr; Back to Week 10</a>
+</div>
+</main>
+<script>
+var form = document.getElementById('searchForm');
+var queryInput = document.getElementById('query');
+var statusEl = document.getElementById('status');
+var resultsEl = document.getElementById('results');
+
+function showStatus(text, isError) {
+  statusEl.hidden = false;
+  statusEl.textContent = text;
+  statusEl.classList.toggle('error', !!isError);
+}
+function hideStatus() {
+  statusEl.hidden = true;
+  statusEl.classList.remove('error');
+}
+function bookCard(book) {
+  var title = book.title || 'Untitled';
+  var author = (book.author_name && book.author_name.join(', ')) || 'Unknown author';
+  var year = book.first_publish_year ? 'First published: ' + book.first_publish_year : 'Year unknown';
+  var cover = book.cover_i
+    ? 'https://covers.openlibrary.org/b/id/' + book.cover_i + '-M.jpg'
+    : 'https://covers.openlibrary.org/b/id/0-M.jpg';
+  var card = document.createElement('article');
+  card.className = 'book';
+  var img = document.createElement('img');
+  img.src = cover;
+  img.alt = 'Cover of ' + title;
+  img.loading = 'lazy';
+  img.onerror = function () { img.style.visibility = 'hidden'; };
+  var text = document.createElement('div');
+  var h2 = document.createElement('h2');
+  h2.textContent = title;
+  var p1 = document.createElement('p');
+  p1.textContent = author;
+  var p2 = document.createElement('p');
+  p2.textContent = year;
+  text.appendChild(h2);
+  text.appendChild(p1);
+  text.appendChild(p2);
+  card.appendChild(img);
+  card.appendChild(text);
+  return card;
+}
+async function searchBooks(q) {
+  hideStatus();
+  resultsEl.innerHTML = '';
+  showStatus('Searching for "' + q + '"\u2026');
+  try {
+    var res = await fetch('https://openlibrary.org/search.json?q=' + encodeURIComponent(q) + '&limit=12');
+    if (!res.ok) throw new Error('Request failed: ' + res.status);
+    var data = await res.json();
+    var docs = data.docs || [];
+    if (docs.length === 0) {
+      showStatus('No books found for "' + q + '". Try a different title or author.');
+      return;
+    }
+    hideStatus();
+    var count = document.createElement('p');
+    count.className = 'status';
+    count.textContent = docs.length + ' result' + (docs.length === 1 ? '' : 's') + ' for "' + q + '"';
+    resultsEl.before(count);
+    docs.forEach(function (book) { resultsEl.appendChild(bookCard(book)); });
+  } catch (err) {
+    showStatus('Something went wrong. Check your connection and try again.', true);
+  }
+}
+form.addEventListener('submit', function (e) {
+  e.preventDefault();
+  var q = queryInput.value.trim();
+  if (!q) { showStatus('Type a book title or author first.', true); return; }
+  searchBooks(q);
+});
+document.querySelector('.skip-link').addEventListener('click', function () {
+  document.getElementById('main').focus();
+});
+</script>
+</body>
+</html>
 
