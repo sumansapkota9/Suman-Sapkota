@@ -29,6 +29,15 @@ pre code{ background:none; padding:0; }
 .btn{ display:inline-block; background:var(--cobalt); color:#fff; border-radius:999px; padding:9px 18px; font-weight:600; text-decoration:none; margin:6px 8px 6px 0; }
 .btn.ghost{ background:var(--paper); color:var(--ink); border:1px solid var(--line); }
 .btn:hover{ opacity:.9; }
+.ex-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+@media (max-width:700px){ .ex-grid{ grid-template-columns:1fr 1fr; } }
+@media (max-width:480px){ .ex-grid{ grid-template-columns:1fr; } }
+.ex-card{ background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:18px; transition:transform .2s ease, box-shadow .2s ease; }
+.ex-card:hover{ transform:translateY(-4px); box-shadow:0 12px 24px rgba(13,22,51,.12); }
+.ex-tag{ font-family:"JetBrains Mono",monospace; font-size:.75rem; letter-spacing:.08em; color:var(--cobalt); font-weight:600; }
+.ex-card h3{ margin:8px 0 6px; }
+.ex-card p{ font-size:.95rem; margin-bottom:10px; }
+.ex-card a{ color:var(--cobalt); font-weight:600; }
 .check li{ list-style:none; margin-left:-20px; padding-left:4px; }
 .check li::before{ content:"☐ "; color:var(--cobalt); }
 .back{ display:inline-block; margin-top:12px; color:var(--cobalt); font-weight:600; text-decoration:none; }
@@ -47,50 +56,44 @@ portfolio homework and the supporting evidence.</p>
 
 <div class="card">
 <h2>Six study-guide exercises</h2>
-
-<h3>Monday E1 — Create a Git repository</h3>
-<p>Make a folder with an <code>index.html</code> file, then turn it into a
-repository and make the first commit.</p>
-<pre><code>git init
-git add .
-git commit -m "Initial commit"
-git log --oneline</code></pre>
-<p>Demo project: <a href="git-exercise/index.html">git-exercise/index.html</a>
-— this is the folder the commands above were run in.</p>
-
-<h3>Monday E2 — Branch and merge</h3>
-<p>Create a feature branch, add the CSS file there, commit it, then merge the
-branch back into <code>main</code>.</p>
-<pre><code>git switch -c feature-style
-git add style.css
-git commit -m "Add styles on feature-style branch"
-git switch main
-git merge feature-style</code></pre>
-<p>The <code>style.css</code> in the demo project was added on the
-<code>feature-style</code> branch and merged this way.</p>
-
-<h3>Monday E3 — Push to GitHub</h3>
-<p>Create a repository on GitHub, connect the local project to it, and push.</p>
-<pre><code>git remote add origin https://github.com/sumansapkota9/Suman-Sapkota.git
-git push -u origin main</code></pre>
-<p>Evidence: the commit history on GitHub, and <code>git log --oneline</code>
-in the terminal.</p>
-
-<h3>Friday E1 — GitHub Pages</h3>
-<p>Repository Settings &rarr; Pages &rarr; Deploy from a branch &rarr; choose
-<code>main</code> and <code>/ (root)</code> &rarr; Save. GitHub gives the live
-site link. This lab archive is already deployed this way.</p>
-
-<h3>Friday E2 — 404 error</h3>
-<p>Open a URL that does not exist on the site, for example
-<code>.../Suman-Sapkota/this-page-does-not-exist</code>, and see how GitHub
-Pages answers with a 404 page.</p>
-
-<h3>Friday E3 — Custom 404 page</h3>
-<p>Create a <code>404.html</code> file in the repository root with a simple
-error message and a button back home. GitHub Pages uses it automatically
-for missing pages.</p>
-<p><a class="btn ghost" href="../404.html">View my 404 page</a></p>
+<div class="ex-grid">
+<div class="ex-card">
+<p class="ex-tag">MONDAY / E1</p>
+<h3>First repository</h3>
+<p>Initialize Git, create HTML, stage changes, commit and inspect the history.</p>
+<a href="https://github.com/sumansapkota9/Suman-Sapkota/commits/main">View commit history</a>
+</div>
+<div class="ex-card">
+<p class="ex-tag">MONDAY / E2</p>
+<h3>Branch and merge</h3>
+<p>Add CSS on a feature branch and merge it into main.</p>
+<a href="https://github.com/sumansapkota9/Suman-Sapkota/blob/main/week10/git-exercise/style.css">View style.css on GitHub</a>
+</div>
+<div class="ex-card">
+<p class="ex-tag">MONDAY / E3</p>
+<h3>Push to GitHub</h3>
+<p>Local edit, commit and push — the demo project is live on GitHub.</p>
+<a href="git-exercise/index.html">Open Git exercise</a>
+</div>
+<div class="ex-card">
+<p class="ex-tag">FRIDAY / E1</p>
+<h3>Enable GitHub Pages</h3>
+<p>This lab archive is published through GitHub Pages.</p>
+<a href="../index.html">Open live homepage</a>
+</div>
+<div class="ex-card">
+<p class="ex-tag">FRIDAY / E2</p>
+<h3>Understand a 404</h3>
+<p>A missing address shows a 404 page — open a wrong link and see.</p>
+<a href="../this-page-does-not-exist">Test a missing address</a>
+</div>
+<div class="ex-card">
+<p class="ex-tag">FRIDAY / E3</p>
+<h3>Custom error page</h3>
+<p>A friendly 404 page gives visitors a clear route back home.</p>
+<a href="../404.html">View the deployed custom 404</a>
+</div>
+</div>
 </div>
 
 <div class="card">
