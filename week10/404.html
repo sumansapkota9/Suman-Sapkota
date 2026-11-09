@@ -1,1 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Page not found (404) | Suman Sapkota</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700&family=Figtree:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{ --paper:#EAEEF6; --ink:#0D1633; --ink-2:#4A5578; --line:#C9D1E4; --cobalt:#2F4BFF; --sun:#FFC933; --white:#fff; }
+*{ box-sizing:border-box; margin:0; padding:0; }
+body{ font-family:"Figtree",system-ui,sans-serif; background:var(--paper); background-image:radial-gradient(#C9D1E4 1px, transparent 1px); background-size:22px 22px; color:var(--ink); padding:24px 16px 48px; min-height:100vh; display:flex; align-items:center; justify-content:center; }
+.skip-link{ position:fixed; top:-60px; left:16px; z-index:100; background:var(--ink); color:#fff; padding:10px 16px; border-radius:10px; text-decoration:none; font-weight:600; }
+.skip-link:focus{ top:12px; outline:3px solid var(--sun); }
+.card{ max-width:560px; background:var(--white); border:1px solid var(--line); border-radius:16px; padding:36px 32px; text-align:center; }
+.big{ font-family:"Bricolage Grotesque","Figtree",sans-serif; font-size:4.5rem; font-weight:700; color:var(--cobalt); line-height:1; margin-bottom:12px; }
+h1{ font-family:"Bricolage Grotesque","Figtree",sans-serif; font-size:1.6rem; margin-bottom:10px; }
+p{ color:var(--ink-2); line-height:1.65; margin-bottom:20px; }
+.btn{ display:inline-block; background:var(--cobalt); color:#fff; border-radius:999px; padding:12px 26px; font-weight:600; text-decoration:none; margin:4px; }
+.btn.ghost{ background:var(--paper); color:var(--ink); border:1px solid var(--line); }
+.btn:hover{ opacity:.9; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<main id="main" tabindex="-1">
+<div class="card">
+<p class="big">404</p>
+<h1>This page doesn't exist.</h1>
+<p>The link you followed may be broken, or the page may have moved.
+Use the button below to go back home.</p>
+<a class="btn" href="index.html">Back to home</a>
+<a class="btn ghost" href="week10/index.html">Week 10 hub</a>
+</div>
+</main>
+<script>
+document.querySelector('.skip-link').addEventListener('click', function () {
+  document.getElementById('main').focus();
+});
+</script>
+</body>
+</html>
 
