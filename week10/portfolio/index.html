@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suman Sapkota | Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700&family=Figtree:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{ --paper:#EAEEF6; --ink:#0D1633; --ink-2:#4A5578; --line:#C9D1E4; --cobalt:#2F4BFF; --sun:#FFC933; --white:#fff; --card:#fff; }
+[data-theme="dark"]{ --paper:#0A1129; --ink:#E8ECF8; --ink-2:#A9B4D4; --line:#2A3560; --cobalt:#7C93FF; --sun:#FFC933; --white:#111A3A; --card:#111A3A; }
+*{ box-sizing:border-box; margin:0; padding:0; }
+body{ font-family:"Figtree",system-ui,sans-serif; background:var(--paper); background-image:radial-gradient(var(--line) 1px, transparent 1px); background-size:22px 22px; color:var(--ink); padding:24px 16px 48px; }
+.skip-link{ position:fixed; top:-60px; left:16px; z-index:100; background:var(--ink); color:var(--paper); padding:10px 16px; border-radius:10px; text-decoration:none; font-weight:600; }
+.skip-link:focus{ top:12px; outline:3px solid var(--sun); }
+.wrap{ max-width:900px; margin:0 auto; }
+.topbar{ display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:24px; }
+.topbar .name{ font-family:"Bricolage Grotesque","Figtree",sans-serif; font-weight:700; font-size:1.15rem; }
+.theme-btn{ border:1px solid var(--line); background:var(--card); color:var(--ink); border-radius:999px; padding:8px 16px; font:inherit; font-size:.9rem; cursor:pointer; }
+.theme-btn:hover{ border-color:var(--cobalt); }
+.hero{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:28px; display:flex; gap:24px; align-items:center; margin-bottom:18px; }
+.hero img{ width:140px; height:140px; border-radius:50%; object-fit:cover; border:3px solid var(--sun); flex-shrink:0; }
+.eyebrow{ font-family:"JetBrains Mono",monospace; font-size:.8rem; letter-spacing:.08em; color:var(--cobalt); margin-bottom:8px; }
+.hero h1{ font-family:"Bricolage Grotesque","Figtree",sans-serif; font-size:2.1rem; line-height:1.1; margin-bottom:10px; }
+.hero p{ color:var(--ink-2); line-height:1.65; }
+.hero p + p{ margin-top:8px; }
+section{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:24px 28px; margin-bottom:18px; }
+h2{ font-family:"Bricolage Grotesque","Figtree",sans-serif; font-size:1.4rem; margin-bottom:14px; }
+.skills{ display:flex; flex-wrap:wrap; gap:8px; list-style:none; }
+.skills li{ border:1px solid var(--line); background:var(--paper); border-radius:999px; padding:7px 14px; font-size:.9rem; }
+.filters{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+.filters button{ border:1px solid var(--line); background:var(--paper); color:var(--ink); border-radius:999px; padding:7px 16px; font:inherit; font-size:.9rem; cursor:pointer; }
+.filters button:hover{ border-color:var(--cobalt); }
+.filters button.active{ background:var(--cobalt); color:#fff; border-color:var(--cobalt); }
+.projects{ display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; }
+.project{ border:1px solid var(--line); border-radius:14px; padding:18px; background:var(--paper); }
+.project[hidden]{ display:none; }
+.project .tag{ font-family:"JetBrains Mono",monospace; font-size:.75rem; letter-spacing:.06em; color:var(--cobalt); margin-bottom:8px; }
+.project h3{ font-size:1.1rem; margin-bottom:8px; }
+.project p{ font-size:.92rem; color:var(--ink-2); line-height:1.6; margin-bottom:12px; }
+.project a{ color:var(--cobalt); font-weight:600; text-decoration:none; }
+.project a:hover{ text-decoration:underline; }
+footer{ text-align:center; color:var(--ink-2); font-size:.9rem; line-height:1.8; }
+footer a{ color:var(--cobalt); font-weight:600; text-decoration:none; }
+.back{ display:inline-block; margin-top:16px; color:var(--cobalt); font-weight:600; text-decoration:none; }
+@media (max-width:640px){
+  .hero{ flex-direction:column; text-align:center; padding:22px 18px; }
+  .hero h1{ font-size:1.7rem; }
+  section{ padding:20px; }
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<main id="main" tabindex="-1">
+<div class="wrap">
+<div class="topbar">
+<span class="name">Suman Sapkota</span>
+<button class="theme-btn" id="themeBtn" type="button">🌙 Dark mode</button>
+</div>
+
+<header class="hero">
+<img src="portrait.png" alt="Portrait photo of Suman Sapkota">
+<div>
+<p class="eyebrow">NEPAL &rarr; SOUTH KOREA &middot; GACHON UNIVERSITY</p>
+<h1>Hi, I'm Suman.</h1>
+<p>I'm a Computer Engineering student at Gachon University, in my 2nd
+semester. I build small websites with HTML, CSS and JavaScript, and I am
+learning how real deployment works — Git, GitHub and GitHub Pages.</p>
+<p>Outside class I run Facebook Pages with short AI videos, so I care a lot
+about what makes people stop, watch and come back.</p>
+</div>
+</header>
+
+<section aria-labelledby="skills-h">
+<h2 id="skills-h">Skills</h2>
+<ul class="skills">
+<li>HTML</li><li>CSS</li><li>JavaScript</li><li>Git &amp; GitHub</li>
+<li>GitHub Pages</li><li>Responsive design</li><li>Fetch API</li><li>Accessibility</li>
+</ul>
+</section>
+
+<section aria-labelledby="projects-h">
+<h2 id="projects-h">Projects</h2>
+<div class="filters" role="group" aria-label="Filter projects">
+<button type="button" class="active" data-filter="all">All</button>
+<button type="button" data-filter="html-css">HTML &amp; CSS</button>
+<button type="button" data-filter="javascript">JavaScript</button>
+<button type="button" data-filter="api">API</button>
+</div>
+<div class="projects" id="projects">
+<article class="project" data-category="javascript">
+<p class="tag">FINAL PROJECT &middot; TEAM</p>
+<h3>BiHE.COM</h3>
+<p>A Nepali matrimony website — find your forever, compatibility
+calculator, profiles, quiz and pricing. Built with my team.</p>
+<a href="../../final-project/index.html">Open BiHE.COM &rarr;</a>
+</article>
+<article class="project" data-category="api">
+<p class="tag">WEEK 6 &middot; FETCH API</p>
+<h3>Countries Explorer</h3>
+<p>Search countries, filter by region and open a card for full details.
+Uses the World Bank API — no API key needed.</p>
+<a href="../../week 6/task6.html">Open explorer &rarr;</a>
+</article>
+<article class="project" data-category="api">
+<p class="tag">WEEK 10 &middot; FETCH API</p>
+<h3>Book Search</h3>
+<p>Search books by title or author with the Open Library API. Covers,
+loading feedback and error handling included.</p>
+<a href="../book-search/index.html">Open Book Search &rarr;</a>
+</article>
+<article class="project" data-category="html-css">
+<p class="tag">WEEKS 1&ndash;10 &middot; HTML &amp; CSS</p>
+<h3>Lab Archive</h3>
+<p>My full Web Programming lab archive — every week's exercises in one
+place, with a live preview for each file.</p>
+<a href="../../index.html">Open the archive &rarr;</a>
+</article>
+</div>
+</section>
+
+<footer>
+<p>Suman Sapkota &middot; Computer Engineering, Gachon University &middot; Student ID 202637609</p>
+<p><a href="https://github.com/sumansapkota9">GitHub: sumansapkota9</a></p>
+<a class="back" href="../index.html">&larr; Back to Week 10</a>
+</footer>
+</div>
+</main>
+<script>
+// Dark mode: remember the choice in this browser.
+var themeBtn = document.getElementById('themeBtn');
+var saved = null;
+try { saved = localStorage.getItem('portfolio-theme'); } catch (e) {}
+if (saved === 'dark') {
+  document.documentElement.setAttribute('data-theme', 'dark');
+  themeBtn.textContent = '☀️ Light mode';
+}
+themeBtn.addEventListener('click', function () {
+  var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  if (isDark) {
+    document.documentElement.removeAttribute('data-theme');
+    themeBtn.textContent = '🌙 Dark mode';
+    try { localStorage.setItem('portfolio-theme', 'light'); } catch (e) {}
+  } else {
+    document.documentElement.setAttribute('data-theme', 'dark');
+    themeBtn.textContent = '☀️ Light mode';
+    try { localStorage.setItem('portfolio-theme', 'dark'); } catch (e) {}
+  }
+});
+
+// Project filtering.
+var filterBtns = document.querySelectorAll('.filters button');
+var cards = document.querySelectorAll('.project');
+filterBtns.forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    filterBtns.forEach(function (b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+    var f = btn.getAttribute('data-filter');
+    cards.forEach(function (card) {
+      card.hidden = (f !== 'all' && card.getAttribute('data-category') !== f);
+    });
+  });
+});
+
+// Skip link: move keyboard focus to the main landmark.
+document.querySelector('.skip-link').addEventListener('click', function () {
+  document.getElementById('main').focus();
+});
+</script>
+</body>
+</html>
