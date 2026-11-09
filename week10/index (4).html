@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 10 | Git &amp; Deployment | Suman Sapkota</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700&family=Figtree:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{ --paper:#EAEEF6; --ink:#0D1633; --ink-2:#4A5578; --line:#C9D1E4; --cobalt:#2F4BFF; --sun:#FFC933; --white:#fff; }
+*{ box-sizing:border-box; margin:0; padding:0; }
+body{ font-family:"Figtree",system-ui,sans-serif; background:var(--paper); background-image:radial-gradient(#C9D1E4 1px, transparent 1px); background-size:22px 22px; color:var(--ink); padding:24px 16px 48px; }
+.skip-link{ position:fixed; top:-60px; left:16px; z-index:100; background:var(--ink); color:#fff; padding:10px 16px; border-radius:10px; text-decoration:none; font-weight:600; }
+.skip-link:focus{ top:12px; outline:3px solid var(--sun); }
+.wrap{ max-width:860px; margin:0 auto; }
+.eyebrow{ font-family:"JetBrains Mono",monospace; font-size:.8rem; letter-spacing:.08em; color:var(--cobalt); margin-bottom:8px; }
+h1{ font-family:"Bricolage Grotesque","Figtree",sans-serif; font-size:2rem; line-height:1.15; margin-bottom:8px; }
+.lead{ color:var(--ink-2); line-height:1.65; margin-bottom:24px; }
+.card{ background:var(--white); border:1px solid var(--line); border-radius:16px; padding:22px 24px; margin-bottom:16px; }
+h2{ font-family:"Bricolage Grotesque","Figtree",sans-serif; font-size:1.35rem; margin-bottom:14px; }
+h3{ font-size:1.05rem; margin:16px 0 8px; }
+h3:first-of-type{ margin-top:0; }
+p, li{ color:var(--ink-2); line-height:1.65; }
+p{ margin-bottom:10px; }
+ol, ul{ margin:0 0 10px 20px; }
+pre{ background:#0A1129; color:#C7D2FE; font-family:"JetBrains Mono",monospace; font-size:.85rem; line-height:1.7; border-radius:12px; padding:14px 16px; overflow-x:auto; margin:10px 0 14px; }
+code{ font-family:"JetBrains Mono",monospace; font-size:.85rem; background:#0A1129; color:#C7D2FE; padding:2px 7px; border-radius:6px; }
+pre code{ background:none; padding:0; }
+.btn{ display:inline-block; background:var(--cobalt); color:#fff; border-radius:999px; padding:9px 18px; font-weight:600; text-decoration:none; margin:6px 8px 6px 0; }
+.btn.ghost{ background:var(--paper); color:var(--ink); border:1px solid var(--line); }
+.btn:hover{ opacity:.9; }
+.check li{ list-style:none; margin-left:-20px; padding-left:4px; }
+.check li::before{ content:"☐ "; color:var(--cobalt); }
+.back{ display:inline-block; margin-top:12px; color:var(--cobalt); font-weight:600; text-decoration:none; }
+.back:hover{ text-decoration:underline; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<main id="main" tabindex="-1">
+<div class="wrap">
+<p class="eyebrow">WEEK 10 / GIT &middot; VERSION CONTROL &middot; DEPLOYMENT</p>
+<h1>One place. All the work.</h1>
+<p class="lead">Suman Sapkota &middot; 8 November 2026 &middot; This page
+connects the six study-guide exercises, the Book Search deployment, the
+portfolio homework and the supporting evidence.</p>
+
+<div class="card">
+<h2>Six study-guide exercises</h2>
+
+<h3>Monday E1 — Create a Git repository</h3>
+<p>Make a folder with an <code>index.html</code> file, then turn it into a
+repository and make the first commit.</p>
+<pre><code>git init
+git add .
+git commit -m "Initial commit"
+git log --oneline</code></pre>
+<p>Demo project: <a href="git-exercise/index.html">git-exercise/index.html</a>
+— this is the folder the commands above were run in.</p>
+
+<h3>Monday E2 — Branch and merge</h3>
+<p>Create a feature branch, add the CSS file there, commit it, then merge the
+branch back into <code>main</code>.</p>
+<pre><code>git switch -c feature-style
+git add style.css
+git commit -m "Add styles on feature-style branch"
+git switch main
+git merge feature-style</code></pre>
+<p>The <code>style.css</code> in the demo project was added on the
+<code>feature-style</code> branch and merged this way.</p>
+
+<h3>Monday E3 — Push to GitHub</h3>
+<p>Create a repository on GitHub, connect the local project to it, and push.</p>
+<pre><code>git remote add origin https://github.com/sumansapkota9/Suman-Sapkota.git
+git push -u origin main</code></pre>
+<p>Evidence: the commit history on GitHub, and <code>git log --oneline</code>
+in the terminal.</p>
+
+<h3>Friday E1 — GitHub Pages</h3>
+<p>Repository Settings &rarr; Pages &rarr; Deploy from a branch &rarr; choose
+<code>main</code> and <code>/ (root)</code> &rarr; Save. GitHub gives the live
+site link. This lab archive is already deployed this way.</p>
+
+<h3>Friday E2 — 404 error</h3>
+<p>Open a URL that does not exist on the site, for example
+<code>.../Suman-Sapkota/this-page-does-not-exist</code>, and see how GitHub
+Pages answers with a 404 page.</p>
+
+<h3>Friday E3 — Custom 404 page</h3>
+<p>Create a <code>404.html</code> file in the repository root with a simple
+error message and a button back home. GitHub Pages uses it automatically
+for missing pages.</p>
+<p><a class="btn ghost" href="../404.html">View my 404 page</a></p>
+</div>
+
+<div class="card">
+<h2>Homework and live projects</h2>
+<h3>Personal portfolio</h3>
+<p>Name, photo, introduction, skills and four course projects. Semantic HTML,
+responsive CSS, dark mode and project filtering.</p>
+<a class="btn" href="portfolio/index.html">Open portfolio</a>
+
+<h3>Book Search</h3>
+<p>Search books by title or author with the Open Library API. Shows covers,
+loading feedback and an error message when the request fails.</p>
+<a class="btn" href="book-search/index.html">Open Book Search</a>
+
+<h3>Coursework collection</h3>
+<p>Weekly Web Programming labs and additional projects — the full archive.</p>
+<a class="btn ghost" href="../index.html">Open the lab archive</a>
+</div>
+
+<div class="card">
+<h2>Verification and evidence</h2>
+<p><a href="accessibility-report.html">Week 10_2: accessibility modifications and verification report</a></p>
+<ul class="check">
+<li>Local commits and pushes completed in git-exercise and the lab archive repo.</li>
+<li>Custom 404 page and return-home link tested.</li>
+<li>Book Search loading and error states tested.</li>
+<li>Portfolio dark mode toggle and project filtering tested.</li>
+<li>Skip-to-main-content link tested on all five Week 10 pages (see report).</li>
+</ul>
+</div>
+
+<a class="back" href="../index.html">&larr; Back to the lab archive</a>
+</div>
+</main>
+<script>
+document.querySelector('.skip-link').addEventListener('click', function () {
+  document.getElementById('main').focus();
+});
+</script>
+</body>
+</html>
