@@ -1,0 +1,40 @@
+/* Git exercise demo page — added on the feature-style branch (E2). */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: "Figtree", system-ui, sans-serif;
+  background: #EAEEF6;
+  background-image: radial-gradient(#C9D1E4 1px, transparent 1px);
+  background-size: 22px 22px;
+  color: #0D1633;
+  padding: 32px 16px;
+}
+.skip-link {
+  position: fixed; top: -60px; left: 16px; z-index: 100;
+  background: #0D1633; color: #fff; padding: 10px 16px;
+  border-radius: 10px; text-decoration: none; font-weight: 600;
+}
+.skip-link:focus { top: 12px; outline: 3px solid #FFC933; }
+.card {
+  max-width: 640px; margin: 0 auto; background: #fff;
+  border: 1px solid #C9D1E4; border-radius: 16px; padding: 28px;
+}
+.eyebrow {
+  font-family: "JetBrains Mono", monospace; font-size: .8rem;
+  letter-spacing: .08em; color: #2F4BFF; margin-bottom: 10px;
+}
+h1 {
+  font-family: "Bricolage Grotesque", "Figtree", sans-serif;
+  font-size: 2rem; margin-bottom: 12px;
+}
+p { line-height: 1.6; color: #4A5578; margin-bottom: 14px; }
+ul { margin: 0 0 14px 20px; line-height: 1.9; color: #4A5578; }
+code {
+  font-family: "JetBrains Mono", monospace; font-size: .85rem;
+  background: #0A1129; color: #C7D2FE; padding: 2px 7px; border-radius: 6px;
+}
+.note {
+  background: #EAEEF6; border: 1px solid #C9D1E4; border-radius: 10px;
+  padding: 12px 14px;
+}
+.back { color: #2F4BFF; font-weight: 600; text-decoration: none; }
+.back:hover { text-decoration: underline; }
