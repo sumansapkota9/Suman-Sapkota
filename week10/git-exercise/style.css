@@ -38,3 +38,6 @@ code {
 }
 .back { color: #2F4BFF; font-weight: 600; text-decoration: none; }
 .back:hover { text-decoration: underline; }
+/* E2: card hover effect added on the feature-style branch. */
+.card:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(13,22,51,.10); }
+
