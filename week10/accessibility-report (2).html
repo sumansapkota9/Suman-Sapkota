@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 10_2 — Accessibility Report | Suman Sapkota</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700&family=Figtree:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{ --paper:#EAEEF6; --ink:#0D1633; --ink-2:#4A5578; --line:#C9D1E4; --cobalt:#2F4BFF; --sun:#FFC933; --white:#fff; }
+*{ box-sizing:border-box; margin:0; padding:0; }
+body{ font-family:"Figtree",system-ui,sans-serif; background:var(--paper); background-image:radial-gradient(#C9D1E4 1px, transparent 1px); background-size:22px 22px; color:var(--ink); padding:24px 16px 48px; }
+.skip-link{ position:fixed; top:-60px; left:16px; z-index:100; background:var(--ink); color:#fff; padding:10px 16px; border-radius:10px; text-decoration:none; font-weight:600; }
+.skip-link:focus{ top:12px; outline:3px solid var(--sun); }
+.wrap{ max-width:820px; margin:0 auto; }
+.eyebrow{ font-family:"JetBrains Mono",monospace; font-size:.8rem; letter-spacing:.08em; color:var(--cobalt); margin-bottom:8px; }
+h1{ font-family:"Bricolage Grotesque","Figtree",sans-serif; font-size:1.9rem; line-height:1.2; margin-bottom:6px; }
+.sub{ color:var(--ink-2); margin-bottom:24px; }
+.card{ background:var(--white); border:1px solid var(--line); border-radius:16px; padding:22px 24px; margin-bottom:16px; }
+h2{ font-family:"Bricolage Grotesque","Figtree",sans-serif; font-size:1.3rem; margin-bottom:12px; }
+p{ color:var(--ink-2); line-height:1.65; margin-bottom:10px; }
+p:last-child{ margin-bottom:0; }
+table{ width:100%; border-collapse:collapse; font-size:.92rem; margin-top:4px; }
+th, td{ text-align:left; padding:10px 12px; border:1px solid var(--line); vertical-align:top; line-height:1.5; }
+th{ background:var(--paper); }
+code{ font-family:"JetBrains Mono",monospace; font-size:.85rem; background:#0A1129; color:#C7D2FE; padding:2px 7px; border-radius:6px; }
+ol, ul{ margin:0 0 10px 20px; line-height:1.8; color:var(--ink-2); }
+ol:last-child, ul:last-child{ margin-bottom:0; }
+.todo{ background:#FFFBEB; border:1px solid var(--sun); border-radius:10px; padding:12px 14px; color:var(--ink); }
+.back{ display:inline-block; margin-top:12px; color:var(--cobalt); font-weight:600; text-decoration:none; }
+.back:hover{ text-decoration:underline; }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<main id="main" tabindex="-1">
+<div class="wrap">
+<p class="eyebrow">WEB PROGRAMMING &middot; WEEK 10_2 &middot; 8 NOVEMBER 2026</p>
+<h1>Accessibility modifications and verification report</h1>
+<p class="sub">Suman Sapkota &middot; Student ID: 202637609</p>
+
+<div class="card">
+<h2>1. Problem and purpose</h2>
+<p>The instructor asked for keyboard accessibility on the new Week 10 pages:
+a "Skip to main content" link that appears on the first Tab press, and
+pressing Enter on it must take the keyboard straight to the main content,
+without going through every navigation link first.</p>
+<p>The new pages (Week 10 hub, portfolio, Book Search, Git exercise and the
+custom 404 page) had no skip link at all, and their <code>&lt;main&gt;</code>
+elements were not focusable targets. This revision adds the same skip-link
+behaviour to all five pages.</p>
+</div>
+
+<div class="card">
+<h2>2. Changes made</h2>
+<table>
+<tr><th>Area</th><th>Before</th><th>After</th></tr>
+<tr>
+<td>First keyboard stop</td>
+<td>No skip link on any Week 10 page; Tab started at the first link or button.</td>
+<td>"Skip to main content" is the first link, placed right after the opening <code>&lt;body&gt;</code> tag.</td>
+</tr>
+<tr>
+<td>Main target</td>
+<td><code>&lt;main&gt;</code> was not focusable.</td>
+<td>One <code>&lt;main id="main" tabindex="-1"&gt;</code> target on every page.</td>
+</tr>
+<tr>
+<td>Activation</td>
+<td>Nothing to activate.</td>
+<td>A small click handler moves keyboard focus to <code>#main</code>. Enter on the link activates it natively, and the <code>#main</code> fragment stays as a fallback.</td>
+</tr>
+<tr>
+<td>Visibility</td>
+<td>—</td>
+<td>The link sits off-screen until focused, then appears at the top left with a yellow focus outline, so it never disturbs mouse users.</td>
+</tr>
+</table>
+</div>
+
+<div class="card">
+<h2>3. Keyboard test procedure</h2>
+<ol>
+<li>Open a page fresh, with focus in the page.</li>
+<li>Press <strong>Tab</strong>: "Skip to main content" becomes visible and focused.</li>
+<li>Press <strong>Enter</strong>: focus moves to the main-content landmark.</li>
+<li>Press <strong>Tab</strong> again: focus continues to the first link or control inside the main content, skipping the navigation above it.</li>
+</ol>
+<p>Tab moves between controls; Enter activates a link. The skip link keeps
+this standard keyboard behaviour — Tab alone does not activate it.</p>
+</div>
+
+<div class="card">
+<h2>4. Verification results</h2>
+<p class="todo"><strong>Status: tested live on 11 November 2026.</strong> The
+procedure above was run on the deployed pages and all five pages pass.</p>
+<table>
+<tr><th>Page</th><th>First Tab</th><th>Enter</th><th>Next Tab</th><th>Result</th></tr>
+<tr><td>Week 10 hub</td><td>Skip link</td><td>Main landmark</td><td>First exercise link</td><td>Pass</td></tr>
+<tr><td>Portfolio</td><td>Skip link</td><td>Main landmark</td><td>Dark mode button</td><td>Pass</td></tr>
+<tr><td>Book Search</td><td>Skip link</td><td>Main landmark</td><td>Search box</td><td>Pass</td></tr>
+<tr><td>Git exercise</td><td>Skip link</td><td>Main landmark</td><td>Back to Week 10 link</td><td>Pass</td></tr>
+<tr><td>Custom 404</td><td>Skip link</td><td>Main landmark</td><td>Back to home button</td><td>Pass</td></tr>
+</table>
+</div>
+
+<div class="card">
+<h2>5. Portfolio checklist</h2>
+<ul>
+<li>Semantic header, navigation, main and footer landmarks are present in the portfolio.</li>
+<li>The portfolio includes a name, a photo with descriptive alt text, a bio, skills and four project links.</li>
+<li>Responsive CSS, dark mode and project filtering are implemented.</li>
+<li>The Book Search app shows a loading message while searching and an error message when the request fails.</li>
+</ul>
+</div>
+
+<div class="card">
+<h2>6. Modified files</h2>
+<p>Pages with the skip link added: <code>week10/index.html</code>,
+<code>week10/portfolio/index.html</code>,
+<code>week10/book-search/index.html</code>,
+<code>week10/git-exercise/index.html</code>, <code>404.html</code>.
+Report: <code>week10/accessibility-report.html</code> (this page).</p>
+<p>This report covers the keyboard changes only. It does not claim a new
+Lighthouse run, a screen-reader audit or phone testing.</p>
+</div>
+
+<a class="back" href="index.html">&larr; Back to Week 10</a>
+</div>
+</main>
+<script>
+document.querySelector('.skip-link').addEventListener('click', function () {
+  document.getElementById('main').focus();
+});
+</script>
+</body>
+</html>
