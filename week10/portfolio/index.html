@@ -18,22 +18,25 @@ body{ font-family:"Figtree",system-ui,sans-serif; background:var(--paper); backg
 .topbar .name{ font-family:"Bricolage Grotesque","Figtree",sans-serif; font-weight:700; font-size:1.15rem; }
 .theme-btn{ border:1px solid var(--line); background:var(--card); color:var(--ink); border-radius:999px; padding:8px 16px; font:inherit; font-size:.9rem; cursor:pointer; }
 .theme-btn:hover{ border-color:var(--cobalt); }
-.hero{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:28px; display:flex; gap:24px; align-items:center; margin-bottom:18px; }
-.hero img{ width:140px; height:140px; border-radius:50%; object-fit:cover; border:3px solid var(--sun); flex-shrink:0; }
+.hero{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:28px; display:flex; gap:24px; align-items:center; margin-bottom:18px; box-shadow:0 8px 24px rgba(13,22,51,.08); }
+.hero img{ width:140px; height:140px; border-radius:50%; object-fit:cover; border:3px solid var(--sun); flex-shrink:0; box-shadow:0 0 0 6px var(--card), 0 10px 22px rgba(13,22,51,.18); }
 .eyebrow{ font-family:"JetBrains Mono",monospace; font-size:.8rem; letter-spacing:.08em; color:var(--cobalt); margin-bottom:8px; }
 .hero h1{ font-family:"Bricolage Grotesque","Figtree",sans-serif; font-size:2.1rem; line-height:1.1; margin-bottom:10px; }
 .hero p{ color:var(--ink-2); line-height:1.65; }
 .hero p + p{ margin-top:8px; }
-section{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:24px 28px; margin-bottom:18px; }
+section{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:24px 28px; margin-bottom:18px; box-shadow:0 4px 16px rgba(13,22,51,.06); }
 h2{ font-family:"Bricolage Grotesque","Figtree",sans-serif; font-size:1.4rem; margin-bottom:14px; }
+h2::after{ content:""; display:block; width:48px; height:3px; background:var(--sun); border-radius:2px; margin-top:8px; }
 .skills{ display:flex; flex-wrap:wrap; gap:8px; list-style:none; }
-.skills li{ border:1px solid var(--line); background:var(--paper); border-radius:999px; padding:7px 14px; font-size:.9rem; }
+.skills li{ border:1px solid var(--line); background:var(--paper); border-radius:999px; padding:7px 14px; font-size:.9rem; transition:background .2s ease, color .2s ease; }
+.skills li:hover{ background:var(--cobalt); color:#fff; border-color:var(--cobalt); }
 .filters{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
-.filters button{ border:1px solid var(--line); background:var(--paper); color:var(--ink); border-radius:999px; padding:7px 16px; font:inherit; font-size:.9rem; cursor:pointer; }
+.filters button{ border:1px solid var(--line); background:var(--paper); color:var(--ink); border-radius:999px; padding:7px 16px; font:inherit; font-size:.9rem; cursor:pointer; transition:background .2s ease, color .2s ease; }
 .filters button:hover{ border-color:var(--cobalt); }
 .filters button.active{ background:var(--cobalt); color:#fff; border-color:var(--cobalt); }
 .projects{ display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; }
-.project{ border:1px solid var(--line); border-radius:14px; padding:18px; background:var(--paper); }
+.project{ border:1px solid var(--line); border-radius:14px; padding:18px; background:var(--paper); transition:transform .2s ease, box-shadow .2s ease; }
+.project:hover{ transform:translateY(-4px); box-shadow:0 12px 24px rgba(13,22,51,.14); }
 .project[hidden]{ display:none; }
 .project .tag{ font-family:"JetBrains Mono",monospace; font-size:.75rem; letter-spacing:.06em; color:var(--cobalt); margin-bottom:8px; }
 .project h3{ font-size:1.1rem; margin-bottom:8px; }
