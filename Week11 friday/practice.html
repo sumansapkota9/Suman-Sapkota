@@ -43,34 +43,52 @@
   .section .label{ font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--ink2); }
   .section h2{ font-family:'Bricolage Grotesque',sans-serif; font-size:28px; margin:10px 0 6px; }
   .section p{ color:var(--ink2); margin:0 0 14px; }
-  .avatar{ width:64px; height:64px; border-radius:50%; background:var(--cobalt); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Bricolage Grotesque',sans-serif; font-size:24px; font-weight:800; margin-bottom:12px; }
-  input{ width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:10px; font-family:'Figtree',sans-serif; font-size:15px; margin:6px 0 12px; background:#fff; color:var(--ink); }
-  button{ background:var(--cobalt); color:#fff; border:none; border-radius:10px; padding:9px 16px; font-weight:700; font-size:14px; cursor:pointer; margin-right:10px; font-family:'Figtree',sans-serif; transition:transform .15s ease, box-shadow .15s ease; }
+  .avatar{ width:64px; height:64px; border-radius:50%; background:var(--cobalt); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Bricolage Grotesque',sans-serif; font-size:24px; font-weight:800; margin-bottom:12px; flex-shrink:0; }
+  .avatar.plain{ background:#94A3B8; }
+  label{ display:block; font-size:13px; font-weight:700; color:var(--ink2); margin:10px 0 2px; }
+  input[type="text"], input[type="email"]{ width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:10px; font-family:'Figtree',sans-serif; font-size:15px; margin:4px 0 8px; background:#fff; color:var(--ink); }
+  .checkline{ display:flex; align-items:center; gap:8px; font-size:14px; font-weight:600; color:var(--ink); margin:8px 0; cursor:pointer; }
+  button{ background:var(--cobalt); color:#fff; border:none; border-radius:10px; padding:9px 16px; font-weight:700; font-size:14px; cursor:pointer; margin:6px 10px 6px 0; font-family:'Figtree',sans-serif; transition:transform .15s ease, box-shadow .15s ease; }
   button:hover{ transform:translateY(-1px); box-shadow:0 6px 14px rgba(47,75,255,.35); }
+  button:disabled{ opacity:.45; cursor:not-allowed; transform:none; box-shadow:none; }
   button.ghost{ background:var(--paper); color:var(--ink); border:1px solid var(--line); box-shadow:none; }
+  button.small{ padding:6px 12px; font-size:13px; margin:4px 6px 4px 0; }
+  button.active{ background:var(--ink); }
+  .split{ display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:start; }
+  .preview{ border:1px solid var(--line); border-radius:12px; padding:18px; background:#F8FAFF; }
+  .preview .tag{ font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:2px; color:var(--ink2); text-transform:uppercase; }
+  .preview h3{ font-family:'Bricolage Grotesque',sans-serif; font-size:22px; margin:10px 0 2px; }
+  .preview p{ margin:0 0 6px; }
+  .preview a{ color:var(--cobalt); font-weight:600; text-decoration:none; }
   .msg{ border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin:10px 0; background:#fff; }
   .msg.unread{ border-color:var(--cobalt); background:#EEF2FF; }
   .msg b{ display:block; font-size:15px; }
   .msg span{ color:var(--ink2); font-size:14px; }
-  .msg .tag{ display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:600; color:var(--cobalt); margin-top:6px; }
+  .msg .tag{ display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:600; color:var(--cobalt); margin-top:6px; margin-right:8px; }
+  .msg .tag.unreadtag{ color:#B91C1C; }
+  .msg .actions{ margin-top:10px; }
   .check{ display:flex; align-items:center; gap:12px; border:1px solid var(--line); border-radius:12px; padding:12px 16px; margin:10px 0; cursor:pointer; background:#fff; }
   .check.done{ background:#F0FDF4; border-color:#22C55E; }
   .check .box{ width:22px; height:22px; border-radius:6px; border:2px solid var(--line); display:flex; align-items:center; justify-content:center; font-size:14px; color:#fff; flex-shrink:0; }
   .check.done .box{ background:#22C55E; border-color:#22C55E; }
   .progress{ height:10px; background:var(--paper); border:1px solid var(--line); border-radius:999px; overflow:hidden; margin:12px 0; }
   .progress div{ height:100%; background:linear-gradient(90deg, var(--cobalt), var(--sun)); transition:width .3s ease; }
-  .wide{ background:var(--card); border:1px solid var(--line); border-radius:20px; padding:26px; position:relative; overflow:hidden; margin:0 0 18px; }
-  .wide::before{ content:""; position:absolute; top:0; left:0; right:0; height:6px; background:var(--sun); }
-  .wide .label{ font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--ink2); }
-  .wide h2{ font-family:'Bricolage Grotesque',sans-serif; font-size:28px; margin:10px 0 6px; }
-  .wide p{ color:var(--ink2); margin:0 0 14px; }
+  .progresslabel{ font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:1px; color:var(--ink2); text-transform:uppercase; }
+  .duo{ display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:start; }
+  .minicard{ border:1px solid var(--line); border-radius:12px; padding:18px; background:#F8FAFF; }
+  .minicard h3{ font-family:'Bricolage Grotesque',sans-serif; font-size:20px; margin:0 0 6px; }
+  .minicard p{ margin:0 0 10px; }
+  .minicard a{ color:var(--cobalt); font-weight:700; text-decoration:none; }
+  details{ border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin-top:16px; background:#F8FAFF; }
+  details summary{ font-weight:700; cursor:pointer; color:var(--ink); }
+  details p{ margin:10px 0 0; }
   pre{ background:#0A1129; color:#C7D2FE; padding:16px; border-radius:12px; overflow-x:auto; font-size:14px; margin:10px 0 0; }
   .btns a{ display:inline-block; text-decoration:none; font-weight:700; border-radius:10px; padding:9px 14px; margin-right:10px; font-size:14px; transition:transform .15s ease, box-shadow .15s ease; }
   .btns a.open{ background:var(--cobalt); color:#fff; }
   .btns a.open:hover{ transform:translateY(-1px); box-shadow:0 6px 14px rgba(47,75,255,.35); }
   footer{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; color:var(--ink2); font-size:13px; padding:8px 0 26px; border-top:1px solid var(--line); margin-top:10px; }
   footer a{ color:var(--cobalt); text-decoration:none; font-weight:600; }
-  @media (max-width:760px){ .hero{ grid-template-columns:1fr; } .hero h1{ font-size:56px; } }
+  @media (max-width:760px){ .hero{ grid-template-columns:1fr; } .hero h1{ font-size:56px; } .split, .duo{ grid-template-columns:1fr; } }
 </style>
 <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -78,7 +96,7 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="topbar"><b>Suman Sapkota · Lab Archive</b><span><a href="tasks.html">Friday Tasks</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/">Coursework</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/week10/portfolio/">Portfolio</a><a href="practice.html">Practice</a></span></div>
+  <div class="topbar"><b>Suman Sapkota · Lab Archive</b><span><a href="tasks.html">Friday Tasks</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/">Coursework</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/week10/portfolio/">Portfolio</a><a href="index.html">Directory ↗</a></span></div>
 
   <div class="hero">
     <div>
@@ -101,27 +119,52 @@
   <div id="root"></div>
   <noscript>Turn on JavaScript to use this page.</noscript>
 
-  <footer><span>Suman Sapkota / Week 11 Friday</span><a href="https://github.com/sumansapkota9/Suman-Sapkota">Github repository ↗</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/Week11%20monday/">Week 11 Monday ↗</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/">Back to coursework ↗</a></footer>
+  <footer><span>Suman Sapkota / Week 11 Friday</span><a href="https://github.com/sumansapkota9/Suman-Sapkota">Github repository ↗</a><a href="https://github.com/sumansapkota9/Suman-Sapkota/blob/main/Week11%20friday/practice.html">Read the full React source ↗</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/Week11%20monday/">Week 11 Monday ↗</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/">Back to coursework ↗</a></footer>
 </div>
 <script type="text/babel">
 // Suman's note:
 // Three small practice pieces, all in one App.
-// 1. Profile editor: name and bio live in useState. Edit, save, or reset.
-// 2. Practice inbox: three messages. "Mark everything read" flips the read flag on all of them.
-// 3. My checklist: four ideas, each one a useState boolean.
-// Nothing here is real data — the inbox messages are practice examples,
-// and the checklist only tracks what I ticked on this page.
+// 1. Profile: name, role and email live in useState. The preview on the
+//    right gets the new values as props while I type. The initials avatar
+//    is mine; the plain one is the default when the box is unchecked.
+//    Nothing here is saved or sent.
+// 2. Practice inbox: practice messages only, not real messages. The list
+//    is one array in state, each message has a stable id as its key.
+//    All / Unread filters the same list, and each message can be marked
+//    read or unread, or dismissed. Reset brings the three back.
+// 3. My checklist: one Card wrapper holds two children — the checklist
+//    and its live progress. Four ideas, each one a useState boolean.
+//    A personal practice checklist, not a grade. Refreshing resets it.
+const DEFAULT_PROFILE = { name: "Suman Sapkota", role: "Computer Engineering Student", email: "sharmasumaira100@gmail.com" };
+const DEFAULT_MESSAGES = [
+  { id: 1, from: "Sudip Sah", type: "reminder", text: "Did you finish the StudentCard lab? Mine renders, but my GPA row is off.", read: false },
+  { id: 2, from: "Eric", type: "note", text: "The practice page is fun — the inbox one took me two tries.", read: false },
+  { id: 3, from: "Abinash Lamichhane", type: "tip", text: "Good luck with Friday! The checklist part is the easiest one.", read: true },
+];
+function ProfileCard({ name, role, email, useInitials }) {
+  const initials = name.split(" ").map((w) => w[0]).join("").slice(0, 2).toUpperCase();
+  return (
+    <div className="preview">
+      <span className="tag">Live preview / {useInitials ? "My initials" : "Default avatar"}</span>
+      <div style={{ display: "flex", gap: "14px", alignItems: "center", marginTop: "12px" }}>
+        {useInitials ? <div className="avatar" style={{ marginBottom: 0 }}>{initials}</div> : <div className="avatar plain" style={{ marginBottom: 0 }}>?</div>}
+        <div>
+          <h3>{name || "Your name"}</h3>
+          <p>{role || "Your role"}</p>
+          <a href={"mailto:" + email}>{email}</a>
+        </div>
+      </div>
+    </div>
+  );
+}
+function Card({ children }) {
+  return <div className="minicard">{children}</div>;
+}
 function App() {
-  const [name, setName] = React.useState("Suman Sapkota");
-  const [bio, setBio] = React.useState("Computer Engineering student, learning React one component at a time.");
-  const [editing, setEditing] = React.useState(false);
-  const [draftName, setDraftName] = React.useState(name);
-  const [draftBio, setDraftBio] = React.useState(bio);
-  const [messages, setMessages] = React.useState([
-    { id: 1, from: "Sudip Sah", text: "Did you finish the StudentCard lab? Mine renders, but my GPA row is off.", read: false },
-    { id: 2, from: "Eric", text: "The practice page is fun — the inbox one took me two tries.", read: false },
-    { id: 3, from: "Abinash Lamichhane", text: "Good luck with Friday! The checklist part is the easiest one.", read: true },
-  ]);
+  const [profile, setProfile] = React.useState(DEFAULT_PROFILE);
+  const [useInitials, setUseInitials] = React.useState(true);
+  const [messages, setMessages] = React.useState(DEFAULT_MESSAGES);
+  const [filter, setFilter] = React.useState("all");
   const [checked, setChecked] = React.useState([false, false, false, false]);
   const concepts = [
     "Props pass data down from a parent to a child",
@@ -130,66 +173,106 @@ function App() {
     "Conditional rendering shows or hides things",
   ];
   const unread = messages.filter((m) => !m.read).length;
+  const shown = filter === "unread" ? messages.filter((m) => !m.read) : messages;
   const doneCount = checked.filter(Boolean).length;
+  const nextId = messages.length ? Math.max(...messages.map((m) => m.id)) + 1 : 1;
 
-  function saveProfile() { setName(draftName); setBio(draftBio); setEditing(false); }
-  function resetProfile() { setDraftName("Suman Sapkota"); setDraftBio("Computer Engineering student, learning React one component at a time."); setEditing(false); }
+  function resetProfile() { setProfile(DEFAULT_PROFILE); setUseInitials(true); }
+  function toggleRead(id) { setMessages(messages.map((m) => (m.id === id ? { ...m, read: !m.read } : m))); }
+  function dismiss(id) { setMessages(messages.filter((m) => m.id !== id)); }
+  function addNote() { setMessages([...messages, { id: nextId, from: "Suman Sapkota", type: "note", text: "Practice note: check the live links before submitting.", read: false }]); }
 
   return (
     <div>
       <div className="section">
         <span className="label">01 / My profile</span>
         <h2>My profile, my state.</h2>
-        <div className="avatar">SS</div>
-        {editing ? (
+        <p>Type in a field and watch the preview change at the same time. Nothing is saved or sent.</p>
+        <div className="split">
           <div>
-            <input value={draftName} onChange={(e) => setDraftName(e.target.value)} placeholder="Your name" />
-            <input value={draftBio} onChange={(e) => setDraftBio(e.target.value)} placeholder="A short bio" />
-            <button onClick={saveProfile}>Save changes</button>
-            <button className="ghost" onClick={resetProfile}>Reset</button>
+            <label>Display name</label>
+            <input type="text" value={profile.name} onChange={(e) => setProfile({ ...profile, name: e.target.value })} />
+            <label>Role</label>
+            <input type="text" value={profile.role} onChange={(e) => setProfile({ ...profile, role: e.target.value })} />
+            <label>Email</label>
+            <input type="email" value={profile.email} onChange={(e) => setProfile({ ...profile, email: e.target.value })} />
+            <label className="checkline"><input type="checkbox" checked={useInitials} onChange={(e) => setUseInitials(e.target.checked)} /> Use my initials avatar</label>
+            <button onClick={resetProfile}>Reset profile</button>
           </div>
-        ) : (
-          <div>
-            <p><b>{name}</b> — {bio}</p>
-            <button onClick={() => { setDraftName(name); setDraftBio(bio); setEditing(true); }}>Edit profile</button>
-          </div>
-        )}
+          <ProfileCard name={profile.name} role={profile.role} email={profile.email} useInitials={useInitials} />
+        </div>
+        <details>
+          <summary>How it works · see the code</summary>
+          <p>The three fields live in one useState object. Every keystroke updates state, and the preview receives the new values as props — that is why it changes while I type. The checkbox picks between my initials avatar and the plain default one.</p>
+          <pre>{'<ProfileCard name={profile.name} role={profile.role} email={profile.email} useInitials={useInitials} />'}</pre>
+        </details>
       </div>
 
       <div className="section">
         <span className="label">02 / Practice inbox</span>
-        <h2>{unread} new · {messages.length} total</h2>
-        <p>A few practice messages from my classmates. Marking everything read flips the read flag on every message at once.</p>
-        {messages.map((m) => (
+        <h2>Practice inbox</h2>
+        <p>Practice messages only — not real messages or results. {unread} new · {messages.length} total.</p>
+        <div>
+          <button className={filter === "all" ? "active" : "ghost"} onClick={() => setFilter("all")}>All</button>
+          <button className={filter === "unread" ? "active" : "ghost"} onClick={() => setFilter("unread")}>Unread</button>
+          <button className="ghost" onClick={() => setMessages(messages.map((m) => ({ ...m, read: true })))}>Mark everything read</button>
+        </div>
+        {shown.length === 0 && <p>No unread messages. Switch back to All to see the rest.</p>}
+        {shown.map((m) => (
           <div key={m.id} className={"msg" + (m.read ? "" : " unread")}>
             <b>{m.from}</b>
             <span>{m.text}</span>
-            {!m.read && <span className="tag">UNREAD</span>}
+            <div><span className="tag">{m.type}</span>{!m.read && <span className="tag unreadtag">UNREAD</span>}</div>
+            <div className="actions">
+              <button className="small" onClick={() => toggleRead(m.id)}>{m.read ? "Mark unread" : "Mark read"}</button>
+              <button className="small ghost" onClick={() => dismiss(m.id)}>Dismiss</button>
+            </div>
           </div>
         ))}
-        <button onClick={() => setMessages(messages.map((m) => ({ ...m, read: true })))}>Mark everything read</button>
+        <div>
+          <button className="ghost" onClick={addNote}>Add a practice note</button>
+          <button className="ghost" onClick={() => setMessages([])}>Clear inbox</button>
+          <button className="ghost" onClick={() => { setMessages(DEFAULT_MESSAGES); setFilter("all"); }}>Reset inbox</button>
+        </div>
+        <details>
+          <summary>How it works · see the code</summary>
+          <p>The messages are one array in state, and each one has a stable id as its key — that is how React tells them apart. All / Unread filters the same list, it never changes the data. Mark read flips one flag, Dismiss removes one item, and Reset brings the three practice messages back.</p>
+          <pre>{'{shown.map((m) => (\n  <div key={m.id} className={m.read ? "msg" : "msg unread"}>\n    {m.text}\n  </div>\n))}'}</pre>
+        </details>
       </div>
 
       <div className="section">
         <span className="label">03 / My checklist</span>
         <h2>What I can explain</h2>
-        <p>{doneCount} of {concepts.length} concepts checked. Tick the ones you can explain in your own words.</p>
-        <div className="progress"><div style={{ width: (doneCount / concepts.length) * 100 + "%" }}></div></div>
-        {concepts.map((c, i) => (
-          <div key={c} className={"check" + (checked[i] ? " done" : "")} onClick={() => { const next = [...checked]; next[i] = !next[i]; setChecked(next); }}>
-            <span className="box">{checked[i] ? "✓" : ""}</span>
-            <span>{c}</span>
-          </div>
-        ))}
-        <button className="ghost" onClick={() => setChecked([false, false, false, false])}>Reset checklist</button>
+        <p>One Card wrapper holds two children: the checklist and its live progress.</p>
+        <div className="duo">
+          <Card>
+            <h3>My checklist</h3>
+            <p>Tick the concepts you can explain in your own words.</p>
+            {concepts.map((c, i) => (
+              <div key={c} className={"check" + (checked[i] ? " done" : "")} onClick={() => { const next = [...checked]; next[i] = !next[i]; setChecked(next); }}>
+                <span className="box">{checked[i] ? "✓" : ""}</span>
+                <span>{c}</span>
+              </div>
+            ))}
+          </Card>
+          <Card>
+            <h3>One at a time.</h3>
+            <p className="progresslabel">{doneCount} of {concepts.length} concepts checked</p>
+            <div className="progress"><div style={{ width: (doneCount / concepts.length) * 100 + "%" }}></div></div>
+            <p>Try the checklist, then check the source to trace what changed.</p>
+            <a href="index.html">Open student directory ↗</a>
+            <div><button className="ghost" disabled={doneCount === 0} onClick={() => setChecked([false, false, false, false])}>Reset checklist</button></div>
+          </Card>
+        </div>
+        <p style={{ marginTop: "14px" }}>A personal practice checklist, not a grade or a submission record. Refreshing resets it.</p>
+        <details>
+          <summary>How it works · see the code</summary>
+          <p>The same Card wrapper holds two different children — the checklist on the left and its progress on the right. Each concept is one boolean in a useState array, so ticking one only changes that one row. The progress bar reads the same array.</p>
+          <pre>{'function Card({ children }) {\n  return <div className="minicard">{children}</div>;\n}'}</pre>
+        </details>
       </div>
 
-      <div className="wide">
-        <span className="label">How it works</span>
-        <h2>State in, screen out</h2>
-        <p>Each section keeps its own piece of state: the profile, the messages, and the checklist. Changing state re-renders only that part — the rest of the page stays the same.</p>
-        <pre>{'const [checked, setChecked] = useState([false, false, false, false]);'}</pre>
-      </div>
       <div className="btns">
         <a className="open" href="tasks.html">← Back to Friday tasks</a>
       </div>
