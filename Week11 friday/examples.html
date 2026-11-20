@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 11 Friday — Component Lab | Suman Sapkota</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{ --paper:#EAEEF6; --ink:#0D1633; --ink2:#4A5578; --line:#C9D1E4; --cobalt:#2F4BFF; --sun:#FFC933; --card:#fff; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Figtree',sans-serif; line-height:1.6; background-image:radial-gradient(#C9D1E4 1px, transparent 1px); background-size:22px 22px; }
+  .wrap{ max-width:1100px; margin:0 auto; padding:20px; }
+  .topbar{ display:flex; justify-content:space-between; align-items:center; background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px 18px; box-shadow:0 4px 14px rgba(13,22,51,.06); }
+  .topbar b{ font-family:'Bricolage Grotesque',sans-serif; font-size:18px; }
+  .topbar a{ color:var(--cobalt); text-decoration:none; font-weight:600; margin-left:18px; font-size:14px; }
+  .topbar a:hover{ text-decoration:underline; }
+  .hero{ display:grid; grid-template-columns:1.6fr 1fr; gap:24px; padding:44px 8px 6px; align-items:start; }
+  .hero .kicker{ font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:3px; color:var(--ink2); text-transform:uppercase; }
+  .hero h1{ font-family:'Bricolage Grotesque',sans-serif; font-size:88px; line-height:0.92; margin:20px 0; letter-spacing:-2px; }
+  .hero h1 .solid{ color:var(--ink); }
+  .hero h1 .outline{ color:transparent; -webkit-text-stroke:3px var(--cobalt); }
+  .hero p{ color:var(--ink2); margin:6px 0; max-width:560px; font-size:18px; }
+  .hero .byline{ font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:2px; color:var(--ink2); text-transform:uppercase; margin-top:24px; }
+  .chips{ margin-top:22px; display:flex; gap:10px; flex-wrap:wrap; }
+  .chips span{ display:inline-block; background:var(--card); border:1px solid var(--line); color:var(--ink); border-radius:999px; padding:8px 16px; font-size:14px; font-weight:700; box-shadow:0 4px 12px rgba(13,22,51,.06); }
+  .chips span b{ color:var(--cobalt); }
+  .about{ background:var(--ink); color:#fff; border-radius:20px; padding:28px; box-shadow:0 14px 30px rgba(13,22,51,.25); }
+  .about h2{ font-family:'Bricolage Grotesque',sans-serif; font-size:26px; line-height:1.2; margin:0 0 6px; }
+  .about h2 mark{ background:var(--sun); color:var(--ink); padding:0 8px; border-radius:8px; }
+  .about p{ color:#C7D2FE; margin:0; }
+  .about hr{ border:none; border-top:1px solid #2A3560; margin:20px 0; }
+  .about a{ color:#fff; font-weight:700; text-decoration:none; }
+  .about a:hover{ text-decoration:underline; }
+  .labelrow{ display:flex; justify-content:space-between; align-items:center; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--ink2); border-bottom:1px solid var(--line); padding:26px 8px 12px; margin-top:18px; }
+  .labelrow b{ color:var(--cobalt); }
+  .section{ background:var(--card); border:1px solid var(--line); border-radius:20px; padding:26px; position:relative; overflow:hidden; margin:26px 0 18px; animation:rise .5s ease both; }
+  .section:nth-of-type(2){ animation-delay:.06s; }
+  .section:nth-of-type(3){ animation-delay:.12s; }
+  .section:nth-of-type(4){ animation-delay:.18s; }
+  @keyframes rise{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:translateY(0); } }
+  .section::before{ content:""; position:absolute; top:0; left:0; right:0; height:6px; background:var(--cobalt); }
+  .section:nth-of-type(2)::before{ background:var(--sun); }
+  .section:nth-of-type(3)::before{ background:#22C55E; }
+  .section:nth-of-type(4)::before{ background:#A855F7; }
+  .section .label{ font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--ink2); }
+  .section h2{ font-family:'Bricolage Grotesque',sans-serif; font-size:28px; margin:10px 0 6px; }
+  .section p{ color:var(--ink2); margin:0 0 14px; }
+  .demo{ border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin:10px 0; background:#F8FAFF; }
+  .demo p{ margin:4px 0; color:var(--ink); }
+  .greet{ font-family:'Bricolage Grotesque',sans-serif; font-size:20px; font-weight:700; }
+  .alert{ border-radius:12px; padding:14px 16px; margin:10px 0; font-weight:600; }
+  .alert.done{ background:#DCFCE7; color:#15803d; }
+  .alert.warn{ background:#FEF3C7; color:#92400E; }
+  .alert.none{ background:var(--paper); color:var(--ink2); border:1px dashed var(--line); }
+  button{ background:var(--cobalt); color:#fff; border:none; border-radius:10px; padding:9px 16px; font-weight:700; font-size:14px; cursor:pointer; margin-right:10px; font-family:'Figtree',sans-serif; transition:transform .15s ease, box-shadow .15s ease; }
+  button:hover{ transform:translateY(-1px); box-shadow:0 6px 14px rgba(47,75,255,.35); }
+  button.ghost{ background:var(--paper); color:var(--ink); border:1px solid var(--line); box-shadow:none; }
+  .score{ display:flex; justify-content:space-between; align-items:center; border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin:10px 0; background:#fff; }
+  .score b{ font-family:'Bricolage Grotesque',sans-serif; font-size:20px; }
+  .pill{ font-family:'JetBrains Mono',monospace; font-size:12px; font-weight:600; border-radius:999px; padding:5px 12px; }
+  .pill.pass{ color:#15803d; background:#DCFCE7; }
+  .pill.fail{ color:#B91C1C; background:#FEE2E2; }
+  .wide{ background:var(--card); border:1px solid var(--line); border-radius:20px; padding:26px; position:relative; overflow:hidden; margin:0 0 18px; }
+  .wide::before{ content:""; position:absolute; top:0; left:0; right:0; height:6px; background:var(--sun); }
+  .wide .label{ font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--ink2); }
+  .wide h2{ font-family:'Bricolage Grotesque',sans-serif; font-size:28px; margin:10px 0 6px; }
+  .wide p{ color:var(--ink2); margin:0 0 14px; }
+  pre{ background:#0A1129; color:#C7D2FE; padding:16px; border-radius:12px; overflow-x:auto; font-size:14px; margin:10px 0 0; }
+  .btns a{ display:inline-block; text-decoration:none; font-weight:700; border-radius:10px; padding:9px 14px; margin-right:10px; font-size:14px; transition:transform .15s ease, box-shadow .15s ease; }
+  .btns a.open{ background:var(--cobalt); color:#fff; }
+  .btns a.open:hover{ transform:translateY(-1px); box-shadow:0 6px 14px rgba(47,75,255,.35); }
+  footer{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; color:var(--ink2); font-size:13px; padding:8px 0 26px; border-top:1px solid var(--line); margin-top:10px; }
+  footer a{ color:var(--cobalt); text-decoration:none; font-weight:600; }
+  @media (max-width:760px){ .hero{ grid-template-columns:1fr; } .hero h1{ font-size:56px; } }
+</style>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><b>Suman Sapkota · Lab Archive</b><span><a href="tasks.html">Friday Tasks</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/">Coursework</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/week10/portfolio/">Portfolio</a><a href="practice.html">Practice</a></span></div>
+
+  <div class="hero">
+    <div>
+      <div class="kicker">Week 11 · Friday · React components &amp; props</div>
+      <h1><span class="solid">Four small demos.</span><br><span class="outline">One idea each.</span></h1>
+      <p>A greeting that changes with its props, a list built with keys, a message that shows or hides, and a pass-or-fail board. Four ideas, each one in its own small component.</p>
+      <div class="byline">Suman Sapkota · 202637609 · Computer Engineering</div>
+      <div class="chips"><span><b>4</b> demos</span><span><b>3</b> classmates</span><span><b>60</b> pass mark</span></div>
+    </div>
+    <div class="about">
+      <h2>Same idea.<br><mark>Four ways.</mark></h2>
+      <p>Props go in, a screen comes out. That is the whole Friday.</p>
+      <hr>
+      <a href="tasks.html">See all Friday tasks →</a>
+    </div>
+  </div>
+
+  <div class="labelrow"><span><b>05 /</b> Component lab</span><span>Gachon University · Year 1</span></div>
+
+  <div id="root"></div>
+  <noscript>Turn on JavaScript to use this page.</noscript>
+
+  <footer><span>Suman Sapkota / Week 11 Friday</span><a href="https://github.com/sumansapkota9/Suman-Sapkota">Github repository ↗</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/Week11%20monday/">Week 11 Monday ↗</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/">Back to coursework ↗</a></footer>
+</div>
+<script type="text/babel">
+// Suman's note:
+// Four small demos, each one its own component.
+// 1. Greeting takes a name prop and says hello to that person.
+// 2. A list maps my three classmates, each with a key so React can tell
+//    them apart. The key is the student ID, never the list position.
+// 3. Alert shows a message only when one exists. Pick a state below —
+//    done, heads-up, or nothing — and watch the box change or vanish.
+// 4. ScoreCard takes a score and a pass mark. At 60 or above it says
+//    Pass, below it says Fail. The scores here are practice numbers.
+function Greeting({ name }) {
+  return <p className="greet">Hello, {name}!</p>;
+}
+function Alert({ kind }) {
+  if (kind === "done") return <div className="alert done">✓ Done — your directory is live.</div>;
+  if (kind === "warn") return <div className="alert warn">⚠ Heads up — save your work before you close this page.</div>;
+  return <div className="alert none">No message right now — nothing to show.</div>;
+}
+function ScoreCard({ label, score, passMark }) {
+  const passed = score >= passMark;
+  return (
+    <div className="score">
+      <span><b>{score}</b> — {label}</span>
+      <span className={"pill " + (passed ? "pass" : "fail")}>{passed ? "✓ Pass" : "✗ Fail"}</span>
+    </div>
+  );
+}
+function App() {
+  const [alertKind, setAlertKind] = React.useState("done");
+  const students = [
+    { id: "202637609", name: "Suman Sapkota" },
+    { id: "202637610", name: "Sudip Sah" },
+    { id: "202637684", name: "Eric" },
+  ];
+  return (
+    <div>
+      <div className="section">
+        <span className="label">01 / Greeting with props</span>
+        <h2>One component, three hellos</h2>
+        <p>The same Greeting component, three times, with a different name each time.</p>
+        <div className="demo">
+          <Greeting name="Suman Sapkota" />
+          <Greeting name="Sudip Sah" />
+          <Greeting name="Eric" />
+        </div>
+      </div>
+
+      <div className="section">
+        <span className="label">02 / Lists and keys</span>
+        <h2>Three classmates, one map</h2>
+        <p>One list, rendered with .map. Each item gets its student ID as the key.</p>
+        <div className="demo">
+          {students.map((s) => (
+            <p key={s.id}>{s.name} — {s.id}</p>
+          ))}
+        </div>
+      </div>
+
+      <div className="section">
+        <span className="label">03 / Show or hide</span>
+        <h2>Only show it when it exists</h2>
+        <p>Pick a state. When there is no message, the box shows nothing at all.</p>
+        <div className="demo">
+          <Alert kind={alertKind} />
+          <button onClick={() => setAlertKind("done")}>Done</button>
+          <button className="ghost" onClick={() => setAlertKind("warn")}>Heads up</button>
+          <button className="ghost" onClick={() => setAlertKind("none")}>Nothing</button>
+        </div>
+      </div>
+
+      <div className="section">
+        <span className="label">04 / Pass or fail</span>
+        <h2>Same card, two results</h2>
+        <p>The pass mark is 60. The same ScoreCard shows Pass at 92 and Fail at 58.</p>
+        <div className="demo">
+          <ScoreCard label="Practice quiz A" score={92} passMark={60} />
+          <ScoreCard label="Practice quiz B" score={58} passMark={60} />
+        </div>
+      </div>
+
+      <div className="wide">
+        <span className="label">How it works</span>
+        <h2>Props in, screen out</h2>
+        <p>Every demo here is one small component with clear props. Greeting reads a name, Alert reads a state, ScoreCard reads a score and a pass mark. Change the prop, and the screen changes with it — the component never changes itself.</p>
+        <pre>{'<Greeting name="Suman Sapkota" />'}</pre>
+      </div>
+      <div className="btns">
+        <a className="open" href="tasks.html">← Back to Friday tasks</a>
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
