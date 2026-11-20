@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Week 11 Friday — Practice | Suman Sapkota</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{ --paper:#EAEEF6; --ink:#0D1633; --ink2:#4A5578; --line:#C9D1E4; --cobalt:#2F4BFF; --sun:#FFC933; --card:#fff; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Figtree',sans-serif; line-height:1.6; background-image:radial-gradient(#C9D1E4 1px, transparent 1px); background-size:22px 22px; }
+  .wrap{ max-width:1100px; margin:0 auto; padding:20px; }
+  .topbar{ display:flex; justify-content:space-between; align-items:center; background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px 18px; box-shadow:0 4px 14px rgba(13,22,51,.06); }
+  .topbar b{ font-family:'Bricolage Grotesque',sans-serif; font-size:18px; }
+  .topbar a{ color:var(--cobalt); text-decoration:none; font-weight:600; margin-left:18px; font-size:14px; }
+  .topbar a:hover{ text-decoration:underline; }
+  .hero{ display:grid; grid-template-columns:1.6fr 1fr; gap:24px; padding:44px 8px 6px; align-items:start; }
+  .hero .kicker{ font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:3px; color:var(--ink2); text-transform:uppercase; }
+  .hero h1{ font-family:'Bricolage Grotesque',sans-serif; font-size:88px; line-height:0.92; margin:20px 0; letter-spacing:-2px; }
+  .hero h1 .solid{ color:var(--ink); }
+  .hero h1 .outline{ color:transparent; -webkit-text-stroke:3px var(--cobalt); }
+  .hero p{ color:var(--ink2); margin:6px 0; max-width:560px; font-size:18px; }
+  .hero .byline{ font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:2px; color:var(--ink2); text-transform:uppercase; margin-top:24px; }
+  .chips{ margin-top:22px; display:flex; gap:10px; flex-wrap:wrap; }
+  .chips span{ display:inline-block; background:var(--card); border:1px solid var(--line); color:var(--ink); border-radius:999px; padding:8px 16px; font-size:14px; font-weight:700; box-shadow:0 4px 12px rgba(13,22,51,.06); }
+  .chips span b{ color:var(--cobalt); }
+  .about{ background:var(--ink); color:#fff; border-radius:20px; padding:28px; box-shadow:0 14px 30px rgba(13,22,51,.25); }
+  .about h2{ font-family:'Bricolage Grotesque',sans-serif; font-size:26px; line-height:1.2; margin:0 0 6px; }
+  .about h2 mark{ background:var(--sun); color:var(--ink); padding:0 8px; border-radius:8px; }
+  .about p{ color:#C7D2FE; margin:0; }
+  .about hr{ border:none; border-top:1px solid #2A3560; margin:20px 0; }
+  .about a{ color:#fff; font-weight:700; text-decoration:none; }
+  .about a:hover{ text-decoration:underline; }
+  .labelrow{ display:flex; justify-content:space-between; align-items:center; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--ink2); border-bottom:1px solid var(--line); padding:26px 8px 12px; margin-top:18px; }
+  .labelrow b{ color:var(--cobalt); }
+  .section{ background:var(--card); border:1px solid var(--line); border-radius:20px; padding:26px; position:relative; overflow:hidden; margin:26px 0 18px; animation:rise .5s ease both; }
+  .section:nth-child(2){ animation-delay:.08s; }
+  .section:nth-child(3){ animation-delay:.16s; }
+  @keyframes rise{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:translateY(0); } }
+  .section::before{ content:""; position:absolute; top:0; left:0; right:0; height:6px; background:var(--cobalt); }
+  .section:nth-of-type(2)::before{ background:var(--sun); }
+  .section:nth-of-type(3)::before{ background:#22C55E; }
+  .section .label{ font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--ink2); }
+  .section h2{ font-family:'Bricolage Grotesque',sans-serif; font-size:28px; margin:10px 0 6px; }
+  .section p{ color:var(--ink2); margin:0 0 14px; }
+  .avatar{ width:64px; height:64px; border-radius:50%; background:var(--cobalt); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Bricolage Grotesque',sans-serif; font-size:24px; font-weight:800; margin-bottom:12px; }
+  input{ width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:10px; font-family:'Figtree',sans-serif; font-size:15px; margin:6px 0 12px; background:#fff; color:var(--ink); }
+  button{ background:var(--cobalt); color:#fff; border:none; border-radius:10px; padding:9px 16px; font-weight:700; font-size:14px; cursor:pointer; margin-right:10px; font-family:'Figtree',sans-serif; transition:transform .15s ease, box-shadow .15s ease; }
+  button:hover{ transform:translateY(-1px); box-shadow:0 6px 14px rgba(47,75,255,.35); }
+  button.ghost{ background:var(--paper); color:var(--ink); border:1px solid var(--line); box-shadow:none; }
+  .msg{ border:1px solid var(--line); border-radius:12px; padding:14px 16px; margin:10px 0; background:#fff; }
+  .msg.unread{ border-color:var(--cobalt); background:#EEF2FF; }
+  .msg b{ display:block; font-size:15px; }
+  .msg span{ color:var(--ink2); font-size:14px; }
+  .msg .tag{ display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; font-weight:600; color:var(--cobalt); margin-top:6px; }
+  .check{ display:flex; align-items:center; gap:12px; border:1px solid var(--line); border-radius:12px; padding:12px 16px; margin:10px 0; cursor:pointer; background:#fff; }
+  .check.done{ background:#F0FDF4; border-color:#22C55E; }
+  .check .box{ width:22px; height:22px; border-radius:6px; border:2px solid var(--line); display:flex; align-items:center; justify-content:center; font-size:14px; color:#fff; flex-shrink:0; }
+  .check.done .box{ background:#22C55E; border-color:#22C55E; }
+  .progress{ height:10px; background:var(--paper); border:1px solid var(--line); border-radius:999px; overflow:hidden; margin:12px 0; }
+  .progress div{ height:100%; background:linear-gradient(90deg, var(--cobalt), var(--sun)); transition:width .3s ease; }
+  .wide{ background:var(--card); border:1px solid var(--line); border-radius:20px; padding:26px; position:relative; overflow:hidden; margin:0 0 18px; }
+  .wide::before{ content:""; position:absolute; top:0; left:0; right:0; height:6px; background:var(--sun); }
+  .wide .label{ font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--ink2); }
+  .wide h2{ font-family:'Bricolage Grotesque',sans-serif; font-size:28px; margin:10px 0 6px; }
+  .wide p{ color:var(--ink2); margin:0 0 14px; }
+  pre{ background:#0A1129; color:#C7D2FE; padding:16px; border-radius:12px; overflow-x:auto; font-size:14px; margin:10px 0 0; }
+  .btns a{ display:inline-block; text-decoration:none; font-weight:700; border-radius:10px; padding:9px 14px; margin-right:10px; font-size:14px; transition:transform .15s ease, box-shadow .15s ease; }
+  .btns a.open{ background:var(--cobalt); color:#fff; }
+  .btns a.open:hover{ transform:translateY(-1px); box-shadow:0 6px 14px rgba(47,75,255,.35); }
+  footer{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; color:var(--ink2); font-size:13px; padding:8px 0 26px; border-top:1px solid var(--line); margin-top:10px; }
+  footer a{ color:var(--cobalt); text-decoration:none; font-weight:600; }
+  @media (max-width:760px){ .hero{ grid-template-columns:1fr; } .hero h1{ font-size:56px; } }
+</style>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><b>Suman Sapkota · Lab Archive</b><span><a href="tasks.html">Friday Tasks</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/">Coursework</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/week10/portfolio/">Portfolio</a><a href="practice.html">Practice</a></span></div>
+
+  <div class="hero">
+    <div>
+      <div class="kicker">Week 11 · Friday · React components &amp; props</div>
+      <h1><span class="solid">Practice makes</span><br><span class="outline">it stick.</span></h1>
+      <p>Three small labs in one page: edit a profile, read an inbox, and check what you can explain. Every part runs on useState.</p>
+      <div class="byline">Suman Sapkota · 202637609 · Computer Engineering</div>
+      <div class="chips"><span><b>3</b> sections</span><span><b>3</b> messages</span><span><b>4</b> concepts</span></div>
+    </div>
+    <div class="about">
+      <h2>Small pieces.<br><mark>One idea each.</mark></h2>
+      <p>State holds the data. The page only shows what state says.</p>
+      <hr>
+      <a href="tasks.html">See all Friday tasks →</a>
+    </div>
+  </div>
+
+  <div class="labelrow"><span><b>03 /</b> Practice</span><span>Gachon University · Year 1</span></div>
+
+  <div id="root"></div>
+  <noscript>Turn on JavaScript to use this page.</noscript>
+
+  <footer><span>Suman Sapkota / Week 11 Friday</span><a href="https://github.com/sumansapkota9/Suman-Sapkota">Github repository ↗</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/Week11%20monday/">Week 11 Monday ↗</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/">Back to coursework ↗</a></footer>
+</div>
+<script type="text/babel">
+// Suman's note:
+// Three small practice pieces, all in one App.
+// 1. Profile editor: name and bio live in useState. Edit, save, or reset.
+// 2. Practice inbox: three messages. "Mark everything read" flips the read flag on all of them.
+// 3. My checklist: four ideas, each one a useState boolean.
+// Nothing here is real data — the inbox messages are practice examples,
+// and the checklist only tracks what I ticked on this page.
+function App() {
+  const [name, setName] = React.useState("Suman Sapkota");
+  const [bio, setBio] = React.useState("Computer Engineering student, learning React one component at a time.");
+  const [editing, setEditing] = React.useState(false);
+  const [draftName, setDraftName] = React.useState(name);
+  const [draftBio, setDraftBio] = React.useState(bio);
+  const [messages, setMessages] = React.useState([
+    { id: 1, from: "Sudip Sah", text: "Did you finish the StudentCard lab? Mine renders, but my GPA row is off.", read: false },
+    { id: 2, from: "Eric", text: "The practice page is fun — the inbox one took me two tries.", read: false },
+    { id: 3, from: "Abinash Lamichhane", text: "Good luck with Friday! The checklist part is the easiest one.", read: true },
+  ]);
+  const [checked, setChecked] = React.useState([false, false, false, false]);
+  const concepts = [
+    "Props pass data down from a parent to a child",
+    "useState holds data that can change",
+    "Lists need a key so React can tell items apart",
+    "Conditional rendering shows or hides things",
+  ];
+  const unread = messages.filter((m) => !m.read).length;
+  const doneCount = checked.filter(Boolean).length;
+
+  function saveProfile() { setName(draftName); setBio(draftBio); setEditing(false); }
+  function resetProfile() { setDraftName("Suman Sapkota"); setDraftBio("Computer Engineering student, learning React one component at a time."); setEditing(false); }
+
+  return (
+    <div>
+      <div className="section">
+        <span className="label">01 / My profile</span>
+        <h2>My profile, my state.</h2>
+        <div className="avatar">SS</div>
+        {editing ? (
+          <div>
+            <input value={draftName} onChange={(e) => setDraftName(e.target.value)} placeholder="Your name" />
+            <input value={draftBio} onChange={(e) => setDraftBio(e.target.value)} placeholder="A short bio" />
+            <button onClick={saveProfile}>Save changes</button>
+            <button className="ghost" onClick={resetProfile}>Reset</button>
+          </div>
+        ) : (
+          <div>
+            <p><b>{name}</b> — {bio}</p>
+            <button onClick={() => { setDraftName(name); setDraftBio(bio); setEditing(true); }}>Edit profile</button>
+          </div>
+        )}
+      </div>
+
+      <div className="section">
+        <span className="label">02 / Practice inbox</span>
+        <h2>{unread} new · {messages.length} total</h2>
+        <p>A few practice messages from my classmates. Marking everything read flips the read flag on every message at once.</p>
+        {messages.map((m) => (
+          <div key={m.id} className={"msg" + (m.read ? "" : " unread")}>
+            <b>{m.from}</b>
+            <span>{m.text}</span>
+            {!m.read && <span className="tag">UNREAD</span>}
+          </div>
+        ))}
+        <button onClick={() => setMessages(messages.map((m) => ({ ...m, read: true })))}>Mark everything read</button>
+      </div>
+
+      <div className="section">
+        <span className="label">03 / My checklist</span>
+        <h2>What I can explain</h2>
+        <p>{doneCount} of {concepts.length} concepts checked. Tick the ones you can explain in your own words.</p>
+        <div className="progress"><div style={{ width: (doneCount / concepts.length) * 100 + "%" }}></div></div>
+        {concepts.map((c, i) => (
+          <div key={c} className={"check" + (checked[i] ? " done" : "")} onClick={() => { const next = [...checked]; next[i] = !next[i]; setChecked(next); }}>
+            <span className="box">{checked[i] ? "✓" : ""}</span>
+            <span>{c}</span>
+          </div>
+        ))}
+        <button className="ghost" onClick={() => setChecked([false, false, false, false])}>Reset checklist</button>
+      </div>
+
+      <div className="wide">
+        <span className="label">How it works</span>
+        <h2>State in, screen out</h2>
+        <p>Each section keeps its own piece of state: the profile, the messages, and the checklist. Changing state re-renders only that part — the rest of the page stays the same.</p>
+        <pre>{'const [checked, setChecked] = useState([false, false, false, false]);'}</pre>
+      </div>
+      <div className="btns">
+        <a className="open" href="tasks.html">← Back to Friday tasks</a>
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
