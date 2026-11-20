@@ -22,6 +22,7 @@ body{ font-family:"Figtree",system-ui,sans-serif; background:var(--paper); backg
 .hero img{ width:140px; height:140px; border-radius:50%; object-fit:cover; border:3px solid var(--sun); flex-shrink:0; box-shadow:0 0 0 6px var(--card), 0 10px 22px rgba(13,22,51,.18); }
 .eyebrow{ font-family:"JetBrains Mono",monospace; font-size:.8rem; letter-spacing:.08em; color:var(--cobalt); margin-bottom:8px; }
 .hero h1{ font-family:"Bricolage Grotesque","Figtree",sans-serif; font-size:2.1rem; line-height:1.1; margin-bottom:10px; }
+.hero h1 mark{ background:var(--sun); color:var(--ink); padding:0 8px; border-radius:8px; }
 .hero p{ color:var(--ink-2); line-height:1.65; }
 .hero p + p{ margin-top:8px; }
 section{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:24px 28px; margin-bottom:18px; box-shadow:0 4px 16px rgba(13,22,51,.06); }
@@ -35,10 +36,15 @@ h2::after{ content:""; display:block; width:48px; height:3px; background:var(--s
 .filters button:hover{ border-color:var(--cobalt); }
 .filters button.active{ background:var(--cobalt); color:#fff; border-color:var(--cobalt); }
 .projects{ display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; }
-.project{ border:1px solid var(--line); border-radius:14px; padding:18px; background:var(--paper); transition:transform .2s ease, box-shadow .2s ease; }
+/* Motion lives ONLY on the project cards. */
+.project{ border:1px solid var(--line); border-radius:14px; padding:18px; background:var(--paper); opacity:0; transform:translateY(20px); transition:opacity .55s ease, transform .55s ease, box-shadow .2s ease; will-change:transform; }
+.project.in{ opacity:1; transform:none; }
 .project:hover{ transform:translateY(-4px); box-shadow:0 12px 24px rgba(13,22,51,.14); }
 .project[hidden]{ display:none; }
+.project.pop{ animation:pop .45s ease both; }
+@keyframes pop{ from{ opacity:0; transform:scale(.94) translateY(10px); } to{ opacity:1; transform:scale(1) translateY(0); } }
 .project .tag{ font-family:"JetBrains Mono",monospace; font-size:.75rem; letter-spacing:.06em; color:var(--cobalt); margin-bottom:8px; }
+.project .new{ display:inline-block; font-family:"JetBrains Mono",monospace; font-size:.7rem; font-weight:600; letter-spacing:.06em; background:var(--sun); color:var(--ink); border-radius:999px; padding:3px 9px; margin-left:8px; vertical-align:middle; }
 .project h3{ font-size:1.1rem; margin-bottom:8px; }
 .project p{ font-size:.92rem; color:var(--ink-2); line-height:1.6; margin-bottom:12px; }
 .project a{ color:var(--cobalt); font-weight:600; text-decoration:none; }
@@ -46,6 +52,10 @@ h2::after{ content:""; display:block; width:48px; height:3px; background:var(--s
 footer{ text-align:center; color:var(--ink-2); font-size:.9rem; line-height:1.8; }
 footer a{ color:var(--cobalt); font-weight:600; text-decoration:none; }
 .back{ display:inline-block; margin-top:16px; color:var(--cobalt); font-weight:600; text-decoration:none; }
+@media (prefers-reduced-motion: reduce){
+  *{ animation:none !important; transition:none !important; }
+  .project{ opacity:1; transform:none; }
+}
 @media (max-width:640px){
   .hero{ flex-direction:column; text-align:center; padding:22px 18px; }
   .hero h1{ font-size:1.7rem; }
@@ -66,9 +76,9 @@ footer a{ color:var(--cobalt); font-weight:600; text-decoration:none; }
 <img src="portrait.png" alt="Portrait photo of Suman Sapkota">
 <div>
 <p class="eyebrow">NEPAL &rarr; SOUTH KOREA &middot; GACHON UNIVERSITY</p>
-<h1>Hi, I'm Suman.</h1>
+<h1>Hi, I'm <mark>Suman</mark>.</h1>
 <p>I'm a Computer Engineering student at Gachon University, in my 2nd
-semester. I build small websites with HTML, CSS and JavaScript, and I am
+semester. I build small websites with HTML, CSS, JavaScript and React, and I am
 learning how real deployment works — Git, GitHub and GitHub Pages.</p>
 <p>Outside class I run Facebook Pages with short AI videos, so I care a lot
 about what makes people stop, watch and come back.</p>
@@ -78,20 +88,29 @@ about what makes people stop, watch and come back.</p>
 <section aria-labelledby="skills-h">
 <h2 id="skills-h">Skills</h2>
 <ul class="skills">
-<li>HTML</li><li>CSS</li><li>JavaScript</li><li>Git &amp; GitHub</li>
+<li>HTML</li><li>CSS</li><li>JavaScript</li><li>React</li><li>Git &amp; GitHub</li>
 <li>GitHub Pages</li><li>Responsive design</li><li>Fetch API</li><li>Accessibility</li>
 </ul>
 </section>
 
-<section aria-labelledby="projects-h">
+<section aria-labelledby="projects-h" id="work">
 <h2 id="projects-h">Projects</h2>
 <div class="filters" role="group" aria-label="Filter projects">
 <button type="button" class="active" data-filter="all">All</button>
 <button type="button" data-filter="html-css">HTML &amp; CSS</button>
 <button type="button" data-filter="javascript">JavaScript</button>
 <button type="button" data-filter="api">API</button>
+<button type="button" data-filter="react">React</button>
 </div>
 <div class="projects" id="projects">
+<article class="project" data-category="react">
+<p class="tag">WEEK 11 &middot; REACT<span class="new">NEW</span></p>
+<h3>Friday React Labs</h3>
+<p>Seven Friday exercises in React — ProductCard, Course Catalog, practice
+labs, Student Directory, gallery and a component lab. Built with props,
+useState and reusable components.</p>
+<a href="../../Week11%20friday/tasks.html">Open Friday labs &rarr;</a>
+</article>
 <article class="project" data-category="javascript">
 <p class="tag">FINAL PROJECT &middot; TEAM</p>
 <h3>BiHE.COM</h3>
@@ -152,19 +171,66 @@ themeBtn.addEventListener('click', function () {
   }
 });
 
-// Project filtering.
-var filterBtns = document.querySelectorAll('.filters button');
+// Motion lives ONLY on the project cards.
+var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 var cards = document.querySelectorAll('.project');
+
+// Cards rise in one by one as you scroll to them.
+if (reduceMotion) {
+  cards.forEach(function (card) { card.classList.add('in'); });
+} else if ('IntersectionObserver' in window) {
+  var cardObs = new IntersectionObserver(function (entries) {
+    entries.forEach(function (entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('in');
+        cardObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  cards.forEach(function (card, i) {
+    card.style.transitionDelay = (i * 90) + 'ms';
+    cardObs.observe(card);
+  });
+} else {
+  cards.forEach(function (card) { card.classList.add('in'); });
+}
+
+// Project filtering with a pop-in animation.
+var filterBtns = document.querySelectorAll('.filters button');
 filterBtns.forEach(function (btn) {
   btn.addEventListener('click', function () {
     filterBtns.forEach(function (b) { b.classList.remove('active'); });
     btn.classList.add('active');
     var f = btn.getAttribute('data-filter');
+    var shown = 0;
     cards.forEach(function (card) {
-      card.hidden = (f !== 'all' && card.getAttribute('data-category') !== f);
+      var match = (f === 'all' || card.getAttribute('data-category') === f);
+      card.hidden = !match;
+      card.classList.remove('pop');
+      if (match) {
+        card.style.animationDelay = (shown * 70) + 'ms';
+        shown++;
+        if (!reduceMotion) {
+          void card.offsetWidth;
+          card.classList.add('pop');
+        }
+      }
     });
   });
 });
+
+// Card tilt on hover — small, and only with a mouse.
+if (!reduceMotion && window.matchMedia('(hover: hover)').matches) {
+  cards.forEach(function (card) {
+    card.addEventListener('mousemove', function (e) {
+      var r = card.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - 0.5;
+      var y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = 'perspective(600px) rotateY(' + (x * 6) + 'deg) rotateX(' + (-y * 6) + 'deg) translateY(-4px)';
+    });
+    card.addEventListener('mouseleave', function () { card.style.transform = ''; });
+  });
+}
 
 // Skip link: move keyboard focus to the main landmark.
 document.querySelector('.skip-link').addEventListener('click', function () {
