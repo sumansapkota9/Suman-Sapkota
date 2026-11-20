@@ -51,7 +51,6 @@
   .alert{ border-radius:12px; padding:14px 16px; margin:10px 0; font-weight:600; }
   .alert.done{ background:#DCFCE7; color:#15803d; }
   .alert.warn{ background:#FEF3C7; color:#92400E; }
-  .alert.none{ background:var(--paper); color:var(--ink2); border:1px dashed var(--line); }
   button{ background:var(--cobalt); color:#fff; border:none; border-radius:10px; padding:9px 16px; font-weight:700; font-size:14px; cursor:pointer; margin-right:10px; font-family:'Figtree',sans-serif; transition:transform .15s ease, box-shadow .15s ease; }
   button:hover{ transform:translateY(-1px); box-shadow:0 6px 14px rgba(47,75,255,.35); }
   button.ghost{ background:var(--paper); color:var(--ink); border:1px solid var(--line); box-shadow:none; }
@@ -120,7 +119,7 @@ function Greeting({ name }) {
 function Alert({ kind }) {
   if (kind === "done") return <div className="alert done">✓ Done — your directory is live.</div>;
   if (kind === "warn") return <div className="alert warn">⚠ Heads up — save your work before you close this page.</div>;
-  return <div className="alert none">No message right now — nothing to show.</div>;
+  return null;
 }
 function ScoreCard({ label, score, passMark }) {
   const passed = score >= passMark;
@@ -168,9 +167,9 @@ function App() {
         <p>Pick a state. When there is no message, the box shows nothing at all.</p>
         <div className="demo">
           <Alert kind={alertKind} />
-          <button onClick={() => setAlertKind("done")}>Done</button>
-          <button className="ghost" onClick={() => setAlertKind("warn")}>Heads up</button>
-          <button className="ghost" onClick={() => setAlertKind("none")}>Nothing</button>
+          <button className={alertKind === "done" ? "" : "ghost"} onClick={() => setAlertKind("done")}>Done</button>
+          <button className={alertKind === "warn" ? "" : "ghost"} onClick={() => setAlertKind("warn")}>Heads up</button>
+          <button className={alertKind === "none" ? "" : "ghost"} onClick={() => setAlertKind("none")}>Nothing</button>
         </div>
       </div>
 
