@@ -14,45 +14,60 @@
   .topbar b{ font-family:'Bricolage Grotesque',sans-serif; font-size:18px; }
   .topbar a{ color:var(--cobalt); text-decoration:none; font-weight:600; margin-left:18px; font-size:14px; }
   .topbar a:hover{ text-decoration:underline; }
-  .hero{ padding:44px 8px 6px; }
+  .hero{ display:grid; grid-template-columns:1.6fr 1fr; gap:24px; padding:44px 8px 6px; align-items:start; }
   .hero .kicker{ font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:3px; color:var(--ink2); text-transform:uppercase; }
-  .hero h1{ font-family:'Bricolage Grotesque',sans-serif; font-size:88px; line-height:0.92; margin:20px 0; letter-spacing:-2px; }
-  .hero h1 .outline{ color:transparent; -webkit-text-stroke:3px var(--cobalt); }
-  .hero p{ color:var(--ink2); margin:6px 0; max-width:640px; font-size:18px; }
+  .hero h1{ font-family:'Bricolage Grotesque',sans-serif; font-size:96px; line-height:0.92; margin:20px 0; letter-spacing:-2px; color:transparent; -webkit-text-stroke:3px var(--ink); }
+  .hero h1 .solid{ color:var(--ink); -webkit-text-stroke:0; }
+  .hero h1 .dot{ color:var(--cobalt); -webkit-text-stroke:0; }
+  .hero p{ color:var(--ink2); margin:6px 0; max-width:560px; font-size:18px; }
+  .hero p b{ color:var(--ink); }
   .hero .byline{ font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:2px; color:var(--ink2); text-transform:uppercase; margin-top:24px; }
   .chips{ margin-top:22px; display:flex; gap:10px; flex-wrap:wrap; }
   .chips span{ display:inline-block; background:var(--card); border:1px solid var(--line); color:var(--ink); border-radius:999px; padding:8px 16px; font-size:14px; font-weight:700; box-shadow:0 4px 12px rgba(13,22,51,.06); }
   .chips span b{ color:var(--cobalt); }
-  .layout{ display:grid; grid-template-columns:1.5fr 1fr; gap:18px; margin:26px 0; align-items:start; }
-  .col-side{ display:flex; flex-direction:column; gap:18px; }
+  .about{ background:var(--ink); color:#fff; border-radius:20px; padding:28px; box-shadow:0 14px 30px rgba(13,22,51,.25); }
+  .about h2{ font-family:'Bricolage Grotesque',sans-serif; font-size:26px; line-height:1.2; margin:0 0 6px; }
+  .about h2 mark{ background:var(--sun); color:var(--ink); padding:0 8px; border-radius:8px; }
+  .about .kicker{ font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#C7D2FE; margin-bottom:12px; }
+  .about .bignum{ font-family:'Bricolage Grotesque',sans-serif; font-size:72px; font-weight:800; line-height:1; margin:0 0 14px; }
+  .about .bignum span{ color:var(--cobalt); }
+  .about p{ color:#C7D2FE; margin:0; }
+  .about hr{ border:none; border-top:1px solid #2A3560; margin:20px 0; }
+  .about a{ color:#fff; font-weight:700; text-decoration:none; }
+  .about a:hover{ text-decoration:underline; }
+  .labelrow{ display:flex; justify-content:space-between; align-items:center; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--ink2); border-bottom:1px solid var(--line); padding:26px 8px 12px; margin-top:18px; }
+  .labelrow b{ color:var(--cobalt); }
+  .grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px; margin:26px 0; }
   .card{ background:var(--card); border:1px solid var(--line); border-radius:20px; padding:26px; position:relative; overflow:hidden; transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease; animation:rise .5s ease both; }
-  .col-side .card:nth-child(2){ animation-delay:.08s; }
+  .card:nth-child(2){ animation-delay:.08s; }
+  .card:nth-child(3){ animation-delay:.16s; }
   @keyframes rise{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:translateY(0); } }
-  .card:hover{ transform:translateY(-3px); box-shadow:0 14px 30px rgba(13,22,51,.12); border-color:var(--cobalt); }
+  .card:hover{ transform:translateY(-4px); box-shadow:0 14px 30px rgba(13,22,51,.14); border-color:var(--cobalt); }
   .card::before{ content:""; position:absolute; top:0; left:0; right:0; height:6px; background:var(--cobalt); }
-  .card.sun::before{ background:var(--sun); }
-  .card.green::before{ background:#22C55E; }
-  .card h2{ font-family:'Bricolage Grotesque',sans-serif; font-size:28px; margin:0 0 6px; }
-  .card p{ color:var(--ink2); margin:0 0 14px; }
-  .profile{ display:flex; gap:18px; align-items:center; background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:20px; box-shadow:0 6px 18px rgba(13,22,51,.08); margin-bottom:14px; transition:transform .2s ease, box-shadow .2s ease; }
-  .profile:hover{ transform:translateY(-2px); box-shadow:0 12px 24px rgba(13,22,51,.14); }
-  .profile:last-child{ margin-bottom:0; }
-  .avatar{ flex:0 0 64px; height:64px; border-radius:50%; background:var(--cobalt); color:#fff; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:26px; display:flex; align-items:center; justify-content:center; }
-  .profile:nth-child(2) .avatar{ background:#A855F7; }
-  .profile:nth-child(3) .avatar{ background:#F97316; }
-  .profile b{ font-family:'Bricolage Grotesque',sans-serif; font-size:22px; display:block; }
-  .profile span{ color:var(--ink2); font-size:15px; display:block; }
-  .badge{ display:inline-block; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:1px; color:#15803d; text-transform:uppercase; background:#DCFCE7; border-radius:999px; padding:4px 10px; margin-bottom:8px; }
-  .todo{ border:2px dashed var(--line); background:var(--paper); }
-  .todo .avatar{ background:#C9D1E4; color:var(--ink2); }
-  .todo .badge{ background:#FEF3C7; color:#92400E; }
+  .card:nth-child(2)::before{ background:var(--sun); }
+  .card:nth-child(3)::before{ background:#22C55E; }
+  .card .num{ font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--cobalt); font-weight:600; }
+  .card h2{ font-family:'Bricolage Grotesque',sans-serif; font-size:32px; line-height:1.1; margin:14px 0 12px; }
+  .idpill{ display:inline-block; font-family:'JetBrains Mono',monospace; font-size:13px; background:var(--paper); border:1px solid var(--line); border-radius:8px; padding:6px 10px; margin-bottom:16px; }
+  .rows{ border-top:1px solid var(--line); }
+  .rows div{ display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid var(--line); }
+  .rows div:last-child{ border-bottom:none; }
+  .rows span{ color:var(--ink2); }
+  .rows b{ font-weight:700; }
+  .wide{ background:var(--card); border:1px solid var(--line); border-radius:20px; padding:26px; position:relative; overflow:hidden; margin:0 0 18px; animation:rise .5s ease both; }
+  .wide::before{ content:""; position:absolute; top:0; left:0; right:0; height:6px; background:var(--sun); }
+  .wide.evidence::before{ background:#22C55E; }
+  .wide .label{ font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--ink2); }
+  .wide h2{ font-family:'Bricolage Grotesque',sans-serif; font-size:28px; margin:10px 0 6px; }
+  .wide p{ color:var(--ink2); margin:0 0 14px; }
   pre{ background:#0A1129; color:#C7D2FE; padding:16px; border-radius:12px; overflow-x:auto; font-size:14px; margin:10px 0 0; }
+  .code{ font-family:'JetBrains Mono',monospace; font-size:22px; letter-spacing:2px; margin:8px 0; }
   .btns a{ display:inline-block; text-decoration:none; font-weight:700; border-radius:10px; padding:9px 14px; margin-right:10px; font-size:14px; transition:transform .15s ease, box-shadow .15s ease; }
   .btns a.open{ background:var(--cobalt); color:#fff; }
   .btns a.open:hover{ transform:translateY(-1px); box-shadow:0 6px 14px rgba(47,75,255,.35); }
   footer{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; color:var(--ink2); font-size:13px; padding:8px 0 26px; border-top:1px solid var(--line); margin-top:10px; }
   footer a{ color:var(--cobalt); text-decoration:none; font-weight:600; }
-  @media (max-width:760px){ .hero h1{ font-size:52px; } .layout{ grid-template-columns:1fr; } .profile{ flex-direction:column; align-items:flex-start; } }
+  @media (max-width:760px){ .hero{ grid-template-columns:1fr; } .hero h1{ font-size:56px; } .grid{ grid-template-columns:1fr; } }
 </style>
 <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -60,25 +75,32 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="topbar"><b>Suman Sapkota · Lab Archive</b><span><a href="tasks.html">Friday Tasks</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/">Coursework</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/week10/portfolio/">Portfolio</a><a href="practice.html">Practice</a></span></div>
+  <div class="topbar"><b>SUMAN <span style="color:var(--cobalt);">/ LAB</span></b><span><a href="tasks.html">Friday Tasks</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/">Coursework</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/week10/portfolio/">Portfolio</a><a href="practice.html">Practice</a></span></div>
 
   <div class="hero">
-    <div class="kicker">Week 11 · Friday · React components &amp; props</div>
-    <h1>Three classmates.<br><span class="outline">One reusable card.</span></h1>
-    <p>Friday is about components and props: one StudentCard component, used three times with different data.</p>
-    <div class="byline">Suman Sapkota · 202637609 · Computer Engineering</div>
-    <div class="chips"><span><b>1</b> component</span><span><b>5</b> props</span><span><b>3</b> cards</span></div>
+    <div>
+      <div class="kicker">Week 11 · Friday · React components &amp; props</div>
+      <h1><span class="solid">STUDENT</span><br>DIRECTORY<span class="dot">.</span></h1>
+      <p><b>Three classmates. One reusable card.</b><br>Built together, rendered differently.</p>
+      <div class="byline">Suman Sapkota · 202637609 · Computer Engineering</div>
+      <div class="chips"><span><b>1</b> component</span><span><b>5</b> props</span><span><b>3</b> cards</span></div>
+    </div>
+    <div class="about">
+      <div class="kicker">11 / React &amp; Props</div>
+      <div class="bignum"><span>{</span> 03 <span>}</span></div>
+      <h2>Same component.<br><mark>Different data.</mark></h2>
+      <p>One StudentCard, three students. Only the props change.</p>
+      <hr>
+      <a href="tasks.html">See all Friday tasks →</a>
+    </div>
   </div>
+
+  <div class="labelrow"><span><b>01 /</b> Meet the class</span><span>Gachon University · Year 1</span></div>
 
   <div id="root"></div>
   <noscript>Turn on JavaScript to use this page.</noscript>
 
-  <div class="btns" style="margin:0 0 10px;">
-    <a class="open" href="tasks.html">See all Friday tasks →</a>
-    <a class="open" href="https://sumansapkota9.github.io/Suman-Sapkota/Week11%20monday/" style="background:#0D1633;">Week 11 Monday →</a>
-  </div>
-
-  <footer><span>Suman Sapkota / Week 11 Friday</span><a href="https://github.com/sumansapkota9/Suman-Sapkota">Github repository ↗</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/Week11%20monday/">Week 11 Monday ↗</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/">Back to coursework ↗</a></footer>
+  <footer><span>Suman Sapkota · 202637609</span><a href="https://sumansapkota9.github.io/Suman-Sapkota/">Back to coursework ↗</a><span>Task 11-A / React Components &amp; Props</span></footer>
 </div>
 <script type="text/babel">
 // Suman's note:
@@ -88,50 +110,50 @@
 // To add a classmate, add one line in the students list below.
 // Activity code below is Suman's own Monday lecture code (3/3 correct, 15/15) —
 // shown here as submission evidence, the same way the lecture asks for it.
-function StudentCard({ name, id, major, year, gpa, initials, filled }) {
+function StudentCard({ num, name, id, major, year, gpa }) {
   return (
-    <div className={filled ? "profile" : "profile todo"}>
-      <div className="avatar">{initials}</div>
-      <div>
-        <span className="badge">{filled ? "✓ Student" : "To add"}</span>
-        <b>{name}</b>
-        <span>ID: {id}</span>
-        <span>Major: {major}</span>
-        <span>Year: {year}</span>
-        <span>GPA: {gpa}</span>
+    <div className="card">
+      <span className="num">{num} / Student</span>
+      <h2>{name}</h2>
+      <span className="idpill">ID: {id}</span>
+      <div className="rows">
+        <div><span>Major:</span><b>{major}</b></div>
+        <div><span>Year:</span><b>{year}</b></div>
+        <div><span>GPA:</span><b>{gpa}</b></div>
       </div>
     </div>
   );
 }
 function App() {
   const students = [
-    { name: "Suman Sapkota", id: "202637609", major: "Computer Engineering", year: "1", gpa: "—", initials: "SS", filled: true },
-    { name: "Sudip Sah", id: "202637610", major: "Computer Engineering", year: "1", gpa: "4.45", initials: "Su", filled: true },
-    { name: "Eric", id: "202637684", major: "Computer Engineering", year: "1", gpa: "4.22", initials: "E", filled: true },
+    { num: "01", name: "Suman Sapkota", id: "202637609", major: "Computer Engineering", year: "1", gpa: "—" },
+    { num: "02", name: "Sudip Sah", id: "202637610", major: "Computer Engineering", year: "1", gpa: "4.45" },
+    { num: "03", name: "Eric", id: "202637684", major: "Computer Engineering", year: "1", gpa: "4.22" },
   ];
   return (
-    <div className="layout">
-      <div className="card">
-        <h2>Student Directory</h2>
-        <p>Each card below comes from the same StudentCard component. Only the props change.</p>
+    <div>
+      <div className="grid">
         {students.map((s) => (
-          <StudentCard key={s.name} name={s.name} id={s.id} major={s.major} year={s.year} gpa={s.gpa} initials={s.initials} filled={s.filled} />
+          <StudentCard key={s.name} num={s.num} name={s.name} id={s.id} major={s.major} year={s.year} gpa={s.gpa} />
         ))}
       </div>
-      <div className="col-side">
-        <div className="card sun">
-          <h2>How the data gets here</h2>
-          <p>The App holds one list of students and renders one StudentCard for each of them. The component only reads its five props — name, id, major, year and gpa — it never changes them.</p>
-          <pre>{'<StudentCard name="Suman Sapkota" id="202637609" major="Computer Engineering" year="1" gpa="—" />'}</pre>
-        </div>
-        <div className="card green">
-          <h2>Submission evidence</h2>
-          <p>Week 11 Monday visual lecture, completed actively.</p>
-          <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 20, letterSpacing: 2 }}><b>7609-BBB-6472</b></p>
-          <p>Activity code · Visual Lecture quick checks: 3/3 correct · 15 / 15</p>
-          <img src="activity-code.jpg" alt="Suman Sapkota's Week 11 Monday activity code 7609-BBB-6472" style={{ width: "100%", borderRadius: 12, border: "1px solid #C9D1E4", marginTop: 10 }} />
-          <p><a href="activity-code.jpg" style={{ color: "#2F4BFF", fontWeight: 600 }}>Open activity-code screenshot ↗</a></p>
-        </div>
+      <div className="wide">
+        <span className="label">How the data gets here</span>
+        <h2>One list, one component</h2>
+        <p>The App holds one list of students and renders one StudentCard for each of them. The component only reads its five props — name, id, major, year and gpa — it never changes them.</p>
+        <pre>{'<StudentCard name="Suman Sapkota" id="202637609" major="Computer Engineering" year="1" gpa="—" />'}</pre>
+      </div>
+      <div className="wide evidence">
+        <span className="label">Task 11-A / Submission evidence</span>
+        <h2>Activity code</h2>
+        <p className="code"><b>7609-BBB-6472</b></p>
+        <p>Activity code · Visual Lecture quick checks: 3/3 correct · 15 / 15</p>
+        <img src="activity-code.jpg" alt="Suman Sapkota's Week 11 Monday activity code 7609-BBB-6472" style={{ width: "100%", maxWidth: 640, borderRadius: 12, border: "1px solid #C9D1E4", marginTop: 10 }} />
+        <p><a href="activity-code.jpg" style={{ color: "#2F4BFF", fontWeight: 600 }}>Open activity-code screenshot ↗</a></p>
+      </div>
+      <div className="btns">
+        <a className="open" href="tasks.html">See all Friday tasks →</a>
+        <a className="open" href="https://sumansapkota9.github.io/Suman-Sapkota/Week11%20monday/" style={{ background: "#0D1633" }}>Week 11 Monday →</a>
       </div>
     </div>
   );
