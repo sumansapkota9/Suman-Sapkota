@@ -9,48 +9,64 @@
   :root{ --paper:#EAEEF6; --ink:#0D1633; --ink2:#4A5578; --line:#C9D1E4; --cobalt:#2F4BFF; --sun:#FFC933; --card:#fff; }
   *{ box-sizing:border-box; }
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Figtree',sans-serif; line-height:1.6; background-image:radial-gradient(#C9D1E4 1px, transparent 1px); background-size:22px 22px; }
-  .wrap{ max-width:960px; margin:0 auto; padding:20px; }
+  .wrap{ max-width:1100px; margin:0 auto; padding:20px; }
   .topbar{ display:flex; justify-content:space-between; align-items:center; background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px 18px; box-shadow:0 4px 14px rgba(13,22,51,.06); }
   .topbar b{ font-family:'Bricolage Grotesque',sans-serif; font-size:18px; }
   .topbar a{ color:var(--cobalt); text-decoration:none; font-weight:600; margin-left:18px; font-size:14px; }
   .topbar a:hover{ text-decoration:underline; }
-  .hero{ padding:44px 8px 6px; }
+  .hero{ display:grid; grid-template-columns:1.6fr 1fr; gap:24px; padding:44px 8px 6px; align-items:start; }
   .hero .kicker{ font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:3px; color:var(--ink2); text-transform:uppercase; }
   .hero h1{ font-family:'Bricolage Grotesque',sans-serif; font-size:88px; line-height:0.92; margin:20px 0; letter-spacing:-2px; }
+  .hero h1 .solid{ color:var(--ink); }
   .hero h1 .outline{ color:transparent; -webkit-text-stroke:3px var(--cobalt); }
-  .hero p{ color:var(--ink2); margin:6px 0; max-width:640px; font-size:18px; }
+  .hero p{ color:var(--ink2); margin:6px 0; max-width:560px; font-size:18px; }
   .hero .byline{ font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:2px; color:var(--ink2); text-transform:uppercase; margin-top:24px; }
   .chips{ margin-top:22px; display:flex; gap:10px; flex-wrap:wrap; }
   .chips span{ display:inline-block; background:var(--card); border:1px solid var(--line); color:var(--ink); border-radius:999px; padding:8px 16px; font-size:14px; font-weight:700; box-shadow:0 4px 12px rgba(13,22,51,.06); }
   .chips span b{ color:var(--cobalt); }
-  .grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px; margin:26px 0; }
+  .about{ background:var(--ink); color:#fff; border-radius:20px; padding:28px; box-shadow:0 14px 30px rgba(13,22,51,.25); }
+  .about h2{ font-family:'Bricolage Grotesque',sans-serif; font-size:26px; line-height:1.2; margin:0 0 6px; }
+  .about h2 mark{ background:var(--sun); color:var(--ink); padding:0 8px; border-radius:8px; }
+  .about p{ color:#C7D2FE; margin:0; }
+  .about hr{ border:none; border-top:1px solid #2A3560; margin:20px 0; }
+  .about a{ color:#fff; font-weight:700; text-decoration:none; }
+  .about a:hover{ text-decoration:underline; }
+  .labelrow{ display:flex; justify-content:space-between; align-items:center; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--ink2); border-bottom:1px solid var(--line); padding:26px 8px 12px; margin-top:18px; }
+  .labelrow b{ color:var(--cobalt); }
+  .controls{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin:26px 0 6px; }
+  .filters{ display:flex; gap:10px; flex-wrap:wrap; }
+  .filters button{ background:var(--card); color:var(--ink); border:1px solid var(--line); border-radius:999px; padding:9px 18px; font-weight:700; font-size:14px; cursor:pointer; font-family:'Figtree',sans-serif; box-shadow:0 4px 12px rgba(13,22,51,.06); }
+  .filters button.active{ background:var(--cobalt); color:#fff; border-color:var(--cobalt); }
+  .controls select{ padding:9px 12px; border:1px solid var(--line); border-radius:10px; font-family:'Figtree',sans-serif; font-size:14px; font-weight:600; background:#fff; color:var(--ink); cursor:pointer; }
+  .grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px; margin:20px 0 26px; }
   .card{ background:var(--card); border:1px solid var(--line); border-radius:20px; padding:24px; position:relative; overflow:hidden; transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease; animation:rise .5s ease both; }
-  .card:nth-child(2){ animation-delay:.05s; }
-  .card:nth-child(3){ animation-delay:.1s; }
-  .card:nth-child(4){ animation-delay:.15s; }
-  .card:nth-child(5){ animation-delay:.2s; }
-  .card:nth-child(6){ animation-delay:.25s; }
-  .card:nth-child(7){ animation-delay:.3s; }
-  .card:nth-child(8){ animation-delay:.35s; }
-  .card:nth-child(9){ animation-delay:.4s; }
   @keyframes rise{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:translateY(0); } }
   .card:hover{ transform:translateY(-4px); box-shadow:0 14px 30px rgba(13,22,51,.14); border-color:var(--cobalt); }
-  .card::before{ content:""; position:absolute; top:0; left:0; right:0; height:6px; background:var(--cobalt); }
-  .card:nth-child(3n+2)::before{ background:var(--sun); }
-  .card:nth-child(3n)::before{ background:#22C55E; }
-  .card h2{ font-family:'Bricolage Grotesque',sans-serif; font-size:22px; line-height:1.2; margin:0 0 8px; }
-  .price{ font-family:'Bricolage Grotesque',sans-serif; font-size:26px; font-weight:800; color:var(--cobalt); margin:0 0 6px; }
-  .rating{ color:#B45309; font-weight:700; margin:0 0 12px; }
+  .card .tile{ width:56px; height:56px; border-radius:16px; display:flex; align-items:center; justify-content:center; font-family:'Bricolage Grotesque',sans-serif; font-size:24px; font-weight:800; color:#fff; margin-bottom:14px; }
+  .card .tile.c0{ background:var(--cobalt); }
+  .card .tile.c1{ background:#F59E0B; }
+  .card .tile.c2{ background:#22C55E; }
+  .card h2{ font-family:'Bricolage Grotesque',sans-serif; font-size:22px; line-height:1.2; margin:0 0 4px; }
+  .card .stars{ color:#B45309; font-size:18px; letter-spacing:2px; margin:0 0 4px; }
+  .card .ratingnum{ color:var(--ink2); font-size:14px; margin:0 0 12px; }
+  .card .pricerow{ display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--line); padding-top:14px; }
+  .price{ font-family:'Bricolage Grotesque',sans-serif; font-size:24px; font-weight:800; color:var(--cobalt); }
   .stock{ display:inline-block; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:1px; text-transform:uppercase; border-radius:999px; padding:4px 10px; }
   .stock.in{ color:#15803d; background:#DCFCE7; }
   .stock.out{ color:#B91C1C; background:#FEE2E2; }
-  .note{ background:var(--card); border:1px solid var(--line); border-left:6px solid var(--sun); border-radius:16px; padding:18px 22px; color:var(--ink2); margin:0 0 26px; }
+  .wide{ background:var(--card); border:1px solid var(--line); border-radius:20px; padding:26px; position:relative; overflow:hidden; margin:0 0 18px; animation:rise .5s ease both; }
+  .wide::before{ content:""; position:absolute; top:0; left:0; right:0; height:6px; background:var(--sun); }
+  .wide .label{ font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--ink2); }
+  .wide h2{ font-family:'Bricolage Grotesque',sans-serif; font-size:28px; margin:10px 0 6px; }
+  .wide p{ color:var(--ink2); margin:0 0 14px; }
+  pre{ background:#0A1129; color:#C7D2FE; padding:16px; border-radius:12px; overflow-x:auto; font-size:14px; margin:10px 0 0; }
+  .note{ background:var(--card); border:1px solid var(--line); border-left:6px solid var(--sun); border-radius:16px; padding:18px 22px; color:var(--ink2); margin:0 0 18px; }
   .btns a{ display:inline-block; text-decoration:none; font-weight:700; border-radius:10px; padding:9px 14px; margin-right:10px; font-size:14px; transition:transform .15s ease, box-shadow .15s ease; }
   .btns a.open{ background:var(--cobalt); color:#fff; }
   .btns a.open:hover{ transform:translateY(-1px); box-shadow:0 6px 14px rgba(47,75,255,.35); }
   footer{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; color:var(--ink2); font-size:13px; padding:8px 0 26px; border-top:1px solid var(--line); margin-top:10px; }
   footer a{ color:var(--cobalt); text-decoration:none; font-weight:600; }
-  @media (max-width:760px){ .grid{ grid-template-columns:1fr 1fr; } .hero h1{ font-size:52px; } }
+  @media (max-width:760px){ .hero{ grid-template-columns:1fr; } .hero h1{ font-size:56px; } .grid{ grid-template-columns:1fr 1fr; } }
   @media (max-width:480px){ .grid{ grid-template-columns:1fr; } }
 </style>
 <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -62,57 +78,104 @@
   <div class="topbar"><b>Suman Sapkota · Lab Archive</b><span><a href="tasks.html">Friday Tasks</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/">Coursework</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/week10/portfolio/">Portfolio</a><a href="practice.html">Practice</a></span></div>
 
   <div class="hero">
-    <div class="kicker">Week 11 · Friday · React components &amp; props</div>
-    <h1>One card.<br><span class="outline">Nine products.</span></h1>
-    <p>Nine products, all shown by the same ProductCard component. Only the props change — name, price, rating and stock.</p>
-    <div class="byline">Suman Sapkota · 202637609 · Computer Engineering</div>
-    <div class="chips"><span><b>1</b> component</span><span><b>4</b> props</span><span><b>9</b> products</span><span><b>6</b> in stock</span></div>
+    <div>
+      <div class="kicker">Week 11 · Friday · React components &amp; props</div>
+      <h1><span class="solid">One card.</span><br><span class="outline">Nine products.</span></h1>
+      <p>Nine products, all shown by the same ProductCard component. Only the props change — name, price, rating and stock. Filter by stock or sort by price and rating, and the same cards re-order themselves.</p>
+      <div class="byline">Suman Sapkota · 202637609 · Computer Engineering</div>
+      <div class="chips"><span><b>1</b> component</span><span><b>4</b> props</span><span><b>9</b> products</span><span><b>7</b> in stock</span></div>
+    </div>
+    <div class="about">
+      <h2>Same card.<br><mark>Different products.</mark></h2>
+      <p>One ProductCard, nine products. Only the props change.</p>
+      <hr>
+      <a href="tasks.html">See all Friday tasks →</a>
+    </div>
   </div>
+
+  <div class="labelrow"><span><b>01 /</b> Product list</span><span>Gachon University · Year 1</span></div>
 
   <div id="root"></div>
   <noscript>Turn on JavaScript to use this page.</noscript>
-
-  <div class="note">These prices are sample data for learning — this is not a real shop, and nothing here can be bought.</div>
-
-  <div class="btns">
-    <a class="open" href="tasks.html">← Back to Friday tasks</a>
-  </div>
 
   <footer><span>Suman Sapkota / Week 11 Friday</span><a href="https://github.com/sumansapkota9/Suman-Sapkota">Github repository ↗</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/Week11%20monday/">Week 11 Monday ↗</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/">Back to coursework ↗</a></footer>
 </div>
 <script type="text/babel">
 // Suman's note:
-// One component, nine products. ProductCard takes four props —
-// name, price, rating, inStock — and shows them the same way every time.
-// App only changes the data it sends down, never the component itself.
-// To add a product, add one line in the products list below.
-function ProductCard({ name, price, rating, inStock }) {
+// The idea is the same as the assignment — one card, many products —
+// but the page is mine: my layout, my filter and sort, my words.
+// ProductCard takes four props — name, price, rating, inStock — and shows
+// them the same way every time. App keeps two pieces of state: which
+// stock filter is picked, and how the list is sorted. Changing either one
+// only re-orders the same cards, it never changes the cards themselves.
+// Prices are my own sample data, not a real shop.
+// I picked these nine products myself — different from the class example —
+// because the assignment is about the ProductCard component, not the items.
+function ProductCard({ name, price, rating, inStock, tileClass, initials }) {
+  const full = Math.round(rating);
+  const stars = "★".repeat(full) + "☆".repeat(5 - full);
   return (
     <div className="card">
+      <div className={"tile " + tileClass}>{initials}</div>
       <h2>{name}</h2>
-      <p className="price">{price}</p>
-      <p className="rating">★ {rating} / 5</p>
-      <span className={inStock ? "stock in" : "stock out"}>{inStock ? "✓ In stock" : "Out of stock"}</span>
+      <p className="stars">{stars}</p>
+      <p className="ratingnum">{rating} out of 5</p>
+      <div className="pricerow">
+        <span className="price">{price}</span>
+        <span className={inStock ? "stock in" : "stock out"}>{inStock ? "✓ In stock" : "Out of stock"}</span>
+      </div>
     </div>
   );
 }
 function App() {
+  const [stock, setStock] = React.useState("All");
+  const [sort, setSort] = React.useState("featured");
   const products = [
-    { name: "Wireless Earbuds", price: "89,000원", rating: "4.5", inStock: true },
-    { name: "Compact Keyboard", price: "69,000원", rating: "4.2", inStock: false },
-    { name: "USB-C Hub", price: "35,000원", rating: "4.0", inStock: true },
-    { name: "Wireless Mouse", price: "29,000원", rating: "4.6", inStock: true },
-    { name: "Laptop Stand", price: "39,000원", rating: "4.4", inStock: true },
-    { name: "Portable SSD 1TB", price: "119,000원", rating: "4.8", inStock: false },
-    { name: "27-inch Monitor", price: "249,000원", rating: "4.7", inStock: true },
-    { name: "Noise-Cancelling Headphones", price: "159,000원", rating: "4.6", inStock: true },
-    { name: "1080p Webcam", price: "49,000원", rating: "4.3", inStock: false },
+    { name: "Mechanical Keyboard", price: 129000, priceText: "129,000원", rating: 4.7, inStock: true },
+    { name: "Bluetooth Speaker", price: 59000, priceText: "59,000원", rating: 4.3, inStock: true },
+    { name: "Desk Lamp", price: 25000, priceText: "25,000원", rating: 4.1, inStock: false },
+    { name: "Power Bank 20000mAh", price: 45000, priceText: "45,000원", rating: 4.6, inStock: true },
+    { name: "Monitor Arm", price: 79000, priceText: "79,000원", rating: 4.5, inStock: true },
+    { name: "Laptop Sleeve 15-inch", price: 32000, priceText: "32,000원", rating: 4.0, inStock: false },
+    { name: "4K Webcam", price: 99000, priceText: "99,000원", rating: 4.4, inStock: true },
+    { name: "USB Flash Drive 256GB", price: 28000, priceText: "28,000원", rating: 4.2, inStock: true },
+    { name: "Mouse Pad XL", price: 19000, priceText: "19,000원", rating: 4.8, inStock: true },
   ];
+  const tiles = ["c0", "c1", "c2"];
+  let shown = products.filter((p) => stock === "All" || (stock === "In stock" ? p.inStock : !p.inStock));
+  if (sort === "priceLow") shown = [...shown].sort((a, b) => a.price - b.price);
+  if (sort === "priceHigh") shown = [...shown].sort((a, b) => b.price - a.price);
+  if (sort === "rating") shown = [...shown].sort((a, b) => b.rating - a.rating);
   return (
-    <div className="grid">
-      {products.map((p) => (
-        <ProductCard key={p.name} name={p.name} price={p.price} rating={p.rating} inStock={p.inStock} />
-      ))}
+    <div>
+      <div className="controls">
+        <div className="filters">
+          <button className={stock === "All" ? "active" : ""} onClick={() => setStock("All")}>All (9)</button>
+          <button className={stock === "In stock" ? "active" : ""} onClick={() => setStock("In stock")}>In stock (7)</button>
+          <button className={stock === "Out of stock" ? "active" : ""} onClick={() => setStock("Out of stock")}>Out of stock (2)</button>
+        </div>
+        <select value={sort} onChange={(e) => setSort(e.target.value)}>
+          <option value="featured">Sort: Featured</option>
+          <option value="priceLow">Price: low to high</option>
+          <option value="priceHigh">Price: high to low</option>
+          <option value="rating">Top rated</option>
+        </select>
+      </div>
+      <div className="grid">
+        {shown.map((p, i) => (
+          <ProductCard key={p.name} name={p.name} price={p.priceText} rating={p.rating} inStock={p.inStock} tileClass={tiles[i % 3]} initials={p.name.split(" ").map((w) => w[0]).join("").slice(0, 2)} />
+        ))}
+      </div>
+      <div className="wide">
+        <span className="label">How the filter and sort work</span>
+        <h2>Two states, one list</h2>
+        <p>The App keeps two pieces of state: the stock filter and the sort order. Filtering and sorting only decide which cards show and in what order — the ProductCard component itself never changes.</p>
+        <pre>{'<ProductCard name="Mechanical Keyboard" price="129,000원" rating={4.7} inStock={true} />'}</pre>
+      </div>
+      <div className="note">These prices are sample data for learning — this is not a real shop, and nothing here can be bought.</div>
+      <div className="btns">
+        <a className="open" href="tasks.html">← Back to Friday tasks</a>
+      </div>
     </div>
   );
 }
