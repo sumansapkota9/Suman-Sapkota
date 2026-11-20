@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>React foundations — Quiz | Suman Sapkota</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=Figtree:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{ --paper:#EAEEF6; --ink:#0D1633; --ink2:#4A5578; --line:#C9D1E4; --cobalt:#2F4BFF; --sun:#FFC933; --card:#fff; --green:#15803d; --red:#b91c1c; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Figtree',sans-serif; line-height:1.6; background-image:radial-gradient(#C9D1E4 1px, transparent 1px); background-size:22px 22px; }
+  .wrap{ max-width:860px; margin:0 auto; padding:20px; }
+  .topbar{ display:flex; justify-content:space-between; align-items:center; background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px 18px; }
+  .topbar b{ font-family:'Bricolage Grotesque',sans-serif; font-size:18px; }
+  .topbar a{ color:var(--cobalt); text-decoration:none; font-weight:600; margin-left:18px; font-size:14px; }
+  .hero{ background:var(--ink); color:#fff; border-radius:22px; padding:34px 28px; margin:18px 0; }
+  .hero .kicker{ font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:2px; color:var(--sun); text-transform:uppercase; }
+  .hero h1{ font-family:'Bricolage Grotesque',sans-serif; font-size:42px; line-height:1.1; margin:12px 0; }
+  .hero h1 mark{ background:var(--sun); color:var(--ink); padding:0 10px; border-radius:10px; }
+  .hero p{ color:#C7D2FE; margin:6px 0; max-width:620px; }
+  .chips{ margin-top:16px; }
+  .chips span{ display:inline-block; background:#1B2547; border:1px solid #2A3560; color:#fff; border-radius:999px; padding:6px 12px; font-size:13px; margin:0 8px 8px 0; }
+  .list{ display:flex; flex-direction:column; gap:16px; margin:18px 0; }
+  .card{ background:var(--card); border:1px solid var(--line); border-left:6px solid var(--cobalt); border-radius:18px; padding:22px; display:flex; gap:18px; align-items:flex-start; }
+  .card:nth-child(2){ border-left-color:var(--sun); }
+  .card:nth-child(3){ border-left-color:#22C55E; }
+  .num{ flex:0 0 52px; height:52px; border-radius:50%; background:var(--sun); color:var(--ink); font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:22px; display:flex; align-items:center; justify-content:center; }
+  .card h2{ font-family:'Bricolage Grotesque',sans-serif; font-size:22px; margin:0 0 10px; }
+  .card p{ color:var(--ink2); margin:0 0 10px; }
+  .opt{ display:block; width:100%; text-align:left; background:#fff; color:var(--ink); border:1px solid var(--line); border-radius:10px; padding:10px 14px; font-size:15px; font-family:inherit; cursor:pointer; margin:6px 0; }
+  .opt:hover{ border-color:var(--cobalt); }
+  .opt.picked-ok{ background:#DCFCE7; border-color:var(--green); color:var(--green); font-weight:700; }
+  .opt.picked-no{ background:#FEE2E2; border-color:var(--red); color:var(--red); font-weight:700; }
+  .opt:disabled{ cursor:default; opacity:.85; }
+  .ok{ color:var(--green); font-weight:700; } .no{ color:var(--red); font-weight:700; }
+  .btn{ display:inline-block; background:var(--cobalt); color:#fff; border:0; border-radius:10px; padding:10px 16px; font-size:15px; font-weight:700; font-family:inherit; cursor:pointer; margin:6px 8px 6px 0; }
+  .btn.ghost{ background:var(--paper); color:var(--ink); border:1px solid var(--line); }
+  .btns a{ display:inline-block; text-decoration:none; font-weight:700; border-radius:10px; padding:9px 14px; margin-right:10px; font-size:14px; }
+  .btns a.open{ background:var(--cobalt); color:#fff; }
+  .btns a.src{ background:var(--paper); color:var(--ink); border:1px solid var(--line); }
+  footer{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; color:var(--ink2); font-size:13px; padding:8px 0 26px; }
+  footer a{ color:var(--cobalt); text-decoration:none; font-weight:600; }
+  @media (max-width:640px){ .hero h1{ font-size:32px; } .card{ flex-direction:column; } }
+</style>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+  <div class="topbar"><b>Suman Sapkota · Lab Archive</b><span><a href="https://sumansapkota9.github.io/Suman-Sapkota/">Coursework</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/week10/portfolio/">Portfolio</a></span></div>
+
+  <div class="hero">
+    <div class="kicker">Week 11 · Monday · React foundations</div>
+    <h1>Check what <mark>you know</mark>.</h1>
+    <p>Three quick questions about React, how a component is written, and how props are read. You get an instant reply for every answer.</p>
+    <p style="color:#fff; font-weight:600;">Suman Sapkota · 202637609 · Computer Engineering</p>
+    <div class="chips"><span>3 questions</span><span>Instant reply</span><span>Practice only</span></div>
+  </div>
+
+  <div id="root"></div>
+  <noscript>Yo page chaluna JavaScript on garnus.</noscript>
+  <p style="color:var(--ink2); font-size:14px;">This is an interactive practice exercise. Its score is only for practice, not a grade.</p>
+
+  <footer><span>Suman Sapkota / Week 11 Monday</span><a href="https://github.com/sumansapkota9/Suman-Sapkota">Github repository ↗</a><a href="index.html">Back to Monday tasks ↗</a></footer>
+</div>
+<script type="text/babel">
+// Suman ko note: useState = value rakhne + badalne hook ho.
+const { useState } = React;
+const QUESTIONS = [
+  { q: "React k ho?", options: ["JavaScript library — UI banaune", "Database", "Operating system"], answer: 0 },
+  { q: "Valid functional component kun ho?", options: ["function StudentCard() { return <div/> }", "function studentcard() { return <div/> }", "StudentCard = 'card'"], answer: 0 },
+  { q: "Props bata count kasari padhne?", options: ["function Card({ count }) { return count }", "function Card() { return count }", "count = props"], answer: 0 },
+];
+function Quiz() {
+  const [picked, setPicked] = useState([null, null, null]);
+  const score = picked.filter((p, i) => p === QUESTIONS[i].answer).length;
+  const answered = picked.filter(p => p !== null).length;
+  return (
+    <div>
+      <div className="chips" style={{ margin: "4px 0 2px" }}>
+        <span style={{ background: "#fff", color: "var(--ink)", border: "1px solid var(--line)" }}>Practice score: <b>{score} / 3</b></span>
+        <span style={{ background: "#fff", color: "var(--ink)", border: "1px solid var(--line)" }}>{answered} answered</span>
+      </div>
+      <div className="list">
+        {QUESTIONS.map((item, i) => (
+          <div className="card" key={i}>
+            <div className="num">{i + 1}</div>
+            <div style={{ flex: 1 }}>
+              <h2>{item.q}</h2>
+              {item.options.map((opt, j) => {
+                let cls = "opt";
+                if (picked[i] !== null) {
+                  if (j === item.answer) cls += " picked-ok";
+                  else if (j === picked[i]) cls += " picked-no";
+                }
+                return <button key={j} className={cls} disabled={picked[i] !== null} onClick={() => { const n = [...picked]; n[i] = j; setPicked(n); }}>{opt}</button>;
+              })}
+              {picked[i] !== null && <p className={picked[i] === item.answer ? "ok" : "no"}>{picked[i] === item.answer ? "✓ Mil yo!" : "✗ Milena — feri try gara."}</p>}
+            </div>
+          </div>
+        ))}
+      </div>
+      <button className="btn" onClick={() => setPicked([null, null, null])}>Reset practice</button>
+      <div className="btns" style={{ marginTop: 10 }}>
+        <a className="open" href="studentcard.html">Open the StudentCard lab →</a>
+        <a className="src" href="index.html">← Back to Week 11 Monday</a>
+      </div>
+    </div>
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<Quiz />);
+</script>
+</body>
+</html>
