@@ -55,15 +55,15 @@
   </div>
 
   <div id="root"></div>
-  <noscript>Yo page chaluna JavaScript on garnus.</noscript>
+  <noscript>Turn on JavaScript to use this page.</noscript>
 
   <footer><span>Suman Sapkota / Week 11 Monday</span><a href="https://github.com/sumansapkota9/Suman-Sapkota">Github repository ↗</a><a href="index.html">Back to Monday tasks ↗</a></footer>
 </div>
 <script type="text/babel">
-// Suman ko note:
-// Component = function jasle UI return garcha.
-// Props = component lai bahira bata dine data — yaha name, id, major.
-// App le data pathauxa, StudentCard le dekhaunxa.
+// Suman's note:
+// A component is a function that returns UI.
+// Props are data passed into a component from outside — here name, id, major.
+// App sends the data down, and StudentCard shows it.
 function StudentCard({ name, id, major }) {
   return (
     <div className="profile">
