@@ -9,26 +9,40 @@
   :root{ --paper:#EAEEF6; --ink:#0D1633; --ink2:#4A5578; --line:#C9D1E4; --cobalt:#2F4BFF; --sun:#FFC933; --card:#fff; }
   *{ box-sizing:border-box; }
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Figtree',sans-serif; line-height:1.6; background-image:radial-gradient(#C9D1E4 1px, transparent 1px); background-size:22px 22px; }
-  .wrap{ max-width:860px; margin:0 auto; padding:20px; }
-  .topbar{ display:flex; justify-content:space-between; align-items:center; background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px 18px; }
+  .wrap{ max-width:960px; margin:0 auto; padding:20px; }
+  .topbar{ display:flex; justify-content:space-between; align-items:center; background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px 18px; box-shadow:0 4px 14px rgba(13,22,51,.06); }
   .topbar b{ font-family:'Bricolage Grotesque',sans-serif; font-size:18px; }
   .topbar a{ color:var(--cobalt); text-decoration:none; font-weight:600; margin-left:18px; font-size:14px; }
-  .hero{ background:var(--ink); color:#fff; border-radius:22px; padding:34px 28px; margin:18px 0; }
-  .hero .kicker{ font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:2px; color:var(--sun); text-transform:uppercase; }
-  .hero h1{ font-family:'Bricolage Grotesque',sans-serif; font-size:42px; line-height:1.1; margin:12px 0; }
-  .hero h1 mark{ background:var(--sun); color:var(--ink); padding:0 10px; border-radius:10px; }
-  .hero p{ color:#C7D2FE; margin:6px 0; max-width:620px; }
-  .chips{ margin-top:16px; }
-  .chips span{ display:inline-block; background:#1B2547; border:1px solid #2A3560; color:#fff; border-radius:999px; padding:6px 12px; font-size:13px; margin:0 8px 8px 0; }
-  .list{ display:flex; flex-direction:column; gap:16px; margin:18px 0; }
-  .card{ background:var(--card); border:1px solid var(--line); border-left:6px solid var(--cobalt); border-radius:18px; padding:22px; }
-  .card:nth-child(2){ border-left-color:var(--sun); }
-  .card:nth-child(3){ border-left-color:#22C55E; }
-  .card h2{ font-family:'Bricolage Grotesque',sans-serif; font-size:24px; margin:0 0 6px; }
+  .topbar a:hover{ text-decoration:underline; }
+  .hero{ padding:44px 8px 6px; }
+  .hero .kicker{ font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:3px; color:var(--ink2); text-transform:uppercase; }
+  .hero h1{ font-family:'Bricolage Grotesque',sans-serif; font-size:88px; line-height:0.92; margin:20px 0; letter-spacing:-2px; }
+  .hero h1 .outline{ color:transparent; -webkit-text-stroke:3px var(--cobalt); }
+  .hero h1 mark{ background:var(--sun); color:var(--ink); padding:0 14px; border-radius:14px; }
+  .hero p{ color:var(--ink2); margin:6px 0; max-width:640px; font-size:18px; }
+  .hero .byline{ font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:2px; color:var(--ink2); text-transform:uppercase; margin-top:24px; }
+  .chips{ margin-top:22px; display:flex; gap:10px; flex-wrap:wrap; }
+  .chips span{ display:inline-block; background:var(--card); border:1px solid var(--line); color:var(--ink); border-radius:999px; padding:8px 16px; font-size:14px; font-weight:700; box-shadow:0 4px 12px rgba(13,22,51,.06); }
+  .chips span b{ color:var(--cobalt); }
+  .list{ display:flex; flex-direction:column; gap:18px; margin:26px 0; }
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:20px; padding:26px; position:relative; overflow:hidden; transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease; animation:rise .5s ease both; }
+  .card:nth-child(2){ animation-delay:.08s; }
+  .card:nth-child(3){ animation-delay:.16s; }
+  .card:nth-child(4){ animation-delay:.24s; }
+  @keyframes rise{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:translateY(0); } }
+  .card:hover{ transform:translateY(-3px); box-shadow:0 14px 30px rgba(13,22,51,.12); border-color:var(--cobalt); }
+  .card::before{ content:""; position:absolute; top:0; left:0; right:0; height:6px; background:var(--cobalt); }
+  .card:nth-child(2)::before{ background:var(--sun); }
+  .card:nth-child(3)::before{ background:#22C55E; }
+  .card:nth-child(4)::before{ background:#A855F7; }
+  .card h2{ font-family:'Bricolage Grotesque',sans-serif; font-size:28px; margin:0 0 6px; }
   .card p{ color:var(--ink2); margin:0 0 14px; }
-  .profile{ display:flex; gap:18px; align-items:center; background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:20px; box-shadow:0 6px 18px rgba(13,22,51,.08); margin-bottom:14px; }
+  .profile{ display:flex; gap:18px; align-items:center; background:var(--paper); border:1px solid var(--line); border-radius:16px; padding:20px; box-shadow:0 6px 18px rgba(13,22,51,.08); margin-bottom:14px; transition:transform .2s ease, box-shadow .2s ease; }
+  .profile:hover{ transform:translateY(-2px); box-shadow:0 12px 24px rgba(13,22,51,.14); }
   .profile:last-child{ margin-bottom:0; }
   .avatar{ flex:0 0 64px; height:64px; border-radius:50%; background:var(--cobalt); color:#fff; font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:26px; display:flex; align-items:center; justify-content:center; }
+  .profile:nth-child(2) .avatar{ background:#A855F7; }
+  .profile:nth-child(3) .avatar{ background:#F97316; }
   .profile b{ font-family:'Bricolage Grotesque',sans-serif; font-size:22px; display:block; }
   .profile span{ color:var(--ink2); font-size:15px; display:block; }
   .badge{ display:inline-block; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:1px; color:#15803d; text-transform:uppercase; background:#DCFCE7; border-radius:999px; padding:4px 10px; margin-bottom:8px; }
@@ -44,12 +58,13 @@
   .tasks span{ color:var(--ink2); font-size:14px; }
   .tag{ font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:1px; text-transform:uppercase; color:#15803d; }
   .tag.next{ color:#92400E; }
-  .btns a{ display:inline-block; text-decoration:none; font-weight:700; border-radius:10px; padding:9px 14px; margin-right:10px; font-size:14px; }
+  .btns a{ display:inline-block; text-decoration:none; font-weight:700; border-radius:10px; padding:9px 14px; margin-right:10px; font-size:14px; transition:transform .15s ease, box-shadow .15s ease; }
   .btns a.open{ background:var(--cobalt); color:#fff; }
+  .btns a.open:hover{ transform:translateY(-1px); box-shadow:0 6px 14px rgba(47,75,255,.35); }
   .btns a.src{ background:var(--paper); color:var(--ink); border:1px solid var(--line); }
-  footer{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; color:var(--ink2); font-size:13px; padding:8px 0 26px; }
+  footer{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; color:var(--ink2); font-size:13px; padding:8px 0 26px; border-top:1px solid var(--line); margin-top:10px; }
   footer a{ color:var(--cobalt); text-decoration:none; font-weight:600; }
-  @media (max-width:640px){ .hero h1{ font-size:32px; } .profile{ flex-direction:column; align-items:flex-start; } }
+  @media (max-width:640px){ .hero h1{ font-size:52px; } .profile{ flex-direction:column; align-items:flex-start; } }
 </style>
 <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -61,10 +76,10 @@
 
   <div class="hero">
     <div class="kicker">Week 11 · Friday · React components &amp; props</div>
-    <h1>Three classmates. <mark>One reusable card.</mark></h1>
+    <h1>Three classmates.<br><span class="outline">One reusable card.</span></h1>
     <p>Friday is about components and props: one StudentCard component, used three times with different data.</p>
-    <p style="color:#fff; font-weight:600;">Suman Sapkota · 202637609 · Computer Engineering</p>
-    <div class="chips"><span>1 component</span><span>5 props</span><span>3 cards</span></div>
+    <div class="byline">Suman Sapkota · 202637609 · Computer Engineering</div>
+    <div class="chips"><span><b>1</b> component</span><span><b>5</b> props</span><span><b>3</b> cards</span></div>
   </div>
 
   <div id="root"></div>
