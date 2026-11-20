@@ -71,12 +71,12 @@
   </div>
 
   <div id="root"></div>
-  <noscript>Yo page chaluna JavaScript on garnus.</noscript>
+  <noscript>Turn on JavaScript to use this page.</noscript>
 
   <footer><span>Suman Sapkota / Week 11 Monday</span><a href="https://github.com/sumansapkota9/Suman-Sapkota">Github repository ↗</a><a href="index.html">Back to Monday tasks ↗</a></footer>
 </div>
 <script type="text/babel">
-// Suman ko note: useState = value rakhne + badalne. useEffect = side effect, e.g. localStorage ma save garne.
+// Suman's note: useState stores a value and lets you change it. useEffect runs a side effect, e.g. saving to localStorage.
 const { useState, useEffect } = React;
 function StateLab() {
   const [count, setCount] = useState(0);
@@ -158,15 +158,15 @@ function StateLab() {
           <p>Keep two fields together in one object.</p>
           <input value={profile.name} onChange={e => setProfile({ ...profile, name: e.target.value })} placeholder="Name" />
           <input value={profile.email} onChange={e => setProfile({ ...profile, email: e.target.value })} placeholder="Email" />
-          <button className="btn" onClick={() => setProfileMsg(profile.email.includes("@") ? "✓ Profile OK: " + profile.name : "✗ Email ma @ chahinxa.")}>Check profile</button>
+          <button className="btn" onClick={() => setProfileMsg(profile.email.includes("@") ? "✓ Profile OK: " + profile.name : "✗ Email must contain @.")}>Check profile</button>
           <p className={profileMsg.startsWith("✓") ? "ok" : "no"}>{profileMsg}</p>
         </div></div>
         <div className="card"><div className="num">7</div><div className="body">
           <h3>Leave yourself a note</h3>
           <p>An effect saves your note whenever it changes.</p>
-          <textarea value={note} onChange={e => setNote(e.target.value)} placeholder="e.g. React ma props bujhe — useEffect localStorage ma save garcha" rows="3" />
+          <textarea value={note} onChange={e => setNote(e.target.value)} placeholder="e.g. I understood props in React — useEffect saves to localStorage" rows="3" />
           <button className="btn ghost" onClick={() => setNote("")}>Clear note</button>
-          <p>{note ? "Note saved — page refresh garepachi pani rahanchha." : "No note saved."}</p>
+          <p>{note ? "Note saved — it stays even after you refresh the page." : "No note saved."}</p>
         </div></div>
       </div>
       <div className="btns">
