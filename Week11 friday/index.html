@@ -121,7 +121,7 @@ function StudentCard({ num, name, id, major, year, gpa }) {
 }
 function App() {
   const students = [
-    { num: "01", name: "Suman Sapkota", id: "202637609", major: "Computer Engineering", year: "1", gpa: "—" },
+    { num: "01", name: "Suman Sapkota", id: "202637609", major: "Computer Engineering", year: "1", gpa: "3.50" },
     { num: "02", name: "Sudip Sah", id: "202637610", major: "Computer Engineering", year: "1", gpa: "4.45" },
     { num: "03", name: "Eric", id: "202637684", major: "Computer Engineering", year: "1", gpa: "4.22" },
   ];
@@ -136,7 +136,7 @@ function App() {
         <span className="label">How the data gets here</span>
         <h2>One list, one component</h2>
         <p>The App holds one list of students and renders one StudentCard for each of them. The component only reads its five props — name, id, major, year and gpa — it never changes them.</p>
-        <pre>{'<StudentCard name="Suman Sapkota" id="202637609" major="Computer Engineering" year="1" gpa="—" />'}</pre>
+        <pre>{'<StudentCard name="Suman Sapkota" id="202637609" major="Computer Engineering" year="1" gpa="3.50" />'}</pre>
       </div>
       <div className="wide evidence">
         <span className="label">Task 11-A / Submission evidence</span>
