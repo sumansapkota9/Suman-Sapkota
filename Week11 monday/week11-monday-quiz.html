@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>React foundations — Quiz | Suman Sapkota</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=Figtree:wght@400;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{ --paper:#EAEEF6; --ink:#0D1633; --ink2:#4A5578; --line:#C9D1E4; --cobalt:#2F4BFF; --sun:#FFC933; --card:#fff; }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Figtree',sans-serif; line-height:1.6; background-image:radial-gradient(#C9D1E4 1px, transparent 1px); background-size:22px 22px; }
+  header{ background:var(--ink); color:#fff; padding:28px 20px; }
+  header h1{ font-family:'Bricolage Grotesque',sans-serif; margin:0 0 6px; font-size:28px; }
+  header p{ margin:2px 0; color:#C7D2FE; }
+  .wrap{ max-width:820px; margin:0 auto; padding:20px; }
+  section{ background:var(--card); border:1px solid var(--line); border-radius:16px; padding:20px; margin:16px 0; }
+  h2{ font-family:'Bricolage Grotesque',sans-serif; margin-top:0; }
+  button{ background:var(--cobalt); color:#fff; border:0; border-radius:10px; padding:8px 14px; font-size:15px; cursor:pointer; margin:4px 6px 4px 0; }
+  button.ghost{ background:#fff; color:var(--ink); border:1px solid var(--line); }
+  .ok{ color:#15803d; font-weight:600; } .no{ color:#b91c1c; font-weight:600; }
+  a.back{ color:var(--cobalt); }
+  footer{ color:var(--ink2); font-size:14px; text-align:center; padding:10px 0 30px; }
+</style>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<header>
+  <div class="wrap" style="padding:0">
+    <p>Week 11 Monday / React foundations</p>
+    <h1>Check what you know.</h1>
+    <p>Suman Sapkota · 202637609 · Computer Engineering</p>
+  </div>
+</header>
+<main class="wrap">
+  <p><a class="back" href="index.html">← Back to Week 11 Monday</a></p>
+  <div id="root"></div>
+  <noscript>Yo page chaluna JavaScript on garnus.</noscript>
+  <p style="color:var(--ink2); font-size:14px;">This is an interactive practice exercise. Its score is only for practice, not a grade.</p>
+</main>
+<footer>Suman Sapkota · Week 11 Monday · React foundations quiz.</footer>
+<script type="text/babel">
+// Suman ko note: useState = value rakhne + badalne hook ho.
+const { useState } = React;
+const QUESTIONS = [
+  { q: "React k ho?", options: ["JavaScript library — UI banaune", "Database", "Operating system"], answer: 0 },
+  { q: "Valid functional component kun ho?", options: ["function StudentCard() { return <div/> }", "function studentcard() { return <div/> }", "StudentCard = 'card'"], answer: 0 },
+  { q: "Props bata count kasari padhne?", options: ["function Card({ count }) { return count }", "function Card() { return count }", "count = props"], answer: 0 },
+];
+function Quiz() {
+  const [picked, setPicked] = useState([null, null, null]);
+  const score = picked.filter((p, i) => p === QUESTIONS[i].answer).length;
+  const answered = picked.filter(p => p !== null).length;
+  return (
+    <section>
+      <h2>React concept checks</h2>
+      <p>Three quick questions with an instant reply. Practice score: <b>{score} / 3</b> · {answered} answered</p>
+      {QUESTIONS.map((item, i) => (
+        <div key={i} style={{ marginBottom: 14 }}>
+          <p><b>{i + 1}. {item.q}</b></p>
+          {item.options.map((opt, j) => (
+            <button key={j} className="ghost" onClick={() => { const n = [...picked]; n[i] = j; setPicked(n); }}>{opt}</button>
+          ))}
+          {picked[i] !== null && <p className={picked[i] === item.answer ? "ok" : "no"}>{picked[i] === item.answer ? "✓ Mil yo!" : "✗ Milena — feri try gara."}</p>}
+        </div>
+      ))}
+      <button className="ghost" onClick={() => setPicked([null, null, null])}>Reset practice</button>
+      <p><a className="back" href="studentcard.html">Open the StudentCard lab →</a></p>
+    </section>
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<Quiz />);
+</script>
+</body>
+</html>
