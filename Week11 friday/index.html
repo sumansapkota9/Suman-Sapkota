@@ -16,9 +16,9 @@
   .topbar a:hover{ text-decoration:underline; }
   .hero{ display:grid; grid-template-columns:1.6fr 1fr; gap:24px; padding:44px 8px 6px; align-items:start; }
   .hero .kicker{ font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:3px; color:var(--ink2); text-transform:uppercase; }
-  .hero h1{ font-family:'Bricolage Grotesque',sans-serif; font-size:96px; line-height:0.92; margin:20px 0; letter-spacing:-2px; color:transparent; -webkit-text-stroke:3px var(--ink); }
-  .hero h1 .solid{ color:var(--ink); -webkit-text-stroke:0; }
-  .hero h1 .dot{ color:var(--cobalt); -webkit-text-stroke:0; }
+  .hero h1{ font-family:'Bricolage Grotesque',sans-serif; font-size:88px; line-height:0.92; margin:20px 0; letter-spacing:-2px; }
+  .hero h1 .solid{ color:var(--ink); }
+  .hero h1 .outline{ color:transparent; -webkit-text-stroke:3px var(--cobalt); }
   .hero p{ color:var(--ink2); margin:6px 0; max-width:560px; font-size:18px; }
   .hero p b{ color:var(--ink); }
   .hero .byline{ font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:2px; color:var(--ink2); text-transform:uppercase; margin-top:24px; }
@@ -28,9 +28,6 @@
   .about{ background:var(--ink); color:#fff; border-radius:20px; padding:28px; box-shadow:0 14px 30px rgba(13,22,51,.25); }
   .about h2{ font-family:'Bricolage Grotesque',sans-serif; font-size:26px; line-height:1.2; margin:0 0 6px; }
   .about h2 mark{ background:var(--sun); color:var(--ink); padding:0 8px; border-radius:8px; }
-  .about .kicker{ font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#C7D2FE; margin-bottom:12px; }
-  .about .bignum{ font-family:'Bricolage Grotesque',sans-serif; font-size:72px; font-weight:800; line-height:1; margin:0 0 14px; }
-  .about .bignum span{ color:var(--cobalt); }
   .about p{ color:#C7D2FE; margin:0; }
   .about hr{ border:none; border-top:1px solid #2A3560; margin:20px 0; }
   .about a{ color:#fff; font-weight:700; text-decoration:none; }
@@ -75,19 +72,17 @@
 </head>
 <body>
 <div class="wrap">
-  <div class="topbar"><b>SUMAN <span style="color:var(--cobalt);">/ LAB</span></b><span><a href="tasks.html">Friday Tasks</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/">Coursework</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/week10/portfolio/">Portfolio</a><a href="practice.html">Practice</a></span></div>
+  <div class="topbar"><b>Suman Sapkota · Lab Archive</b><span><a href="tasks.html">Friday Tasks</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/">Coursework</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/week10/portfolio/">Portfolio</a><a href="practice.html">Practice</a></span></div>
 
   <div class="hero">
     <div>
       <div class="kicker">Week 11 · Friday · React components &amp; props</div>
-      <h1><span class="solid">STUDENT</span><br>DIRECTORY<span class="dot">.</span></h1>
-      <p><b>Three classmates. One reusable card.</b><br>Built together, rendered differently.</p>
+      <h1><span class="solid">Three classmates.</span><br><span class="outline">One reusable card.</span></h1>
+      <p>Friday is about components and props: one StudentCard component, used three times with different data.</p>
       <div class="byline">Suman Sapkota · 202637609 · Computer Engineering</div>
       <div class="chips"><span><b>1</b> component</span><span><b>5</b> props</span><span><b>3</b> cards</span></div>
     </div>
     <div class="about">
-      <div class="kicker">11 / React &amp; Props</div>
-      <div class="bignum"><span>{</span> 03 <span>}</span></div>
       <h2>Same component.<br><mark>Different data.</mark></h2>
       <p>One StudentCard, three students. Only the props change.</p>
       <hr>
@@ -100,7 +95,7 @@
   <div id="root"></div>
   <noscript>Turn on JavaScript to use this page.</noscript>
 
-  <footer><span>Suman Sapkota · 202637609</span><a href="https://sumansapkota9.github.io/Suman-Sapkota/">Back to coursework ↗</a><span>Task 11-A / React Components &amp; Props</span></footer>
+  <footer><span>Suman Sapkota / Week 11 Friday</span><a href="https://github.com/sumansapkota9/Suman-Sapkota">Github repository ↗</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/Week11%20monday/">Week 11 Monday ↗</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/">Back to coursework ↗</a></footer>
 </div>
 <script type="text/babel">
 // Suman's note:
