@@ -59,18 +59,18 @@
   </div>
 
   <div id="root"></div>
-  <noscript>Yo page chaluna JavaScript on garnus.</noscript>
+  <noscript>Turn on JavaScript to use this page.</noscript>
   <p style="color:var(--ink2); font-size:14px;">This is an interactive practice exercise. Its score is only for practice, not a grade.</p>
 
   <footer><span>Suman Sapkota / Week 11 Monday</span><a href="https://github.com/sumansapkota9/Suman-Sapkota">Github repository ↗</a><a href="index.html">Back to Monday tasks ↗</a></footer>
 </div>
 <script type="text/babel">
-// Suman ko note: useState = value rakhne + badalne hook ho.
+// Suman's note: useState is a hook that stores a value and lets you change it.
 const { useState } = React;
 const QUESTIONS = [
-  { q: "React k ho?", options: ["JavaScript library — UI banaune", "Database", "Operating system"], answer: 0 },
-  { q: "Valid functional component kun ho?", options: ["function StudentCard() { return <div/> }", "function studentcard() { return <div/> }", "StudentCard = 'card'"], answer: 0 },
-  { q: "Props bata count kasari padhne?", options: ["function Card({ count }) { return count }", "function Card() { return count }", "count = props"], answer: 0 },
+  { q: "What is React?", options: ["A JavaScript library for building UI", "Database", "Operating system"], answer: 0 },
+  { q: "Which is a valid functional component?", options: ["function StudentCard() { return <div/> }", "function studentcard() { return <div/> }", "StudentCard = 'card'"], answer: 0 },
+  { q: "How do you read count from props?", options: ["function Card({ count }) { return count }", "function Card() { return count }", "count = props"], answer: 0 },
 ];
 function Quiz() {
   const [picked, setPicked] = useState([null, null, null]);
@@ -96,7 +96,7 @@ function Quiz() {
                 }
                 return <button key={j} className={cls} disabled={picked[i] !== null} onClick={() => { const n = [...picked]; n[i] = j; setPicked(n); }}>{opt}</button>;
               })}
-              {picked[i] !== null && <p className={picked[i] === item.answer ? "ok" : "no"}>{picked[i] === item.answer ? "✓ Mil yo!" : "✗ Milena — feri try gara."}</p>}
+              {picked[i] !== null && <p className={picked[i] === item.answer ? "ok" : "no"}>{picked[i] === item.answer ? "✓ Correct!" : "✗ Not quite — try again."}</p>}
             </div>
           </div>
         ))}
