@@ -9,76 +9,97 @@
   :root{ --paper:#EAEEF6; --ink:#0D1633; --ink2:#4A5578; --line:#C9D1E4; --cobalt:#2F4BFF; --sun:#FFC933; --card:#fff; }
   *{ box-sizing:border-box; }
   body{ margin:0; background:var(--paper); color:var(--ink); font-family:'Figtree',sans-serif; line-height:1.6; background-image:radial-gradient(#C9D1E4 1px, transparent 1px); background-size:22px 22px; }
-  .wrap{ max-width:860px; margin:0 auto; padding:20px; }
-  .topbar{ display:flex; justify-content:space-between; align-items:center; background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px 18px; }
+  .wrap{ max-width:960px; margin:0 auto; padding:20px; }
+  .topbar{ display:flex; justify-content:space-between; align-items:center; background:var(--card); border:1px solid var(--line); border-radius:16px; padding:14px 18px; box-shadow:0 4px 14px rgba(13,22,51,.06); }
   .topbar b{ font-family:'Bricolage Grotesque',sans-serif; font-size:18px; }
   .topbar a{ color:var(--cobalt); text-decoration:none; font-weight:600; margin-left:18px; font-size:14px; }
-  .hero{ background:var(--ink); color:#fff; border-radius:22px; padding:34px 28px; margin:18px 0; }
-  .hero .kicker{ font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:2px; color:var(--sun); text-transform:uppercase; }
-  .hero h1{ font-family:'Bricolage Grotesque',sans-serif; font-size:42px; line-height:1.1; margin:12px 0; }
-  .hero h1 mark{ background:var(--sun); color:var(--ink); padding:0 10px; border-radius:10px; }
-  .hero p{ color:#C7D2FE; margin:6px 0; max-width:620px; }
-  .chips{ margin-top:16px; }
-  .chips span{ display:inline-block; background:#1B2547; border:1px solid #2A3560; color:#fff; border-radius:999px; padding:6px 12px; font-size:13px; margin:0 8px 8px 0; }
-  .list{ display:flex; flex-direction:column; gap:16px; margin:18px 0; }
-  .card{ background:var(--card); border:1px solid var(--line); border-left:6px solid var(--cobalt); border-radius:18px; padding:22px; display:flex; gap:18px; align-items:flex-start; }
-  .card:nth-child(2){ border-left-color:var(--sun); }
-  .card:nth-child(3){ border-left-color:#22C55E; }
-  .num{ flex:0 0 52px; height:52px; border-radius:50%; background:var(--sun); color:var(--ink); font-family:'Bricolage Grotesque',sans-serif; font-weight:800; font-size:22px; display:flex; align-items:center; justify-content:center; }
-  .card h2{ font-family:'Bricolage Grotesque',sans-serif; font-size:24px; margin:0 0 6px; }
-  .card p{ color:var(--ink2); margin:0 0 14px; }
-  .card .done{ font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:1px; color:#15803d; text-transform:uppercase; }
-  .btns a{ display:inline-block; text-decoration:none; font-weight:700; border-radius:10px; padding:9px 14px; margin-right:10px; font-size:14px; }
+  .topbar a:hover{ text-decoration:underline; }
+  .hero{ display:grid; grid-template-columns:1.6fr 1fr; gap:24px; padding:44px 8px 6px; align-items:start; }
+  .hero .kicker{ font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:3px; color:var(--ink2); text-transform:uppercase; }
+  .hero h1{ font-family:'Bricolage Grotesque',sans-serif; font-size:88px; line-height:0.92; margin:20px 0; letter-spacing:-2px; }
+  .hero h1 .solid{ color:var(--ink); }
+  .hero h1 .outline{ color:transparent; -webkit-text-stroke:3px var(--cobalt); }
+  .hero p{ color:var(--ink2); margin:6px 0; max-width:560px; font-size:18px; }
+  .hero .byline{ font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:2px; color:var(--ink2); text-transform:uppercase; margin-top:24px; }
+  .chips{ margin-top:22px; display:flex; gap:10px; flex-wrap:wrap; }
+  .chips span{ display:inline-block; background:var(--card); border:1px solid var(--line); color:var(--ink); border-radius:999px; padding:8px 16px; font-size:14px; font-weight:700; box-shadow:0 4px 12px rgba(13,22,51,.06); }
+  .chips span b{ color:var(--cobalt); }
+  .about{ background:var(--ink); color:#fff; border-radius:20px; padding:28px; box-shadow:0 14px 30px rgba(13,22,51,.25); }
+  .about h2{ font-family:'Bricolage Grotesque',sans-serif; font-size:26px; line-height:1.2; margin:0 0 6px; }
+  .about h2 mark{ background:var(--sun); color:var(--ink); padding:0 8px; border-radius:8px; }
+  .about p{ color:#C7D2FE; margin:0; }
+  .about hr{ border:none; border-top:1px solid #2A3560; margin:20px 0; }
+  .about a{ color:#fff; font-weight:700; text-decoration:none; }
+  .about a:hover{ text-decoration:underline; }
+  .labelrow{ display:flex; justify-content:space-between; align-items:center; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--ink2); border-bottom:1px solid var(--line); padding:26px 8px 12px; margin-top:18px; }
+  .labelrow b{ color:var(--cobalt); }
+  .grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:18px; margin:26px 0; }
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:20px; padding:26px; position:relative; overflow:hidden; transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease; animation:rise .5s ease both; }
+  .card:nth-child(2){ animation-delay:.08s; }
+  .card:nth-child(3){ animation-delay:.16s; }
+  @keyframes rise{ from{ opacity:0; transform:translateY(14px); } to{ opacity:1; transform:translateY(0); } }
+  .card:hover{ transform:translateY(-4px); box-shadow:0 14px 30px rgba(13,22,51,.14); border-color:var(--cobalt); }
+  .card::before{ content:""; position:absolute; top:0; left:0; right:0; height:6px; background:var(--cobalt); }
+  .card:nth-child(2)::before{ background:var(--sun); }
+  .card:nth-child(3)::before{ background:#22C55E; }
+  .card .meta{ display:flex; justify-content:space-between; align-items:center; font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:1px; text-transform:uppercase; margin-bottom:18px; }
+  .card .meta .label{ color:var(--cobalt); font-weight:600; }
+  .card h2{ font-family:'Bricolage Grotesque',sans-serif; font-size:28px; line-height:1.1; margin:0 0 10px; }
+  .card p{ color:var(--ink2); margin:0 0 18px; }
+  .btns a{ display:inline-block; text-decoration:none; font-weight:700; border-radius:10px; padding:9px 14px; margin-right:10px; font-size:14px; transition:transform .15s ease, box-shadow .15s ease; }
   .btns a.open{ background:var(--cobalt); color:#fff; }
+  .btns a.open:hover{ transform:translateY(-1px); box-shadow:0 6px 14px rgba(47,75,255,.35); }
   .btns a.src{ background:var(--paper); color:var(--ink); border:1px solid var(--line); }
-  footer{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; color:var(--ink2); font-size:13px; padding:8px 0 26px; }
+  .btns a.src:hover{ border-color:var(--cobalt); }
+  footer{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px; color:var(--ink2); font-size:13px; padding:8px 0 26px; border-top:1px solid var(--line); margin-top:10px; }
   footer a{ color:var(--cobalt); text-decoration:none; font-weight:600; }
-  @media (max-width:640px){ .hero h1{ font-size:32px; } .card{ flex-direction:column; } }
+  @media (max-width:760px){ .hero{ grid-template-columns:1fr; } .hero h1{ font-size:56px; } .grid{ grid-template-columns:1fr; } }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="topbar"><b>Suman Sapkota · Lab Archive</b><span><a href="https://sumansapkota9.github.io/Suman-Sapkota/">Coursework</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/week10/portfolio/">Portfolio</a></span></div>
+  <div class="topbar"><b>Suman Sapkota · Lab Archive</b><span><a href="index.html">Monday Tasks</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/">Coursework</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/week10/portfolio/">Portfolio</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/Week11%20friday/tasks.html">Friday</a></span></div>
 
   <div class="hero">
-    <div class="kicker">Week 11 · Monday · React</div>
-    <h1>Learning <mark>React</mark>, one exercise at a time.</h1>
-    <p>Start with JSX and props, then use what you learned in seven small state exercises.</p>
-    <p style="color:#fff; font-weight:600;">Suman Sapkota · 202637609 · Computer Engineering</p>
-    <div class="chips"><span>3 parts</span><span>7 exercises</span><span>Quiz + StudentCard</span></div>
-  </div>
-
-  <div class="list">
-    <div class="card">
-      <div class="num">1</div>
-      <div>
-        <div class="done">✓ Implemented</div>
-        <h2>React State &amp; Events</h2>
-        <p>Seven hands-on tasks to practise state: counting, typing, lists, showing and hiding, ticking things off, a profile form, and a note that stays saved.</p>
-        <div class="btns"><a class="open" href="state-events.html">Open lab →</a><a class="src" href="https://github.com/sumansapkota9/Suman-Sapkota/blob/main/Week11%20monday/state-events.html">View source</a></div>
-      </div>
+    <div>
+      <div class="kicker">Week 11 · Monday · Introduction to React</div>
+      <h1><span class="solid">Monday</span><br><span class="outline">React.</span></h1>
+      <p>Learning React, one exercise at a time. Start with JSX and props, then use what you learned in seven small state exercises.</p>
+      <div class="byline">Suman Sapkota · 202637609 · Computer Engineering</div>
+      <div class="chips"><span><b>3</b> labs</span><span><b>7</b> exercises</span><span><b>1</b> quiz</span></div>
     </div>
-    <div class="card">
-      <div class="num">2</div>
-      <div>
-        <div class="done">✓ Implemented</div>
-        <h2>React foundations — Quiz</h2>
-        <p>Try three quick questions about React, how a component is written, and how props are read. You get an instant reply for every answer, and your score updates as you go.</p>
-        <div class="btns"><a class="open" href="quiz.html">Open exercise →</a><a class="src" href="https://github.com/sumansapkota9/Suman-Sapkota/blob/main/Week11%20monday/quiz.html">View source</a></div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="num">3</div>
-      <div>
-        <div class="done">✓ Implemented</div>
-        <h2>StudentCard</h2>
-        <p>One small component takes my name, student ID and major, and turns them into a profile card on the page.</p>
-        <div class="btns"><a class="open" href="studentcard.html">Open exercise →</a><a class="src" href="https://github.com/sumansapkota9/Suman-Sapkota/blob/main/Week11%20monday/studentcard.html">View source</a></div>
-      </div>
+    <div class="about">
+      <h2>Learn it by<br><mark>doing it.</mark></h2>
+      <p>No setup, no build step — React straight in the browser, one small exercise at a time.</p>
+      <hr>
+      <a href="state-events.html">Start with State &amp; Events →</a>
     </div>
   </div>
 
-  <footer><span>Suman Sapkota / Week 11 Monday</span><a href="https://github.com/sumansapkota9/Suman-Sapkota">Github repository ↗</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/">Back to coursework ↗</a></footer>
+  <div class="labelrow"><span><b>01 /</b> The three labs</span><span>Gachon University · Year 1</span></div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="meta"><span class="label">01 / Lab</span></div>
+      <h2>React State &amp; Events</h2>
+      <p>Seven hands-on tasks to practise state: counting, typing, lists, showing and hiding, ticking things off, a profile form, and a note that stays saved.</p>
+      <div class="btns"><a class="open" href="state-events.html">Open lab →</a><a class="src" href="https://github.com/sumansapkota9/Suman-Sapkota/blob/main/Week11%20monday/state-events.html">View source ↗</a></div>
+    </div>
+    <div class="card">
+      <div class="meta"><span class="label">02 / Quiz</span></div>
+      <h2>React foundations — Quiz</h2>
+      <p>Try three quick questions about React, how a component is written, and how props are read. You get an instant reply for every answer, and your score updates as you go.</p>
+      <div class="btns"><a class="open" href="quiz.html">Open exercise →</a><a class="src" href="https://github.com/sumansapkota9/Suman-Sapkota/blob/main/Week11%20monday/quiz.html">View source ↗</a></div>
+    </div>
+    <div class="card">
+      <div class="meta"><span class="label">03 / Component</span></div>
+      <h2>StudentCard</h2>
+      <p>One small component takes my name, student ID and major, and turns them into a profile card on the page.</p>
+      <div class="btns"><a class="open" href="studentcard.html">Open exercise →</a><a class="src" href="https://github.com/sumansapkota9/Suman-Sapkota/blob/main/Week11%20monday/studentcard.html">View source ↗</a></div>
+    </div>
+  </div>
+
+  <footer><span>Suman Sapkota / Week 11 Monday</span><a href="https://github.com/sumansapkota9/Suman-Sapkota">Github repository ↗</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/Week11%20friday/tasks.html">Week 11 Friday ↗</a><a href="https://sumansapkota9.github.io/Suman-Sapkota/">Back to coursework ↗</a></footer>
 </div>
 </body>
 </html>
