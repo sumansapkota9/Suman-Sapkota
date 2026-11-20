@@ -101,8 +101,9 @@
 // name, blurb, tags and demo — and shows them the same way every time.
 // The filter is one useState string. Picking a tag only changes which
 // cards the list renders, never the cards themselves.
-// These are my own projects from this semester: BookFinder is my Week 10
-// book search, and the Student Directory is this Friday's File 1.
+// These are my own projects from this semester: BiHE.COM is my team
+// final project, BookFinder is my Week 10 book search, and the Student
+// Directory is this Friday's File 1.
 function ProjectCard({ num, name, blurb, tags, demo }) {
   return (
     <div className="card">
@@ -117,7 +118,7 @@ function ProjectCard({ num, name, blurb, tags, demo }) {
 function App() {
   const [filter, setFilter] = React.useState("All");
   const projects = [
-    { num: "01", name: "Memory Match", blurb: "A card-matching game. Flip two cards, keep the pairs, finish the board.", tags: ["JavaScript", "CSS"], demo: "" },
+    { num: "01", name: "BiHE.COM", blurb: "My team final project. A Nepali matrimony site — two hearts, one Wi-Fi password. Search, match, chat, and a compatibility calculator.", tags: ["JavaScript", "CSS"], demo: "https://sumansapkota9.github.io/Suman-Sapkota/final-project/" },
     { num: "02", name: "BookFinder", blurb: "My Week 10 book search. Type a title, get real results from the Open Library API.", tags: ["JavaScript", "API", "CSS"], demo: "https://sumansapkota9.github.io/Suman-Sapkota/week10/book-search/" },
     { num: "03", name: "Student Directory", blurb: "This Friday's File 1. One StudentCard component, three classmates, five props each.", tags: ["React", "CSS"], demo: "./index.html" },
   ];
