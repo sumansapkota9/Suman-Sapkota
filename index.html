@@ -7,13 +7,15 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700&family=Figtree:wght@400;600&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <style>
-:root{ --paper:#EAEEF6; --ink:#0D1633; --ink-2:#4A5578; --line:#C9D1E4; --cobalt:#2F4BFF; --sun:#FFC933; --white:#fff; --win:#0D1633; }
+:root{ --paper:#EAEEF6; --ink:#0D1633; --ink-2:#4A5578; --line:#C9D1E4; --cobalt:#2F4BFF; --sun:#FFC933; --white:#fff; --win:#0D1633; --dots:#C9D1E4; }
 *{ box-sizing:border-box; margin:0; padding:0; }
-body{ font-family:"Figtree",system-ui,sans-serif; background:var(--paper); background-image:radial-gradient(#C9D1E4 1px, transparent 1px); background-size:22px 22px; color:var(--ink); padding:24px 16px 48px; }
+body{ font-family:"Figtree",system-ui,sans-serif; background:var(--paper); background-image:radial-gradient(var(--dots) 1px, transparent 1px); background-size:22px 22px; color:var(--ink); padding:24px 16px 48px; }
 .shell{ max-width:1100px; margin:0 auto; }
 .badges{ display:flex; gap:8px; margin-top:12px; flex-wrap:wrap; }
 .badge{ background:var(--white); border:1px solid var(--line); border-radius:999px; padding:5px 12px; font-size:.85rem; }
 .badge.online{ color:#16A34A; }
+body.dark{ --paper:#0B1226; --ink:#FFFFFF; --ink-2:#E6EAF8; --line:#2A3556; --white:#141D3A; --win:#060A1A; --dots:#22305A; }
+button.badge{ cursor:pointer; font-family:inherit; color:var(--ink); }
 .layout{ display:grid; grid-template-columns:340px 1fr; gap:18px; align-items:start; }
 @media (max-width:800px){ .layout{ grid-template-columns:1fr; } }
 .weeks{ display:flex; flex-direction:column; gap:12px; }
@@ -50,6 +52,7 @@ iframe.hidden{ display:none; }
 <div class="badges">
 <span class="badge">ID: 202637609</span>
 <span class="badge online">● Online</span>
+<button class="badge" id="themeBtn" type="button">Dark mode</button>
 </div>
 </header>
 <div class="layout">
@@ -211,6 +214,15 @@ if (current < 0) return;
 if (showingCode) {
 showingCode = false;
 codeView.classList.remove('show');
+frame.classList.remove('hidden');
+codeBtn.textContent = 'View code';
+return;
+}
+try {
+const res = await fetch(encodeURI(flat[current].p));
+const text = await res.text();
+codeView.textContent = text;
+codeView.classList.add('show');
 frame.classList.add('hidden');
 showingCode = true;
 codeBtn.textContent = 'View preview';
@@ -221,6 +233,17 @@ frame.classList.add('hidden');
 showingCode = true;
 }
 });
+// Dark mode toggle. The choice is saved, so the page opens the same way next time.
+const themeBtn = document.getElementById('themeBtn');
+function setTheme(dark) {
+document.body.classList.toggle('dark', dark);
+themeBtn.textContent = dark ? 'Light mode' : 'Dark mode';
+try { localStorage.setItem('suman-index-theme', dark ? 'dark' : 'light'); } catch (e) {}
+}
+try {
+if (localStorage.getItem('suman-index-theme') === 'dark') setTheme(true);
+} catch (e) {}
+themeBtn.addEventListener('click', function () { setTheme(!document.body.classList.contains('dark')); });
 </script>
 </body>
 </html>
