@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Counter with History | Suman Sapkota</title>
+<title>Desk Setup Builder · Shopping Cart | Suman Sapkota</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -94,6 +94,10 @@
     font-family:"Bricolage Grotesque",sans-serif; font-weight:800;
     font-size:24px; line-height:1.12; letter-spacing:-.01em; margin:0 0 8px;
   }
+  .card h3{
+    font-family:"Bricolage Grotesque",sans-serif; font-weight:800;
+    font-size:20px; line-height:1.15; margin:0 0 6px;
+  }
   .card p{color:var(--ink2); font-size:15px;}
   .btn{
     display:inline-block; background:var(--cobalt); color:#fff; border:0; border-radius:10px;
@@ -103,26 +107,75 @@
   .btn:hover{transform:translateY(-1px); box-shadow:0 6px 14px rgba(47,75,255,.35);}
   .btn.ghost{background:#fff; color:var(--ink); border:1px solid var(--line); box-shadow:none;}
   .btn:disabled{opacity:.45; cursor:default; transform:none; box-shadow:none;}
-  .btn.big{padding:12px 22px; font-size:17px;}
-  .count-display{
-    text-align:center; padding:28px 0 8px;
+  .btn.small{padding:6px 11px; font-size:14px;}
+  .budget{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; margin-top:16px;
   }
-  .count-display .num{
-    font-family:"Bricolage Grotesque",sans-serif; font-weight:800;
-    font-size:96px; line-height:1; letter-spacing:-.02em;
+  .stat{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px;
+    padding:16px; text-align:center;
   }
-  .count-display .label{color:var(--ink2); font-size:14px; margin-top:8px;}
-  .controls{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:18px;}
-  .history{margin-top:22px;}
-  .history .trail{
-    margin-top:12px; display:flex; gap:8px; flex-wrap:wrap; align-items:center;
+  .stat b{display:block; font-family:"Bricolage Grotesque",sans-serif; font-size:26px; line-height:1.1;}
+  .stat span{color:var(--ink2); font-size:13px;}
+  .stat .over{color:var(--red);}
+  .stat .left{color:var(--green);}
+  input[type="range"]{width:100%; margin-top:14px; accent-color:var(--cobalt);}
+  .range-labels{display:flex; justify-content:space-between; font-family:"JetBrains Mono",monospace; font-size:12px; color:var(--ink2); margin-top:4px;}
+  .setups{display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; margin-top:16px;}
+  .setup{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:18px;
+    display:flex; flex-direction:column; gap:8px;
   }
-  .history .step{
-    font-family:"JetBrains Mono",monospace; font-weight:600; font-size:15px;
-    background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:8px 14px;
+  .setup b{font-family:"Bricolage Grotesque",sans-serif; font-size:18px;}
+  .setup .items{font-size:14px; color:var(--ink2);}
+  .setup .total{font-family:"JetBrains Mono",monospace; font-size:13px; font-weight:600;}
+  .setup .total.over{color:var(--red);}
+  .setup .total.under{color:var(--green);}
+  .filters{display:flex; gap:8px; flex-wrap:wrap; margin-top:16px;}
+  .filters .btn.active{background:var(--ink); color:#fff; border-color:var(--ink);}
+  .products{display:grid; grid-template-columns:repeat(2, 1fr); gap:16px; margin-top:16px;}
+  .shop{display:grid; grid-template-columns:1.6fr 1fr; gap:20px; align-items:start;}
+  .cart-side{position:sticky; top:20px;}
+  .product{
+    background:var(--paper); border:1px solid var(--line); border-radius:14px; padding:18px;
+    display:flex; flex-direction:column; gap:8px;
   }
-  .history .step.now{background:var(--ink); color:#fff; border-color:var(--ink);}
-  .history .sep{color:var(--cobalt); font-weight:800;}
+  .product .tile{
+    width:52px; height:52px; border-radius:12px; color:#fff;
+    font-family:"Bricolage Grotesque",sans-serif; font-weight:800; font-size:17px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .product b{font-size:16.5px; line-height:1.25;}
+  .product .price{font-family:"JetBrains Mono",monospace; font-size:14px; font-weight:600;}
+  .product .tag{
+    font-family:"JetBrains Mono",monospace; font-size:11px; font-weight:600;
+    padding:3px 9px; border-radius:999px; background:#fff; border:1px solid var(--line);
+    color:var(--ink2); width:fit-content;
+  }
+  .cart-line{
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    padding:14px 0; border-bottom:1px solid var(--line);
+  }
+  .cart-line:last-of-type{border-bottom:0;}
+  .cart-line .name{flex:1; min-width:180px;}
+  .cart-line .name b{display:block; font-size:15.5px;}
+  .cart-line .name span{color:var(--ink2); font-size:13.5px;}
+  .qty{display:flex; align-items:center; gap:8px;}
+  .qty button{
+    width:30px; height:30px; border-radius:8px; border:1px solid var(--line);
+    background:#fff; font-weight:800; font-size:16px; cursor:pointer; font-family:inherit;
+  }
+  .qty b{min-width:22px; text-align:center;}
+  .line-total{font-family:"JetBrains Mono",monospace; font-weight:600; font-size:14px; min-width:110px; text-align:right;}
+  .remove{background:none; border:0; color:var(--red); font-weight:700; cursor:pointer; font-size:14px; font-family:inherit; padding:4px 6px;}
+  .cart-foot{
+    display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap; align-items:center;
+    margin-top:16px; padding-top:16px; border-top:1px solid var(--line);
+  }
+  .cart-foot b{font-family:"Bricolage Grotesque",sans-serif; font-size:22px;}
+  .warn{color:var(--red); font-weight:700;}
+  .ok{color:var(--green); font-weight:700;}
+  .empty{color:var(--ink2); padding:10px 0;}
   details{
     margin-top:18px; background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px 24px;
   }
@@ -131,6 +184,7 @@
     margin-top:14px; background:#0A1129; color:#C7D2FE; border-radius:12px; padding:16px 18px;
     overflow-x:auto; font-family:"JetBrains Mono",monospace; font-size:13.5px; line-height:1.6;
   }
+  .note{margin-top:16px; color:var(--ink2); font-size:14px;}
   .btns{margin-top:22px; display:flex; gap:12px; flex-wrap:wrap;}
   .btns a{
     display:inline-block; text-decoration:none; font-weight:700; border-radius:10px; padding:10px 16px; font-size:14.5px;
@@ -147,7 +201,11 @@
   @media (max-width:820px){
     .hero{grid-template-columns:1fr;}
     .hero-main{padding:28px 24px;}
-    .count-display .num{font-size:72px;}
+    .budget{grid-template-columns:1fr;}
+    .setups{grid-template-columns:1fr;}
+    .products{grid-template-columns:1fr;}
+    .shop{grid-template-columns:1fr;}
+    .cart-side{position:static;}
   }
 </style>
 <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -170,20 +228,21 @@
 
   <header class="hero">
     <div class="hero-main">
-      <p class="kicker">Week 12 · Monday · Exercise 02</p>
-      <h1>Counter with<br><span class="outline">History.</span></h1>
-      <p class="sub">A count that goes up and down, with the last five counts kept in view. Every change is a state change — the count and the history move together.</p>
+      <p class="kicker">Week 12 · Monday · Homework</p>
+      <h1>Desk Setup Builder.<br><span class="outline">Shopping Cart.</span></h1>
+      <p class="sub">A desk setup inside a budget. The total moves every time the cart changes — that is the state doing its work.</p>
       <p class="byline">Suman Sapkota · 202637609 · Computer Engineering</p>
       <div class="chips">
+        <span class="chip"><b>5</b> products</span>
+        <span class="chip"><b>3</b> setups</span>
         <span class="chip">useState</span>
-        <span class="chip"><b>2</b> pieces of state</span>
-        <span class="chip"><b>5</b> counts kept</span>
+        <span class="chip"><b>1</b> budget</span>
       </div>
     </div>
     <aside class="sidebox">
-      <p class="side-kicker">Exercise 02 · useState</p>
-      <p class="side-big">The count moves.<br><mark>The past stays.</mark></p>
-      <p>Two pieces of state run this page: the count, and the list of the last five counts. Undo steps back one value at a time.</p>
+      <p class="side-kicker">Homework · useState</p>
+      <p class="side-big">The cart changes.<br><mark>The total follows.</mark></p>
+      <p>Three pieces of state run this page: the cart list, the budget number, and the filter. Change one, and the screen shows it.</p>
       <a href="./index.html">Back to Week 12 Monday &rarr;</a>
     </aside>
   </header>
@@ -192,8 +251,8 @@
   <noscript>Turn on JavaScript to use this page.</noscript>
 
   <div class="btns">
-    <a class="open" href="./scoreboard.html">Next: Two-Player Scoreboard &rarr;</a>
-    <a class="src" href="./homework.html">&larr; Back: Shopping Cart homework</a>
+    <a class="open" href="./counter.html">Next: Counter with History &rarr;</a>
+    <a class="src" href="./index.html">&larr; Back to Week 12 Monday</a>
   </div>
 
   <footer>
@@ -207,88 +266,220 @@
 
 </div>
 <script type="text/babel">
-// Two pieces of state: the count, and the list of the last five counts.
+// The cart, the budget, and the filter are all state. Changing one re-renders the page.
 const { useState } = React;
 
-function Counter() {
-  const [count, setCount] = useState(0);
-  const [history, setHistory] = useState([0]);
+const PRODUCTS = [
+  { id: "galaxy-s26", name: "Samsung Galaxy S26", price: 1699000, tag: "Mobile", tile: "S26", color: "#2F4BFF" },
+  { id: "macbook-pro-16", name: "MacBook Pro 16-inch (M5 Max, 64GB)", price: 5990000, tag: "Computers", tile: "MB", color: "#0D1633" },
+  { id: "ryzen-9-9950x", name: "AMD Ryzen 9 9950X CPU", price: 789000, tag: "Parts", tile: "R9", color: "#b91c1c" },
+  { id: "rtx-5070", name: "NVIDIA GeForce RTX 5070 GPU", price: 899000, tag: "Parts", tile: "RTX", color: "#15803d" },
+  { id: "sony-xm5", name: "Sony WH-1000XM5 headphones", price: 449000, tag: "Audio", tile: "XM5", color: "#8B5CF6" },
+];
 
-  function step(delta) {
-    const next = count + delta;
-    setCount(next);
-    // The history keeps the last five values, newest at the end.
-    setHistory(history.concat([next]).slice(-5));
+const SETUPS = [
+  { name: "Mobile studio", blurb: "Phone and headphones for work on the move.", items: ["galaxy-s26", "sony-xm5"] },
+  { name: "Creator rig", blurb: "High-spec CPU and GPU with headphones for long sessions.", items: ["ryzen-9-9950x", "rtx-5070", "sony-xm5"] },
+  { name: "Full power desk", blurb: "The high-end Mac with the Galaxy phone beside it.", items: ["macbook-pro-16", "galaxy-s26"] },
+];
+
+const FILTERS = ["All gear", "Mobile", "Computers", "Parts", "Audio"];
+
+function won(n) {
+  return "\u20A9" + n.toLocaleString("ko-KR");
+}
+
+function Homework() {
+  const [cart, setCart] = useState([]);
+  const [budget, setBudget] = useState(4000000);
+  const [filter, setFilter] = useState("All gear");
+
+  const total = cart.reduce(function (sum, line) {
+    const product = PRODUCTS.find(function (p) { return p.id === line.id; });
+    return sum + product.price * line.qty;
+  }, 0);
+  const remaining = budget - total;
+  const over = total > budget;
+
+  function addToCart(id) {
+    const found = cart.find(function (line) { return line.id === id; });
+    if (found) {
+      setCart(cart.map(function (line) {
+        return line.id === id ? { id: line.id, qty: line.qty + 1 } : line;
+      }));
+    } else {
+      setCart(cart.concat([{ id: id, qty: 1 }]));
+    }
   }
 
-  function undo() {
-    if (history.length <= 1) return;
-    const back = history.slice(0, -1);
-    setHistory(back);
-    setCount(back[back.length - 1]);
+  function changeQty(id, delta) {
+    setCart(cart.map(function (line) {
+      if (line.id !== id) return line;
+      const next = line.qty + delta;
+      return { id: line.id, qty: next < 1 ? 1 : next };
+    }));
   }
 
-  function reset() {
-    setCount(0);
-    setHistory([0]);
+  function removeLine(id) {
+    setCart(cart.filter(function (line) { return line.id !== id; }));
   }
+
+  function applySetup(itemIds) {
+    // A setup adds only the missing gear. The cart keeps the rest.
+    const missing = itemIds.filter(function (id) {
+      return !cart.some(function (line) { return line.id === id; });
+    });
+    setCart(cart.concat(missing.map(function (id) { return { id: id, qty: 1 }; })));
+  }
+
+  function setupTotal(itemIds) {
+    return itemIds.reduce(function (sum, id) {
+      return sum + PRODUCTS.find(function (p) { return p.id === id; }).price;
+    }, 0);
+  }
+
+  const shown = filter === "All gear"
+    ? PRODUCTS
+    : PRODUCTS.filter(function (p) { return p.tag === filter; });
 
   return (
     <div>
-      <div className="labelrow"><span>01 / Counter</span><span>State: one number</span></div>
+      <div className="labelrow"><span>01 / Budget</span><span>State: one number</span></div>
       <div className="card">
-        <div className="count-display">
-          <div className="num">{count}</div>
-          <div className="label">current count</div>
+        <h2>Budget</h2>
+        <p>Move the slider. The remaining amount follows the budget and the cart total.</p>
+        <input
+          type="range" min="1000000" max="8000000" step="100000"
+          value={budget}
+          onChange={function (e) { setBudget(Number(e.target.value)); }}
+        />
+        <div className="range-labels"><span>&#8361;1,000,000</span><span>&#8361;8,000,000</span></div>
+        <div className="budget">
+          <div className="stat"><b>{won(budget)}</b><span>budget</span></div>
+          <div className="stat"><b>{won(total)}</b><span>cart total</span></div>
+          <div className="stat">
+            <b className={over ? "over" : "left"}>{over ? "\u2212" + won(total - budget) : won(remaining)}</b>
+            <span>{over ? "over budget" : "left in the budget"}</span>
+          </div>
         </div>
-        <div className="controls">
-          <button className="btn big" onClick={function () { step(1); }}>+1</button>
-          <button className="btn big ghost" onClick={function () { step(-1); }}>−1</button>
-          <button className="btn big ghost" disabled={history.length <= 1} onClick={undo}>Undo</button>
-          <button className="btn big ghost" onClick={reset}>Reset</button>
+        {over && <p className="warn" style={{ marginTop: 14 }}>Over budget — remove gear or raise the budget.</p>}
+      </div>
+
+      <div className="labelrow"><span>02 / Desk setups</span><span>State: the cart list</span></div>
+      <div className="setups">
+        {SETUPS.map(function (setup) {
+          const st = setupTotal(setup.items);
+          const stOver = st > budget;
+          return (
+            <div className="setup" key={setup.name}>
+              <b>{setup.name}</b>
+              <p className="items">{setup.blurb}</p>
+              <p className="items">
+                {setup.items.map(function (id) {
+                  return PRODUCTS.find(function (p) { return p.id === id; }).name;
+                }).join(" · ")}
+              </p>
+              <p className={"total " + (stOver ? "over" : "under")}>
+                {won(st)} {stOver ? "· over budget" : "· inside budget"}
+              </p>
+              <div><button className="btn small" onClick={function () { applySetup(setup.items); }}>Use this setup</button></div>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="shop">
+        <div>
+          <div className="labelrow"><span>03 / Gear</span><span>State: the filter</span></div>
+      <div className="filters">
+        {FILTERS.map(function (f) {
+          return (
+            <button
+              key={f}
+              className={filter === f ? "btn small active" : "btn small ghost"}
+              onClick={function () { setFilter(f); }}
+            >{f}</button>
+          );
+        })}
+      </div>
+      <div className="products">
+        {shown.map(function (p) {
+          return (
+            <div className="product" key={p.id}>
+              <span className="tile" style={{ background: p.color }}>{p.tile}</span>
+              <b>{p.name}</b>
+              <span className="price">{won(p.price)}</span>
+              <span className="tag">{p.tag}</span>
+              <div><button className="btn small" onClick={function () { addToCart(p.id); }}>Add to setup</button></div>
+            </div>
+          );
+        })}
+      </div>
+      <p className="note">Sample prices for practice.</p>
+
         </div>
-        <div className="history">
-          <h2>History</h2>
-          <p>The last five counts, oldest first. The dark one is the current count.</p>
-          <div className="trail">
-            {history.map(function (value, i) {
-              const last = i === history.length - 1;
+        <div className="cart-side">
+          <div className="labelrow"><span>04 / Cart</span><span>State: the cart list</span></div>
+      <div className="card">
+        <h2>Cart</h2>
+        {cart.length === 0 ? (
+          <p className="empty">The cart is empty. Gear from the list above lands here.</p>
+        ) : (
+          <div>
+            {cart.map(function (line) {
+              const p = PRODUCTS.find(function (x) { return x.id === line.id; });
               return (
-                <span key={i} style={{ display: "contents" }}>
-                  {i > 0 && <span className="sep">&rarr;</span>}
-                  <span className={last ? "step now" : "step"}>{value}</span>
-                </span>
+                <div className="cart-line" key={line.id}>
+                  <div className="name"><b>{p.name}</b><span>{won(p.price)} each</span></div>
+                  <div className="qty">
+                    <button onClick={function () { changeQty(line.id, -1); }} aria-label="Decrease quantity">−</button>
+                    <b>{line.qty}</b>
+                    <button onClick={function () { changeQty(line.id, 1); }} aria-label="Increase quantity">+</button>
+                  </div>
+                  <span className="line-total">{won(p.price * line.qty)}</span>
+                  <button className="remove" onClick={function () { removeLine(line.id); }}>Remove</button>
+                </div>
               );
             })}
           </div>
+        )}
+        <div className="cart-foot">
+          <span>Total: <b>{won(total)}</b> {over
+            ? <span className="warn">· {won(total - budget)} over budget</span>
+            : <span className="ok">· {won(remaining)} left</span>}</span>
+          <button className="btn ghost small" disabled={cart.length === 0} onClick={function () { setCart([]); }}>Clear cart</button>
+        </div>
+      </div>
         </div>
       </div>
 
       <details>
-        <summary>How the counter works · see the code</summary>
-        <pre>{`const [count, setCount] = useState(0);
-const [history, setHistory] = useState([0]);
+        <summary>How the cart works · see the code</summary>
+        <pre>{`const [cart, setCart] = useState([]);
+const [budget, setBudget] = useState(4000000);
 
-// One step changes the count and appends it to the history.
-function step(delta) {
-  const next = count + delta;
-  setCount(next);
-  setHistory(history.concat([next]).slice(-5));
+// Add one more of a product, or add it for the first time.
+function addToCart(id) {
+  const found = cart.find(line => line.id === id);
+  if (found) {
+    setCart(cart.map(line =>
+      line.id === id ? { id, qty: line.qty + 1 } : line
+    ));
+  } else {
+    setCart(cart.concat([{ id, qty: 1 }]));
+  }
 }
 
-// Undo drops the last value and goes back to the one before it.
-function undo() {
-  if (history.length <= 1) return;
-  const back = history.slice(0, -1);
-  setHistory(back);
-  setCount(back[back.length - 1]);
-}`}</pre>
+// The total is derived from the cart, never stored apart.
+const total = cart.reduce((sum, line) =>
+  sum + product(line.id).price * line.qty, 0);
+const remaining = budget - total;`}</pre>
       </details>
     </div>
   );
 }
 
-ReactDOM.createRoot(document.getElementById("root")).render(<Counter />);
+ReactDOM.createRoot(document.getElementById("root")).render(<Homework />);
 </script>
 </body>
 </html>
