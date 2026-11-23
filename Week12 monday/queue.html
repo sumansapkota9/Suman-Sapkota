@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Study Queue | Suman Sapkota</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EAEEF6; --ink:#0D1633; --ink2:#4A5578; --line:#C9D1E4;
+    --cobalt:#2F4BFF; --sun:#FFC933; --green:#15803d; --red:#b91c1c;
+    --purple:#8B5CF6; --pink:#EC4899; --sky:#0EA5E9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:"Figtree",system-ui,sans-serif; color:var(--ink);
+    background-color:var(--paper);
+    background-image:radial-gradient(circle, #C9D1E4 1px, transparent 1px);
+    background-size:22px 22px;
+    line-height:1.55;
+  }
+  a{color:var(--cobalt); text-decoration:none;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 24px;}
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:18px 0; flex-wrap:wrap;
+  }
+  .topbar .brand{font-family:"Bricolage Grotesque",sans-serif; font-weight:800; font-size:17px; letter-spacing:.01em;}
+  .topbar .brand span{color:var(--cobalt);}
+  .topbar nav{display:flex; gap:6px; flex-wrap:wrap;}
+  .topbar nav a{
+    font-size:13.5px; font-weight:600; color:var(--ink2);
+    padding:7px 12px; border-radius:999px; border:1px solid transparent;
+  }
+  .topbar nav a:hover{color:var(--ink); border-color:var(--line); background:#fff;}
+  .topbar nav a.now{color:var(--ink); border-color:var(--line); background:#fff;}
+  .hero{
+    display:grid; grid-template-columns:1.6fr 1fr; gap:28px; align-items:stretch;
+    margin-top:26px;
+  }
+  .hero-main{
+    background:#fff; border:1px solid var(--line); border-radius:16px;
+    padding:38px 40px 34px;
+  }
+  .kicker{
+    font-family:"JetBrains Mono",monospace; font-size:12.5px; font-weight:600;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--cobalt);
+    margin-bottom:16px;
+  }
+  h1{
+    font-family:"Bricolage Grotesque",sans-serif; font-weight:800;
+    font-size:clamp(40px, 5.6vw, 64px); line-height:.98; letter-spacing:-.02em;
+  }
+  h1 .outline{color:transparent; -webkit-text-stroke:2px var(--cobalt);}
+  .sub{margin-top:18px; font-size:17px; color:var(--ink2); max-width:52ch;}
+  .byline{margin-top:14px; font-size:13.5px; font-weight:600; color:var(--ink2);}
+  .chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:20px;}
+  .chip{
+    font-family:"JetBrains Mono",monospace; font-size:12px; font-weight:600;
+    padding:6px 12px; border-radius:999px; border:1px solid var(--line); background:var(--paper);
+  }
+  .chip b{color:var(--cobalt);}
+  .sidebox{
+    background:var(--ink); color:#fff; border-radius:16px;
+    padding:36px 30px; display:flex; flex-direction:column; justify-content:center; gap:22px;
+  }
+  .sidebox .side-kicker{
+    font-family:"JetBrains Mono",monospace; font-size:12px; font-weight:600;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--sun);
+  }
+  .sidebox .side-big{
+    font-family:"Bricolage Grotesque",sans-serif; font-weight:800;
+    font-size:30px; line-height:1.32; letter-spacing:-.01em;
+  }
+  .sidebox .side-big mark{background:var(--sun); color:var(--ink); padding:2px 8px; border-radius:6px; -webkit-box-decoration-break:clone; box-decoration-break:clone;}
+  .sidebox p{color:#C7D2FE; font-size:15px;}
+  .sidebox a{
+    margin-top:6px; display:inline-block; font-weight:700; font-size:15px; color:#fff;
+    border-bottom:2px solid var(--sun); padding-bottom:2px; width:fit-content;
+  }
+  .labelrow{
+    display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+    margin:34px 0 16px; padding-top:18px; border-top:1px solid var(--line);
+    font-family:"JetBrains Mono",monospace; font-size:12.5px; font-weight:600;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--ink2);
+  }
+  .card{
+    background:#fff; border:1px solid var(--line); border-radius:16px;
+    padding:24px; position:relative; overflow:hidden;
+  }
+  .card h2{
+    font-family:"Bricolage Grotesque",sans-serif; font-weight:800;
+    font-size:24px; line-height:1.12; letter-spacing:-.01em; margin:0 0 8px;
+  }
+  .card p{color:var(--ink2); font-size:15px;}
+  .btn{
+    display:inline-block; background:var(--cobalt); color:#fff; border:0; border-radius:10px;
+    padding:9px 15px; font-size:15px; font-weight:700; font-family:inherit; cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{transform:translateY(-1px); box-shadow:0 6px 14px rgba(47,75,255,.35);}
+  .btn.ghost{background:#fff; color:var(--ink); border:1px solid var(--line); box-shadow:none;}
+  .btn:disabled{opacity:.45; cursor:default; transform:none; box-shadow:none;}
+  .add-row{display:flex; gap:10px; margin-top:16px;}
+  .add-row input{
+    flex:1; padding:11px 14px; font-family:"Figtree",system-ui,sans-serif; font-size:16px; color:var(--ink);
+    border:1px solid var(--line); border-radius:10px; background:var(--paper);
+  }
+  .add-row input:focus{outline:2px solid var(--cobalt); outline-offset:1px; background:#fff;}
+  .progress{
+    display:flex; justify-content:space-between; gap:10px; flex-wrap:wrap; align-items:center;
+    margin-top:18px;
+  }
+  .progress b{font-family:"JetBrains Mono",monospace; font-size:14px; font-weight:600;}
+  .bar{
+    flex:1; min-width:160px; height:10px; background:var(--paper);
+    border:1px solid var(--line); border-radius:999px; overflow:hidden;
+  }
+  .bar i{display:block; height:100%; background:var(--green); transition:width .2s ease;}
+  .task-list{margin-top:16px; list-style:none;}
+  .task-list li{
+    display:flex; align-items:center; gap:12px; padding:12px 4px;
+    border-bottom:1px solid var(--line);
+  }
+  .task-list li:last-child{border-bottom:0;}
+  .task-list input[type="checkbox"]{width:20px; height:20px; accent-color:var(--cobalt); flex:none; cursor:pointer;}
+  .task-list .text{flex:1; font-size:16px;}
+  .task-list li.done .text{color:var(--ink2); text-decoration:line-through;}
+  .remove{background:none; border:0; color:var(--red); font-weight:700; cursor:pointer; font-size:14px; font-family:inherit; padding:4px 6px;}
+  .empty{color:var(--ink2); padding:10px 0;}
+  .clear-row{margin-top:16px; text-align:center;}
+  details{
+    margin-top:18px; background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px 24px;
+  }
+  details summary{font-weight:700; cursor:pointer; font-size:16px;}
+  details pre{
+    margin-top:14px; background:#0A1129; color:#C7D2FE; border-radius:12px; padding:16px 18px;
+    overflow-x:auto; font-family:"JetBrains Mono",monospace; font-size:13.5px; line-height:1.6;
+  }
+  .btns{margin-top:22px; display:flex; gap:12px; flex-wrap:wrap;}
+  .btns a{
+    display:inline-block; text-decoration:none; font-weight:700; border-radius:10px; padding:10px 16px; font-size:14.5px;
+  }
+  .btns a.open{background:var(--cobalt); color:#fff;}
+  .btns a.src{background:#fff; color:var(--ink); border:1px solid var(--line);}
+  footer{
+    margin:40px 0 34px; padding-top:20px; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;
+    font-size:14px; color:var(--ink2);
+  }
+  footer .f-links{display:flex; gap:18px; flex-wrap:wrap;}
+  footer a{font-weight:600;}
+  @media (max-width:820px){
+    .hero{grid-template-columns:1fr;}
+    .hero-main{padding:28px 24px;}
+    .add-row{flex-direction:column;}
+  }
+</style>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand">Suman Sapkota <span>· Lab Archive</span></div>
+    <nav>
+      <a href="./index.html">Week 12 Monday</a>
+      <a href="../index.html">Coursework</a>
+      <a href="../week10/portfolio/index.html">Portfolio</a>
+      <a href="../Week11%20monday/index.html">Week 11 Monday</a>
+      <a href="../Week11%20friday/tasks.html">Week 11 Friday</a>
+    </nav>
+  </div>
+
+  <header class="hero">
+    <div class="hero-main">
+      <p class="kicker">Week 12 · Monday · Exercise 06</p>
+      <h1>Study<br><span class="outline">Queue.</span></h1>
+      <p class="sub">A study queue: tasks get ticked off, finished ones get cleared. Each task carries its own done flag — ticking one changes only that task.</p>
+      <p class="byline">Suman Sapkota · 202637609 · Computer Engineering</p>
+      <div class="chips">
+        <span class="chip">useState</span>
+        <span class="chip"><b>1</b> task list</span>
+        <span class="chip"><b>1</b> progress count</span>
+      </div>
+    </div>
+    <aside class="sidebox">
+      <p class="side-kicker">Exercise 06 · useState</p>
+      <p class="side-big">Add. Tick.<br><mark>Clear the done.</mark></p>
+      <p>The task list is state. Adding, ticking, and clearing all make a new list — the old one is never changed in place.</p>
+      <a href="./index.html">Back to Week 12 Monday &rarr;</a>
+    </aside>
+  </header>
+
+  <div id="root"></div>
+  <noscript>Turn on JavaScript to use this page.</noscript>
+
+  <div class="btns">
+    <a class="open" href="./index.html">Back to Week 12 Monday &rarr;</a>
+    <a class="src" href="./tips.html">&larr; Back: Quick React Tip</a>
+  </div>
+
+  <footer>
+    <span>Suman Sapkota / Week 12 Monday</span>
+    <span class="f-links">
+      <a href="https://github.com/sumansapkota9/Suman-Sapkota">GitHub ↗</a>
+      <a href="../Week11%20friday/tasks.html">Week 11 Friday ↗</a>
+      <a href="../index.html">Back to coursework ↗</a>
+    </span>
+  </footer>
+
+</div>
+<script type="text/babel">
+// The task list is the only state. The progress count is derived from it.
+const { useState } = React;
+
+function Queue() {
+  const [tasks, setTasks] = useState([]);
+  const [draft, setDraft] = useState("");
+  const [nextId, setNextId] = useState(1);
+
+  const doneCount = tasks.filter(function (t) { return t.done; }).length;
+
+  function addTask() {
+    const text = draft.trim();
+    if (text === "") return;
+    setTasks(tasks.concat([{ id: nextId, text: text, done: false }]));
+    setNextId(nextId + 1);
+    setDraft("");
+  }
+
+  function toggleTask(id) {
+    setTasks(tasks.map(function (t) {
+      return t.id === id ? { id: t.id, text: t.text, done: !t.done } : t;
+    }));
+  }
+
+  function removeTask(id) {
+    setTasks(tasks.filter(function (t) { return t.id !== id; }));
+  }
+
+  function clearCompleted() {
+    setTasks(tasks.filter(function (t) { return !t.done; }));
+  }
+
+  return (
+    <div>
+      <div className="labelrow"><span>01 / Queue</span><span>State: the task list</span></div>
+      <div className="card">
+        <h2>Study queue</h2>
+        <p>Type a task, add it, then tick it off when it is done.</p>
+        <div className="add-row">
+          <input
+            value={draft}
+            placeholder="Add a study task..."
+            onChange={function (e) { setDraft(e.target.value); }}
+            onKeyDown={function (e) { if (e.key === "Enter") addTask(); }}
+          />
+          <button className="btn" disabled={draft.trim() === ""} onClick={addTask}>Add task</button>
+        </div>
+        <div className="progress">
+          <b>{doneCount} of {tasks.length} complete</b>
+          <div className="bar"><i style={{ width: tasks.length === 0 ? "0%" : (doneCount / tasks.length * 100) + "%" }} /></div>
+        </div>
+        {tasks.length === 0 ? (
+          <p className="empty">Nothing here yet. Add a task to begin.</p>
+        ) : (
+          <ul className="task-list">
+            {tasks.map(function (t) {
+              return (
+                <li key={t.id} className={t.done ? "done" : ""}>
+                  <input type="checkbox" checked={t.done} onChange={function () { toggleTask(t.id); }} aria-label={"Mark " + t.text + " as done"} />
+                  <span className="text">{t.text}</span>
+                  <button className="remove" onClick={function () { removeTask(t.id); }}>Remove</button>
+                </li>
+              );
+            })}
+          </ul>
+        )}
+        <div className="clear-row">
+          <button className="btn ghost" disabled={doneCount === 0} onClick={clearCompleted}>Clear completed</button>
+        </div>
+      </div>
+
+      <details>
+        <summary>How the queue works · see the code</summary>
+        <pre>{`const [tasks, setTasks] = useState([]);\n\n// Add a task: a new list, with the task appended.\nfunction addTask() {\n  const text = draft.trim();\n  if (text === "") return;\n  setTasks(tasks.concat([{ id: nextId, text, done: false }]));\n}\n\n// Tick a task: a new list, with only that task flipped.\nfunction toggleTask(id) {\n  setTasks(tasks.map(t =>\n    t.id === id ? { ...t, done: !t.done } : t\n  ));\n}\n\n// Clear completed: a new list, with the done tasks dropped.\nfunction clearCompleted() {\n  setTasks(tasks.filter(t => !t.done));\n}`}</pre>
+      </details>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<Queue />);
+</script>
+</body>
+</html>
