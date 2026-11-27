@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Multi-Step Registration | Suman Sapkota</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EAEEF6; --ink:#0D1633; --ink2:#4A5578; --line:#C9D1E4;
+    --cobalt:#2F4BFF; --sun:#FFC933; --green:#15803d; --red:#b91c1c;
+    --purple:#8B5CF6; --pink:#EC4899; --sky:#0EA5E9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:"Figtree",system-ui,sans-serif; color:var(--ink);
+    background-color:var(--paper);
+    background-image:radial-gradient(circle, #C9D1E4 1px, transparent 1px);
+    background-size:22px 22px;
+    line-height:1.55;
+  }
+  a{color:var(--cobalt); text-decoration:none;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 24px;}
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:18px 0; flex-wrap:wrap;
+  }
+  .topbar .brand{font-family:"Bricolage Grotesque",sans-serif; font-weight:800; font-size:17px; letter-spacing:.01em;}
+  .topbar .brand span{color:var(--cobalt);}
+  .topbar nav{display:flex; gap:6px; flex-wrap:wrap;}
+  .topbar nav a{
+    font-size:13.5px; font-weight:600; color:var(--ink2);
+    padding:7px 12px; border-radius:999px; border:1px solid transparent;
+  }
+  .topbar nav a:hover{color:var(--ink); border-color:var(--line); background:#fff;}
+  .hero{
+    display:grid; grid-template-columns:1.6fr 1fr; gap:28px; align-items:stretch;
+    margin-top:26px;
+  }
+  .hero-main{
+    background:#fff; border:1px solid var(--line); border-radius:16px;
+    padding:38px 40px 34px;
+  }
+  .kicker{
+    font-family:"JetBrains Mono",monospace; font-size:12.5px; font-weight:600;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--cobalt);
+    margin-bottom:16px;
+  }
+  h1{
+    font-family:"Bricolage Grotesque",sans-serif; font-weight:800;
+    font-size:clamp(40px, 5.6vw, 64px); line-height:.98; letter-spacing:-.02em;
+  }
+  h1 .outline{color:transparent; -webkit-text-stroke:2px var(--cobalt);}
+  .sub{margin-top:18px; font-size:17px; color:var(--ink2); max-width:52ch;}
+  .byline{margin-top:14px; font-size:13.5px; font-weight:600; color:var(--ink2);}
+  .chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:20px;}
+  .chip{
+    font-family:"JetBrains Mono",monospace; font-size:12px; font-weight:600;
+    padding:6px 12px; border-radius:999px; border:1px solid var(--line); background:var(--paper);
+  }
+  .chip b{color:var(--cobalt);}
+  .sidebox{
+    background:var(--ink); color:#fff; border-radius:16px;
+    padding:36px 30px; display:flex; flex-direction:column; justify-content:center; gap:22px;
+  }
+  .sidebox .side-kicker{
+    font-family:"JetBrains Mono",monospace; font-size:12px; font-weight:600;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--sun);
+  }
+  .sidebox .side-big{
+    font-family:"Bricolage Grotesque",sans-serif; font-weight:800;
+    font-size:30px; line-height:1.32; letter-spacing:-.01em;
+  }
+  .sidebox .side-big mark{background:var(--sun); color:var(--ink); padding:2px 8px; border-radius:6px; -webkit-box-decoration-break:clone; box-decoration-break:clone;}
+  .sidebox p{color:#C7D2FE; font-size:15px;}
+  .sidebox a{
+    margin-top:6px; display:inline-block; font-weight:700; font-size:15px; color:#fff;
+    border-bottom:2px solid var(--sun); padding-bottom:2px; width:fit-content;
+  }
+  .labelrow{
+    display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+    margin:34px 0 16px; padding-top:18px; border-top:1px solid var(--line);
+    font-family:"JetBrains Mono",monospace; font-size:12.5px; font-weight:600;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--ink2);
+  }
+  .card{
+    background:#fff; border:1px solid var(--line); border-radius:16px;
+    padding:24px; position:relative; overflow:hidden;
+  }
+  .card h2{
+    font-family:"Bricolage Grotesque",sans-serif; font-weight:800;
+    font-size:24px; line-height:1.12; letter-spacing:-.01em; margin:0 0 8px;
+  }
+  .card p{color:var(--ink2); font-size:15px;}
+  .btn{
+    display:inline-block; background:var(--cobalt); color:#fff; border:0; border-radius:10px;
+    padding:9px 15px; font-size:15px; font-weight:700; font-family:inherit; cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{transform:translateY(-1px); box-shadow:0 6px 14px rgba(47,75,255,.35);}
+  .btn.ghost{background:#fff; color:var(--ink); border:1px solid var(--line); box-shadow:none;}
+  .btn:disabled{opacity:.45; cursor:default; transform:none; box-shadow:none;}
+  .controls{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px;}
+  .note{margin-top:18px; font-size:14.5px; color:var(--ink2);}
+  .note code{font-family:"JetBrains Mono",monospace; color:var(--ink); background:var(--paper); padding:1px 6px; border-radius:6px;}
+  .field{margin-bottom:16px;}
+  .field label{display:block; font-weight:700; font-size:14.5px; margin-bottom:6px;}
+  .field input[type="text"], .field input[type="email"], .field input[type="password"]{
+    width:100%; font-family:inherit; font-size:15.5px; color:var(--ink);
+    background:#fff; border:1px solid var(--line); border-radius:10px; padding:11px 12px;
+  }
+  .field input:focus{outline:2px solid var(--cobalt); outline-offset:1px;}
+  .field .hint{font-size:13px; color:var(--ink2); margin-top:6px;}
+  .field .error{font-size:13.5px; color:var(--red); font-weight:600; margin-top:6px;}
+  .field input.bad{border-color:var(--red);}
+  .steps{display:flex; gap:8px; margin:18px 0;}
+  .steps span{
+    flex:1; text-align:center; font-family:"JetBrains Mono",monospace; font-size:12px; font-weight:600;
+    padding:8px 4px; border-radius:999px; background:var(--paper); border:1px solid var(--line); color:var(--ink2);
+  }
+  .steps span.on{background:var(--cobalt); color:#fff; border-color:var(--cobalt);}
+  .steps span.done{background:#DCFCE7; color:#14532d; border-color:#BBF7D0;}
+  .radio-list{display:grid; gap:10px;}
+  .radio-list label{
+    display:flex; gap:10px; align-items:center; padding:12px 14px;
+    border:1px solid var(--line); border-radius:10px; background:#fff;
+    cursor:pointer; font-weight:600; font-size:15px;
+  }
+  .radio-list input{width:18px; height:18px; accent-color:var(--cobalt);}
+  .pass{
+    margin-top:18px; background:var(--ink); color:#fff; border-radius:14px; padding:20px 22px;
+  }
+  .pass h3{font-family:"Bricolage Grotesque",sans-serif; font-size:18px; margin-bottom:12px;}
+  .pass dl{display:grid; grid-template-columns:110px 1fr; gap:6px 14px; font-size:14.5px;}
+  .pass dt{font-family:"JetBrains Mono",monospace; font-size:12.5px; font-weight:600; color:var(--sun);}
+  .pass dd{color:#fff; word-break:break-word;}
+  .success{
+    margin-top:16px; background:#F0FDF4; border:1px solid #BBF7D0; border-radius:12px;
+    padding:14px 16px; font-size:15px; color:#14532d;
+  }
+  details{
+    margin-top:18px; background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px 24px;
+  }
+  details summary{font-weight:700; cursor:pointer; font-size:16px;}
+  details pre{
+    margin-top:14px; background:#0A1129; color:#C7D2FE; border-radius:12px; padding:16px 18px;
+    overflow-x:auto; font-family:"JetBrains Mono",monospace; font-size:13.5px; line-height:1.6;
+  }
+  .btns{margin-top:22px; display:flex; gap:12px; flex-wrap:wrap;}
+  .btns a{
+    display:inline-block; text-decoration:none; font-weight:700; border-radius:10px; padding:10px 16px; font-size:14.5px;
+  }
+  .btns a.open{background:var(--cobalt); color:#fff;}
+  .btns a.src{background:#fff; color:var(--ink); border:1px solid var(--line);}
+  footer{
+    margin:40px 0 34px; padding-top:20px; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;
+    font-size:14px; color:var(--ink2);
+  }
+  footer .f-links{display:flex; gap:18px; flex-wrap:wrap;}
+  footer a{font-weight:600;}
+  @media (max-width:820px){
+    .hero{grid-template-columns:1fr;}
+    .hero-main{padding:28px 24px;}
+  }
+</style>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand">Suman Sapkota <span>· Lab Archive</span></div>
+    <nav>
+      <a href="./index.html">Week 13 Monday</a>
+      <a href="../index.html">Coursework</a>
+      <a href="../week10/portfolio/index.html">Portfolio</a>
+      <a href="../Week11%20monday/index.html">Week 11 Monday</a>
+      <a href="../Week11%20friday/tasks.html">Week 11 Friday</a>
+      <a href="../Week12%20monday/index.html">Week 12 Monday</a>
+      <a href="../Week12%20friday/index.html">Week 12 Friday</a>
+    </nav>
+  </div>
+
+  <header class="hero">
+    <div class="hero-main">
+      <p class="kicker">Week 13 · Monday · Exercise 05</p>
+      <h1>Three Steps.<br><span class="outline">One Campus Pass.</span></h1>
+      <p class="sub">A long form split into three short steps. Each step checks itself before the next one opens, and the pass preview fills in as it goes.</p>
+      <p class="byline">Suman Sapkota · 202637609 · Computer Engineering</p>
+      <div class="chips">
+        <span class="chip">useState</span>
+        <span class="chip">step state</span>
+        <span class="chip"><b>3</b> steps</span>
+      </div>
+    </div>
+    <aside class="sidebox">
+      <p class="side-kicker">Exercise 05 · controlled input</p>
+      <p class="side-big">Step by step.<br><mark>The pass builds itself.</mark></p>
+      <p>One number drives this page: the step. Each step shows its own fields.</p>
+      <a href="./index.html">Back to Week 13 Monday &rarr;</a>
+    </aside>
+  </header>
+
+  <div id="root"></div>
+  <noscript>Turn on JavaScript to use this page.</noscript>
+
+  <div class="btns">
+    <a class="open" href="./profile.html">Next: Student Profile Editor &rarr;</a>
+    <a class="src" href="./feedback.html">&larr; Back: Course Feedback</a>
+  </div>
+
+  <footer>
+    <span>Suman Sapkota / Week 13 Monday</span>
+    <span class="f-links">
+      <a href="https://github.com/sumansapkota9/Suman-Sapkota">GitHub ↗</a>
+      <a href="../Week12%20monday/index.html">Week 12 Monday ↗</a>
+      <a href="../index.html">Back to coursework ↗</a>
+    </span>
+  </footer>
+
+</div>
+<script type="text/babel">
+// One number holds the step; the fields live in their own state.
+const { useState } = React;
+const passOptions = ["Day pass", "Semester pass", "Visitor pass"];
+
+function Registration() {
+  const [step, setStep] = useState(1);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [passType, setPassType] = useState("Semester pass");
+  const [done, setDone] = useState(false);
+
+  const step1Ok = name.trim().length > 0 && /^\S+@\S+\.\S+$/.test(email);
+  const step2Ok = username.trim().length >= 3 && password.length >= 8;
+  const step3Ok = passType !== "";
+
+  function nextStep() {
+    if (step === 1 && step1Ok) setStep(2);
+    if (step === 2 && step2Ok) setStep(3);
+  }
+
+  function prevStep() {
+    if (step > 1) setStep(step - 1);
+  }
+
+  function finish() {
+    if (step3Ok) setDone(true);
+  }
+
+  function startAgain() {
+    setStep(1);
+    setName("");
+    setEmail("");
+    setUsername("");
+    setPassword("");
+    setPassType("Semester pass");
+    setDone(false);
+  }
+
+  function stepClass(n) {
+    if (done || n < step) return "done";
+    if (n === step) return "on";
+    return "";
+  }
+
+  return (
+    <div>
+      <div className="labelrow"><span>05 / Exercise</span><span>Step {done ? 3 : step} of 3</span></div>
+      <div className="card">
+        <h2>Multi-Step Registration</h2>
+        <p>Three short steps instead of one long form. Next stays off until the current step is valid.</p>
+        <div className="steps">
+          <span className={stepClass(1)}>1 · Identity</span>
+          <span className={stepClass(2)}>2 · Account</span>
+          <span className={stepClass(3)}>3 · Access</span>
+        </div>
+        {done ? (
+          <div>
+            <p className="success">Registration complete — the campus pass below is built from the three steps. No data leaves the browser.</p>
+            <div className="pass">
+              <h3>Campus Pass</h3>
+              <dl>
+                <dt>Name</dt><dd>{name}</dd>
+                <dt>Email</dt><dd>{email}</dd>
+                <dt>Username</dt><dd>{username}</dd>
+                <dt>Pass</dt><dd>{passType}</dd>
+              </dl>
+            </div>
+            <div className="controls">
+              <button className="btn ghost" onClick={startAgain}>Start again</button>
+            </div>
+          </div>
+        ) : (
+          <div>
+            {step === 1 ? (
+              <div>
+                <div className="field">
+                  <label htmlFor="reg-name">Full name</label>
+                  <input id="reg-name" type="text" value={name} placeholder="Suman Sapkota"
+                    onChange={function (e) { setName(e.target.value); }} />
+                  {name !== "" && name.trim().length === 0 ? <p className="error">Enter a name.</p> : <p className="hint">The name on the pass.</p>}
+                </div>
+                <div className="field">
+                  <label htmlFor="reg-email">Email</label>
+                  <input id="reg-email" type="email" value={email} placeholder="name@example.com"
+                    className={email !== "" && !/^\S+@\S+\.\S+$/.test(email) ? "bad" : ""}
+                    onChange={function (e) { setEmail(e.target.value); }} />
+                  {email !== "" && !/^\S+@\S+\.\S+$/.test(email) ? <p className="error">Enter an email like name@example.com.</p> : <p className="hint">An address with @ and a dot.</p>}
+                </div>
+              </div>
+            ) : null}
+            {step === 2 ? (
+              <div>
+                <div className="field">
+                  <label htmlFor="reg-username">Username</label>
+                  <input id="reg-username" type="text" value={username} placeholder="suman13"
+                    className={username !== "" && username.trim().length < 3 ? "bad" : ""}
+                    onChange={function (e) { setUsername(e.target.value); }} />
+                  {username !== "" && username.trim().length < 3 ? <p className="error">Three or more characters.</p> : <p className="hint">Three or more characters.</p>}
+                </div>
+                <div className="field">
+                  <label htmlFor="reg-password">Password</label>
+                  <input id="reg-password" type="password" value={password} placeholder="Eight or more characters"
+                    className={password !== "" && password.length < 8 ? "bad" : ""}
+                    onChange={function (e) { setPassword(e.target.value); }} />
+                  {password !== "" && password.length < 8 ? <p className="error">Eight or more characters.</p> : <p className="hint">Eight or more characters. {password.length} typed.</p>}
+                </div>
+              </div>
+            ) : null}
+            {step === 3 ? (
+              <div>
+                <div className="field">
+                  <label>Pass type</label>
+                  <div className="radio-list">
+                    {passOptions.map(function (opt) {
+                      return (
+                        <label key={opt}>
+                          <input type="radio" name="passType" value={opt} checked={passType === opt}
+                            onChange={function (e) { setPassType(e.target.value); }} />
+                          <span>{opt}</span>
+                        </label>
+                      );
+                    })}
+                  </div>
+                </div>
+                <p className="note">Check the preview below — it shows everything from the three steps before finishing.</p>
+              </div>
+            ) : null}
+            <div className="controls">
+              <button className="btn ghost" disabled={step === 1} onClick={prevStep}>Back</button>
+              {step < 3 ? (
+                <button className="btn" disabled={step === 1 ? !step1Ok : !step2Ok} onClick={nextStep}>Next</button>
+              ) : (
+                <button className="btn" disabled={!step3Ok} onClick={finish}>Finish registration</button>
+              )}
+            </div>
+            <div className="pass">
+              <h3>Campus Pass · preview</h3>
+              <dl>
+                <dt>Name</dt><dd>{name === "" ? "—" : name}</dd>
+                <dt>Email</dt><dd>{email === "" ? "—" : email}</dd>
+                <dt>Username</dt><dd>{username === "" ? "—" : username}</dd>
+                <dt>Pass</dt><dd>{passType}</dd>
+              </dl>
+            </div>
+          </div>
+        )}
+        <p className="note">Earlier steps keep their values when moving back and forth — the state lives outside the step, so nothing typed is lost.</p>
+      </div>
+
+      <details>
+        <summary>How the steps gate each other · see the code</summary>
+        <pre>{`const [step, setStep] = useState(1);\n\nconst step1Ok = name.trim().length > 0 && /^\\S+@\\S+\\.\\S+$/.test(email);\nconst step2Ok = username.trim().length >= 3 && password.length >= 8;\n\n<button disabled={step === 1 ? !step1Ok : !step2Ok}\n  onClick={nextStep}>Next</button>\n\n// One number picks the visible step; each step has\n// its own check, and Next reads only the current one.`}</pre>
+      </details>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<Registration />);
+</script>
+</body>
+</html>

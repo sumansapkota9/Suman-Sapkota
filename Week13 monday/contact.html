@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Form | Suman Sapkota</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EAEEF6; --ink:#0D1633; --ink2:#4A5578; --line:#C9D1E4;
+    --cobalt:#2F4BFF; --sun:#FFC933; --green:#15803d; --red:#b91c1c;
+    --purple:#8B5CF6; --pink:#EC4899; --sky:#0EA5E9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:"Figtree",system-ui,sans-serif; color:var(--ink);
+    background-color:var(--paper);
+    background-image:radial-gradient(circle, #C9D1E4 1px, transparent 1px);
+    background-size:22px 22px;
+    line-height:1.55;
+  }
+  a{color:var(--cobalt); text-decoration:none;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 24px;}
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:18px 0; flex-wrap:wrap;
+  }
+  .topbar .brand{font-family:"Bricolage Grotesque",sans-serif; font-weight:800; font-size:17px; letter-spacing:.01em;}
+  .topbar .brand span{color:var(--cobalt);}
+  .topbar nav{display:flex; gap:6px; flex-wrap:wrap;}
+  .topbar nav a{
+    font-size:13.5px; font-weight:600; color:var(--ink2);
+    padding:7px 12px; border-radius:999px; border:1px solid transparent;
+  }
+  .topbar nav a:hover{color:var(--ink); border-color:var(--line); background:#fff;}
+  .hero{
+    display:grid; grid-template-columns:1.6fr 1fr; gap:28px; align-items:stretch;
+    margin-top:26px;
+  }
+  .hero-main{
+    background:#fff; border:1px solid var(--line); border-radius:16px;
+    padding:38px 40px 34px;
+  }
+  .kicker{
+    font-family:"JetBrains Mono",monospace; font-size:12.5px; font-weight:600;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--cobalt);
+    margin-bottom:16px;
+  }
+  h1{
+    font-family:"Bricolage Grotesque",sans-serif; font-weight:800;
+    font-size:clamp(40px, 5.6vw, 64px); line-height:.98; letter-spacing:-.02em;
+  }
+  h1 .outline{color:transparent; -webkit-text-stroke:2px var(--cobalt);}
+  .sub{margin-top:18px; font-size:17px; color:var(--ink2); max-width:52ch;}
+  .byline{margin-top:14px; font-size:13.5px; font-weight:600; color:var(--ink2);}
+  .chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:20px;}
+  .chip{
+    font-family:"JetBrains Mono",monospace; font-size:12px; font-weight:600;
+    padding:6px 12px; border-radius:999px; border:1px solid var(--line); background:var(--paper);
+  }
+  .chip b{color:var(--cobalt);}
+  .sidebox{
+    background:var(--ink); color:#fff; border-radius:16px;
+    padding:36px 30px; display:flex; flex-direction:column; justify-content:center; gap:22px;
+  }
+  .sidebox .side-kicker{
+    font-family:"JetBrains Mono",monospace; font-size:12px; font-weight:600;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--sun);
+  }
+  .sidebox .side-big{
+    font-family:"Bricolage Grotesque",sans-serif; font-weight:800;
+    font-size:30px; line-height:1.32; letter-spacing:-.01em;
+  }
+  .sidebox .side-big mark{background:var(--sun); color:var(--ink); padding:2px 8px; border-radius:6px; -webkit-box-decoration-break:clone; box-decoration-break:clone;}
+  .sidebox p{color:#C7D2FE; font-size:15px;}
+  .sidebox a{
+    margin-top:6px; display:inline-block; font-weight:700; font-size:15px; color:#fff;
+    border-bottom:2px solid var(--sun); padding-bottom:2px; width:fit-content;
+  }
+  .labelrow{
+    display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+    margin:34px 0 16px; padding-top:18px; border-top:1px solid var(--line);
+    font-family:"JetBrains Mono",monospace; font-size:12.5px; font-weight:600;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--ink2);
+  }
+  .card{
+    background:#fff; border:1px solid var(--line); border-radius:16px;
+    padding:24px; position:relative; overflow:hidden;
+  }
+  .card h2{
+    font-family:"Bricolage Grotesque",sans-serif; font-weight:800;
+    font-size:24px; line-height:1.12; letter-spacing:-.01em; margin:0 0 8px;
+  }
+  .card p{color:var(--ink2); font-size:15px;}
+  .btn{
+    display:inline-block; background:var(--cobalt); color:#fff; border:0; border-radius:10px;
+    padding:9px 15px; font-size:15px; font-weight:700; font-family:inherit; cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{transform:translateY(-1px); box-shadow:0 6px 14px rgba(47,75,255,.35);}
+  .btn.ghost{background:#fff; color:var(--ink); border:1px solid var(--line); box-shadow:none;}
+  .btn:disabled{opacity:.45; cursor:default; transform:none; box-shadow:none;}
+  .controls{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px;}
+  .note{margin-top:18px; font-size:14.5px; color:var(--ink2);}
+  .note code{font-family:"JetBrains Mono",monospace; color:var(--ink); background:var(--paper); padding:1px 6px; border-radius:6px;}
+  .field{margin-bottom:16px;}
+  .field label{display:block; font-weight:700; font-size:14.5px; margin-bottom:6px;}
+  .field input[type="text"], .field input[type="email"], .field textarea, .field select{
+    width:100%; font-family:inherit; font-size:15.5px; color:var(--ink);
+    background:#fff; border:1px solid var(--line); border-radius:10px; padding:11px 12px;
+  }
+  .field textarea{resize:vertical; min-height:110px;}
+  .field input:focus, .field textarea:focus, .field select:focus{outline:2px solid var(--cobalt); outline-offset:1px;}
+  .field .hint{font-size:13px; color:var(--ink2); margin-top:6px;}
+  .field .error{font-size:13.5px; color:var(--red); font-weight:600; margin-top:6px;}
+  .field input.bad, .field textarea.bad{border-color:var(--red);}
+  .count-line{
+    display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-top:6px;
+    font-family:"JetBrains Mono",monospace; font-size:13px; font-weight:600; color:var(--ink2);
+  }
+  .summary{
+    margin-top:18px; background:var(--paper); border:1px solid var(--line); border-radius:12px;
+    padding:16px 18px;
+  }
+  .summary h3{font-family:"Bricolage Grotesque",sans-serif; font-size:17px; margin-bottom:10px;}
+  .summary dl{display:grid; grid-template-columns:110px 1fr; gap:6px 14px; font-size:14.5px;}
+  .summary dt{font-family:"JetBrains Mono",monospace; font-size:12.5px; font-weight:600; color:var(--ink2);}
+  .summary dd{color:var(--ink); word-break:break-word;}
+  .success{
+    margin-top:16px; background:#F0FDF4; border:1px solid #BBF7D0; border-radius:12px;
+    padding:14px 16px; font-size:15px; color:#14532d;
+  }
+  details{
+    margin-top:18px; background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px 24px;
+  }
+  details summary{font-weight:700; cursor:pointer; font-size:16px;}
+  details pre{
+    margin-top:14px; background:#0A1129; color:#C7D2FE; border-radius:12px; padding:16px 18px;
+    overflow-x:auto; font-family:"JetBrains Mono",monospace; font-size:13.5px; line-height:1.6;
+  }
+  .btns{margin-top:22px; display:flex; gap:12px; flex-wrap:wrap;}
+  .btns a{
+    display:inline-block; text-decoration:none; font-weight:700; border-radius:10px; padding:10px 16px; font-size:14.5px;
+  }
+  .btns a.open{background:var(--cobalt); color:#fff;}
+  .btns a.src{background:#fff; color:var(--ink); border:1px solid var(--line);}
+  footer{
+    margin:40px 0 34px; padding-top:20px; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;
+    font-size:14px; color:var(--ink2);
+  }
+  footer .f-links{display:flex; gap:18px; flex-wrap:wrap;}
+  footer a{font-weight:600;}
+  @media (max-width:820px){
+    .hero{grid-template-columns:1fr;}
+    .hero-main{padding:28px 24px;}
+  }
+</style>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand">Suman Sapkota <span>· Lab Archive</span></div>
+    <nav>
+      <a href="./index.html">Week 13 Monday</a>
+      <a href="../index.html">Coursework</a>
+      <a href="../week10/portfolio/index.html">Portfolio</a>
+      <a href="../Week11%20monday/index.html">Week 11 Monday</a>
+      <a href="../Week11%20friday/tasks.html">Week 11 Friday</a>
+      <a href="../Week12%20monday/index.html">Week 12 Monday</a>
+      <a href="../Week12%20friday/index.html">Week 12 Friday</a>
+    </nav>
+  </div>
+
+  <header class="hero">
+    <div class="hero-main">
+      <p class="kicker">Week 13 · Monday · Exercise 02</p>
+      <h1>A Form That<br><span class="outline">Checks Itself.</span></h1>
+      <p class="sub">Four fields, one state each. The summary updates while typing, and Send stays off until every field is valid.</p>
+      <p class="byline">Suman Sapkota · 202637609 · Computer Engineering</p>
+      <div class="chips">
+        <span class="chip">useState</span>
+        <span class="chip">four fields</span>
+        <span class="chip">validation</span>
+      </div>
+    </div>
+    <aside class="sidebox">
+      <p class="side-kicker">Exercise 02 · controlled input</p>
+      <p class="side-big">Fill it in.<br><mark>The summary follows.</mark></p>
+      <p>Four values drive this page: name, email, reason, message. The summary reads all four.</p>
+      <a href="./index.html">Back to Week 13 Monday &rarr;</a>
+    </aside>
+  </header>
+
+  <div id="root"></div>
+  <noscript>Turn on JavaScript to use this page.</noscript>
+
+  <div class="btns">
+    <a class="open" href="./skills.html">Next: Skills Checklist &rarr;</a>
+    <a class="src" href="./counter.html">&larr; Back: Live Character Counter</a>
+  </div>
+
+  <footer>
+    <span>Suman Sapkota / Week 13 Monday</span>
+    <span class="f-links">
+      <a href="https://github.com/sumansapkota9/Suman-Sapkota">GitHub ↗</a>
+      <a href="../Week12%20monday/index.html">Week 12 Monday ↗</a>
+      <a href="../index.html">Back to coursework ↗</a>
+    </span>
+  </footer>
+
+</div>
+<script type="text/babel">
+// One state per field: name, email, reason, message.
+const { useState } = React;
+
+function ContactForm() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [reason, setReason] = useState("General");
+  const [message, setMessage] = useState("");
+  const [sent, setSent] = useState(false);
+
+  const nameOk = name.trim().length > 0;
+  const emailOk = /^\S+@\S+\.\S+$/.test(email);
+  const messageOk = message.trim().length > 0;
+  const formOk = nameOk && emailOk && messageOk;
+
+  function sendMessage(e) {
+    e.preventDefault();
+    if (formOk) setSent(true);
+  }
+
+  function writeAnother() {
+    setName("");
+    setEmail("");
+    setReason("General");
+    setMessage("");
+    setSent(false);
+  }
+
+  return (
+    <div>
+      <div className="labelrow"><span>02 / Exercise</span><span>State: one per field</span></div>
+      <div className="card">
+        <h2>Contact Form</h2>
+        <p>Fill in the four fields. The summary below updates with every keystroke.</p>
+        <form onSubmit={sendMessage} style={{marginTop: "18px"}}>
+          <div className="field">
+            <label htmlFor="contact-name">Name</label>
+            <input id="contact-name" type="text" value={name} placeholder="Suman Sapkota"
+              onChange={function (e) { setName(e.target.value); }} />
+            {name !== "" && !nameOk ? <p className="error">Enter a name.</p> : <p className="hint">The name the reply goes to.</p>}
+          </div>
+          <div className="field">
+            <label htmlFor="contact-email">Email</label>
+            <input id="contact-email" type="email" value={email} placeholder="name@example.com"
+              className={email !== "" && !emailOk ? "bad" : ""}
+              onChange={function (e) { setEmail(e.target.value); }} />
+            {email !== "" && !emailOk ? <p className="error">Enter an email like name@example.com.</p> : <p className="hint">An address with @ and a dot.</p>}
+          </div>
+          <div className="field">
+            <label htmlFor="contact-reason">Reason</label>
+            <select id="contact-reason" value={reason}
+              onChange={function (e) { setReason(e.target.value); }}>
+              <option>General</option>
+              <option>Feedback</option>
+              <option>Bug</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div className="field">
+            <label htmlFor="contact-message">Message</label>
+            <textarea id="contact-message" value={message} maxLength={300} rows={4}
+              placeholder="Write the message here"
+              className={message !== "" && !messageOk ? "bad" : ""}
+              onChange={function (e) { setMessage(e.target.value); }} />
+            <div className="count-line"><span>{message.length} / 300</span><span>{300 - message.length} left</span></div>
+            {message !== "" && !messageOk ? <p className="error">Write a message.</p> : null}
+          </div>
+          <div className="controls">
+            <button className="btn" type="submit" disabled={!formOk}>Send message</button>
+            {sent ? <button className="btn ghost" type="button" onClick={writeAnother}>Write another</button> : null}
+          </div>
+        </form>
+        {sent ? <p className="success">Message ready — the form shows this confirmation on the page. No data leaves the browser.</p> : null}
+        <div className="summary">
+          <h3>Live summary</h3>
+          <dl>
+            <dt>Name</dt><dd>{name === "" ? "—" : name}</dd>
+            <dt>Email</dt><dd>{email === "" ? "—" : email}</dd>
+            <dt>Reason</dt><dd>{reason}</dd>
+            <dt>Message</dt><dd>{message === "" ? "—" : message}</dd>
+          </dl>
+        </div>
+        <p className="note">Send stays disabled until name, email, and message all pass. The checks are derived from the same state the fields show — no extra state holds them.</p>
+      </div>
+
+      <details>
+        <summary>How the form checks itself · see the code</summary>
+        <pre>{`const [name, setName] = useState("");\nconst [email, setEmail] = useState("");\nconst [message, setMessage] = useState("");\n\nconst nameOk = name.trim().length > 0;\nconst emailOk = /^\\S+@\\S+\\.\\S+$/.test(email);\nconst messageOk = message.trim().length > 0;\nconst formOk = nameOk && emailOk && messageOk;\n\n<button disabled={!formOk}>Send message</button>\n\n// Each check is derived from state, so the button\n// enables itself the moment the last field turns valid.`}</pre>
+      </details>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<ContactForm />);
+</script>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Profile Editor | Suman Sapkota</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EAEEF6; --ink:#0D1633; --ink2:#4A5578; --line:#C9D1E4;
+    --cobalt:#2F4BFF; --sun:#FFC933; --green:#15803d; --red:#b91c1c;
+    --purple:#8B5CF6; --pink:#EC4899; --sky:#0EA5E9;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{
+    font-family:"Figtree",system-ui,sans-serif; color:var(--ink);
+    background-color:var(--paper);
+    background-image:radial-gradient(circle, #C9D1E4 1px, transparent 1px);
+    background-size:22px 22px;
+    line-height:1.55;
+  }
+  a{color:var(--cobalt); text-decoration:none;}
+  .wrap{max-width:1120px; margin:0 auto; padding:0 24px;}
+  .topbar{
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:18px 0; flex-wrap:wrap;
+  }
+  .topbar .brand{font-family:"Bricolage Grotesque",sans-serif; font-weight:800; font-size:17px; letter-spacing:.01em;}
+  .topbar .brand span{color:var(--cobalt);}
+  .topbar nav{display:flex; gap:6px; flex-wrap:wrap;}
+  .topbar nav a{
+    font-size:13.5px; font-weight:600; color:var(--ink2);
+    padding:7px 12px; border-radius:999px; border:1px solid transparent;
+  }
+  .topbar nav a:hover{color:var(--ink); border-color:var(--line); background:#fff;}
+  .hero{
+    display:grid; grid-template-columns:1.6fr 1fr; gap:28px; align-items:stretch;
+    margin-top:26px;
+  }
+  .hero-main{
+    background:#fff; border:1px solid var(--line); border-radius:16px;
+    padding:38px 40px 34px;
+  }
+  .kicker{
+    font-family:"JetBrains Mono",monospace; font-size:12.5px; font-weight:600;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--cobalt);
+    margin-bottom:16px;
+  }
+  h1{
+    font-family:"Bricolage Grotesque",sans-serif; font-weight:800;
+    font-size:clamp(40px, 5.6vw, 64px); line-height:.98; letter-spacing:-.02em;
+  }
+  h1 .outline{color:transparent; -webkit-text-stroke:2px var(--cobalt);}
+  .sub{margin-top:18px; font-size:17px; color:var(--ink2); max-width:52ch;}
+  .byline{margin-top:14px; font-size:13.5px; font-weight:600; color:var(--ink2);}
+  .chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:20px;}
+  .chip{
+    font-family:"JetBrains Mono",monospace; font-size:12px; font-weight:600;
+    padding:6px 12px; border-radius:999px; border:1px solid var(--line); background:var(--paper);
+  }
+  .chip b{color:var(--cobalt);}
+  .sidebox{
+    background:var(--ink); color:#fff; border-radius:16px;
+    padding:36px 30px; display:flex; flex-direction:column; justify-content:center; gap:22px;
+  }
+  .sidebox .side-kicker{
+    font-family:"JetBrains Mono",monospace; font-size:12px; font-weight:600;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--sun);
+  }
+  .sidebox .side-big{
+    font-family:"Bricolage Grotesque",sans-serif; font-weight:800;
+    font-size:30px; line-height:1.32; letter-spacing:-.01em;
+  }
+  .sidebox .side-big mark{background:var(--sun); color:var(--ink); padding:2px 8px; border-radius:6px; -webkit-box-decoration-break:clone; box-decoration-break:clone;}
+  .sidebox p{color:#C7D2FE; font-size:15px;}
+  .sidebox a{
+    margin-top:6px; display:inline-block; font-weight:700; font-size:15px; color:#fff;
+    border-bottom:2px solid var(--sun); padding-bottom:2px; width:fit-content;
+  }
+  .labelrow{
+    display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap;
+    margin:34px 0 16px; padding-top:18px; border-top:1px solid var(--line);
+    font-family:"JetBrains Mono",monospace; font-size:12.5px; font-weight:600;
+    letter-spacing:.1em; text-transform:uppercase; color:var(--ink2);
+  }
+  .card{
+    background:#fff; border:1px solid var(--line); border-radius:16px;
+    padding:24px; position:relative; overflow:hidden;
+  }
+  .card h2{
+    font-family:"Bricolage Grotesque",sans-serif; font-weight:800;
+    font-size:24px; line-height:1.12; letter-spacing:-.01em; margin:0 0 8px;
+  }
+  .card p{color:var(--ink2); font-size:15px;}
+  .btn{
+    display:inline-block; background:var(--cobalt); color:#fff; border:0; border-radius:10px;
+    padding:9px 15px; font-size:15px; font-weight:700; font-family:inherit; cursor:pointer;
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:hover{transform:translateY(-1px); box-shadow:0 6px 14px rgba(47,75,255,.35);}
+  .btn.ghost{background:#fff; color:var(--ink); border:1px solid var(--line); box-shadow:none;}
+  .btn:disabled{opacity:.45; cursor:default; transform:none; box-shadow:none;}
+  .controls{display:flex; gap:10px; flex-wrap:wrap; margin-top:18px;}
+  .note{margin-top:18px; font-size:14.5px; color:var(--ink2);}
+  .note code{font-family:"JetBrains Mono",monospace; color:var(--ink); background:var(--paper); padding:1px 6px; border-radius:6px;}
+  .field{margin-bottom:16px;}
+  .field label{display:block; font-weight:700; font-size:14.5px; margin-bottom:6px;}
+  .field input[type="text"], .field textarea{
+    width:100%; font-family:inherit; font-size:15.5px; color:var(--ink);
+    background:#fff; border:1px solid var(--line); border-radius:10px; padding:11px 12px;
+  }
+  .field textarea{resize:vertical; min-height:80px;}
+  .field input:focus, .field textarea:focus{outline:2px solid var(--cobalt); outline-offset:1px;}
+  .hint{font-size:13px; color:var(--ink2); margin-top:6px;}
+  .profile-name{
+    font-family:"Bricolage Grotesque",sans-serif; font-weight:800;
+    font-size:32px; line-height:1.1; letter-spacing:-.01em;
+  }
+  .profile-role{color:var(--ink2); font-size:15px; margin-top:6px;}
+  .profile-rows{margin-top:18px; display:grid; gap:12px;}
+  .profile-rows dt{font-family:"JetBrains Mono",monospace; font-size:12.5px; font-weight:600; color:var(--ink2);}
+  .profile-rows dd{font-size:15.5px; margin-top:2px; word-break:break-word;}
+  .skill-chips{display:flex; gap:8px; flex-wrap:wrap; margin-top:4px;}
+  .skill-chips span{
+    font-family:"JetBrains Mono",monospace; font-size:12.5px; font-weight:600;
+    padding:6px 12px; border-radius:999px; background:var(--paper); border:1px solid var(--line);
+  }
+  .check-list{display:grid; grid-template-columns:repeat(2, 1fr); gap:10px;}
+  .check-list label{
+    display:flex; gap:10px; align-items:center; padding:12px 14px;
+    border:1px solid var(--line); border-radius:10px; background:#fff;
+    cursor:pointer; font-weight:600; font-size:15px;
+  }
+  .check-list input{width:18px; height:18px; accent-color:var(--cobalt);}
+  details{
+    margin-top:18px; background:#fff; border:1px solid var(--line); border-radius:16px; padding:20px 24px;
+  }
+  details summary{font-weight:700; cursor:pointer; font-size:16px;}
+  details pre{
+    margin-top:14px; background:#0A1129; color:#C7D2FE; border-radius:12px; padding:16px 18px;
+    overflow-x:auto; font-family:"JetBrains Mono",monospace; font-size:13.5px; line-height:1.6;
+  }
+  .btns{margin-top:22px; display:flex; gap:12px; flex-wrap:wrap;}
+  .btns a{
+    display:inline-block; text-decoration:none; font-weight:700; border-radius:10px; padding:10px 16px; font-size:14.5px;
+  }
+  .btns a.open{background:var(--cobalt); color:#fff;}
+  .btns a.src{background:#fff; color:var(--ink); border:1px solid var(--line);}
+  footer{
+    margin:40px 0 34px; padding-top:20px; border-top:1px solid var(--line);
+    display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap;
+    font-size:14px; color:var(--ink2);
+  }
+  footer .f-links{display:flex; gap:18px; flex-wrap:wrap;}
+  footer a{font-weight:600;}
+  @media (max-width:820px){
+    .hero{grid-template-columns:1fr;}
+    .hero-main{padding:28px 24px;}
+    .check-list{grid-template-columns:1fr;}
+  }
+</style>
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand">Suman Sapkota <span>· Lab Archive</span></div>
+    <nav>
+      <a href="./index.html">Week 13 Monday</a>
+      <a href="../index.html">Coursework</a>
+      <a href="../week10/portfolio/index.html">Portfolio</a>
+      <a href="../Week11%20monday/index.html">Week 11 Monday</a>
+      <a href="../Week11%20friday/tasks.html">Week 11 Friday</a>
+      <a href="../Week12%20monday/index.html">Week 12 Monday</a>
+      <a href="../Week12%20friday/index.html">Week 12 Friday</a>
+    </nav>
+  </div>
+
+  <header class="hero">
+    <div class="hero-main">
+      <p class="kicker">Week 13 · Monday · Homework</p>
+      <h1>A Profile Card<br><span class="outline">That Edits Itself.</span></h1>
+      <p class="sub">A card that shows the saved profile, and a form that edits it. Save writes the changes back; Cancel leaves the card untouched.</p>
+      <p class="byline">Suman Sapkota · 202637609 · Computer Engineering</p>
+      <div class="chips">
+        <span class="chip">useState</span>
+        <span class="chip">edit mode</span>
+        <span class="chip">save · cancel</span>
+      </div>
+    </div>
+    <aside class="sidebox">
+      <p class="side-kicker">Homework · controlled inputs</p>
+      <p class="side-big">Edit it.<br><mark>Save it back.</mark></p>
+      <p>One object drives this page: the profile. The card reads it; the form edits a copy.</p>
+      <a href="./index.html">Back to Week 13 Monday &rarr;</a>
+    </aside>
+  </header>
+
+  <div id="root"></div>
+  <noscript>Turn on JavaScript to use this page.</noscript>
+
+  <div class="btns">
+    <a class="open" href="./index.html">Back to Week 13 Monday &rarr;</a>
+    <a class="src" href="./registration.html">&larr; Back: Multi-Step Registration</a>
+  </div>
+
+  <footer>
+    <span>Suman Sapkota / Week 13 Monday</span>
+    <span class="f-links">
+      <a href="https://github.com/sumansapkota9/Suman-Sapkota">GitHub ↗</a>
+      <a href="../Week12%20monday/index.html">Week 12 Monday ↗</a>
+      <a href="../index.html">Back to coursework ↗</a>
+    </span>
+  </footer>
+
+</div>
+<script type="text/babel">
+// One object holds the saved profile; the form edits a copy of it.
+const { useState } = React;
+const allSkills = ["HTML", "CSS", "JavaScript", "React", "Python", "Git"];
+
+const startProfile = {
+  name: "Suman Sapkota",
+  role: "Student · Year 1",
+  course: "Computer Engineering",
+  university: "Gachon University",
+  studentId: "202637609",
+  skills: ["HTML", "CSS", "JavaScript", "React"],
+  about: "Computer Engineering student at Gachon University."
+};
+
+function ProfileEditor() {
+  const [profile, setProfile] = useState(startProfile);
+  const [editing, setEditing] = useState(false);
+  const [draft, setDraft] = useState(startProfile);
+
+  function startEdit() {
+    setDraft({name: profile.name, role: profile.role, course: profile.course, university: profile.university, studentId: profile.studentId, skills: profile.skills.slice(), about: profile.about});
+    setEditing(true);
+  }
+
+  function saveEdit() {
+    setProfile(draft);
+    setEditing(false);
+  }
+
+  function cancelEdit() {
+    setEditing(false);
+  }
+
+  function toggleSkill(skill) {
+    if (draft.skills.indexOf(skill) >= 0) {
+      setDraft(Object.assign({}, draft, {skills: draft.skills.filter(function (s) { return s !== skill; })}));
+    } else {
+      setDraft(Object.assign({}, draft, {skills: draft.skills.concat(skill)}));
+    }
+  }
+
+  return (
+    <div>
+      <div className="labelrow"><span>06 / Homework</span><span>{editing ? "Editing" : "Saved profile"}</span></div>
+      <div className="card">
+        <h2>Student Profile Editor</h2>
+        <p>The card below shows the saved profile. Edit opens the form; Save writes it back, Cancel drops the changes.</p>
+        {editing ? (
+          <div style={{marginTop: "18px"}}>
+            <div className="field">
+              <label htmlFor="profile-name">Name</label>
+              <input id="profile-name" type="text" value={draft.name}
+                onChange={function (e) { setDraft(Object.assign({}, draft, {name: e.target.value})); }} />
+            </div>
+            <div className="field">
+              <label htmlFor="profile-course">Course</label>
+              <input id="profile-course" type="text" value={draft.course}
+                onChange={function (e) { setDraft(Object.assign({}, draft, {course: e.target.value})); }} />
+            </div>
+            <div className="field">
+              <label htmlFor="profile-university">University</label>
+              <input id="profile-university" type="text" value={draft.university}
+                onChange={function (e) { setDraft(Object.assign({}, draft, {university: e.target.value})); }} />
+            </div>
+            <div className="field">
+              <label>Skills</label>
+              <div className="check-list">
+                {allSkills.map(function (skill) {
+                  return (
+                    <label key={skill}>
+                      <input type="checkbox" checked={draft.skills.indexOf(skill) >= 0}
+                        onChange={function () { toggleSkill(skill); }} />
+                      <span>{skill}</span>
+                    </label>
+                  );
+                })}
+              </div>
+            </div>
+            <div className="field">
+              <label htmlFor="profile-about">About</label>
+              <textarea id="profile-about" value={draft.about} rows={3}
+                onChange={function (e) { setDraft(Object.assign({}, draft, {about: e.target.value})); }} />
+            </div>
+            <p className="hint">The student ID stays fixed — it is not part of the form.</p>
+            <div className="controls">
+              <button className="btn" disabled={draft.name.trim().length === 0} onClick={saveEdit}>Save profile</button>
+              <button className="btn ghost" onClick={cancelEdit}>Cancel</button>
+            </div>
+          </div>
+        ) : (
+          <div style={{marginTop: "18px"}}>
+            <p className="profile-name">{profile.name}</p>
+            <p className="profile-role">{profile.role}</p>
+            <dl className="profile-rows">
+              <div><dt>Course</dt><dd>{profile.course}</dd></div>
+              <div><dt>University</dt><dd>{profile.university}</dd></div>
+              <div><dt>Student ID</dt><dd>{profile.studentId}</dd></div>
+              <div><dt>Skills</dt><dd>
+                <span className="skill-chips">
+                  {profile.skills.map(function (skill) { return <span key={skill}>{skill}</span>; })}
+                </span>
+              </dd></div>
+              <div><dt>About</dt><dd>{profile.about}</dd></div>
+            </dl>
+            <div className="controls">
+              <button className="btn" onClick={startEdit}>Edit profile</button>
+            </div>
+          </div>
+        )}
+        <p className="note">Cancel throws the draft away — the saved profile never sees it. Save replaces the saved profile with the draft, and the card re-renders from the new values.</p>
+      </div>
+
+      <details>
+        <summary>How the draft keeps the card safe · see the code</summary>
+        <pre>{`const [profile, setProfile] = useState(startProfile);\nconst [editing, setEditing] = useState(false);\nconst [draft, setDraft] = useState(startProfile);\n\nfunction startEdit() {\n  setDraft({name: profile.name, skills: profile.skills.slice()});\n  setEditing(true);\n}\nfunction saveEdit() { setProfile(draft); setEditing(false); }\nfunction cancelEdit() { setEditing(false); }\n\n// The form writes only to the draft. The card reads\n// the saved profile, so Cancel changes nothing.`}</pre>
+      </details>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById("root")).render(<ProfileEditor />);
+</script>
+</body>
+</html>
