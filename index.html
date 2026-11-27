@@ -26,6 +26,7 @@ details[open] summary::before{ content:"▾ "; }
 .chip{ border:1px solid var(--line); background:var(--paper); border-radius:999px; padding:6px 12px; font-size:.88rem; cursor:pointer; }
 .chip:hover{ border-color:var(--cobalt); }
 .chip.active{ background:var(--cobalt); color:#fff; border-color:var(--cobalt); }
+.group-label{ font-family:"JetBrains Mono",monospace; font-size:.78rem; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-2); margin:14px 0 0; }
 .viewport{ background:var(--white); border:1px solid var(--line); border-radius:16px; overflow:hidden; position:sticky; top:16px; }
 .bar{ background:var(--win); color:#fff; padding:10px 14px; display:flex; align-items:center; gap:8px; }
 .dot{ width:11px; height:11px; border-radius:50%; }
@@ -154,8 +155,20 @@ const WEEKS = [
 { t: "Week 11 Monday — React", p: "Week11 monday/index.html" },
         { t: "Week 11 Friday — React", p: "Week11 friday/tasks.html" } ] },
 { title: "Week 12", files: [
-{ t: "Week 12 Monday — React State", p: "Week12 monday/index.html" },
-        { t: "Week 12 Friday — React Effects", p: "Week12 friday/index.html" } ] }
+        { t: "Week 12 Monday — React Effects", p: "Week12 monday/index.html" },
+        { t: "Week 12 Friday — React State", p: "Week12 friday/index.html" } ] },
+{ title: "Week 13", groups: [
+{ label: "Hub", files: [
+{ t: "Week 13 Monday — React Forms", p: "Week13 monday/index.html" } ] },
+{ label: "Practice", files: [
+{ t: "Live Character Counter", p: "Week13 monday/counter.html" },
+{ t: "Contact Form", p: "Week13 monday/contact.html" },
+{ t: "Skills Checklist", p: "Week13 monday/skills.html" } ] },
+{ label: "Challenges", files: [
+{ t: "Course Feedback", p: "Week13 monday/feedback.html" },
+{ t: "Multi-Step Registration", p: "Week13 monday/registration.html" } ] },
+{ label: "Homework", files: [
+{ t: "Student Profile Editor", p: "Week13 monday/profile.html" } ] } ] }
 ];
 const weeksEl = document.getElementById('weeks');
 const frame = document.getElementById('frame');
@@ -172,9 +185,9 @@ const d = document.createElement('details');
 if (wi === 0) d.open = true;
 const s = document.createElement('summary');
 s.textContent = w.title;
-const chips = document.createElement('div');
-chips.className = 'chips';
-w.files.forEach(f => {
+d.appendChild(s);
+function addChips(chips, files) {
+files.forEach(f => {
 const idx = flat.length;
 flat.push(f);
 const b = document.createElement('button');
@@ -184,8 +197,24 @@ b.addEventListener('click', () => select(idx));
 f.el = b;
 chips.appendChild(b);
 });
-d.appendChild(s);
+}
+if (w.groups) {
+w.groups.forEach(g => {
+const gl = document.createElement('div');
+gl.className = 'group-label';
+gl.textContent = g.label;
+d.appendChild(gl);
+const chips = document.createElement('div');
+chips.className = 'chips';
+addChips(chips, g.files);
 d.appendChild(chips);
+});
+} else {
+const chips = document.createElement('div');
+chips.className = 'chips';
+addChips(chips, w.files);
+d.appendChild(chips);
+}
 weeksEl.appendChild(d);
 });
 function select(i) {
